@@ -1,6 +1,6 @@
 import http from "http";
 import {Server} from "socket.io";
-import gameData from "./gameData.js";
+import Game from "./models/gameModel.js";
 
 export default function (expressApp) {
 	const server = http.createServer(expressApp);
@@ -18,8 +18,9 @@ export default function (expressApp) {
 		console.log("Socket.IO server listening on http://localhost:" + process.env.PORT);
 	});
 
-	let tellClient = function (str) {
-		io.sockets.emit("allData", { data: gameData.getData() , message:str});
+	let tellClient = async (str) => {
+		const data = await Game.find({})
+		io.sockets.emit("allData", { data , message:str});
 	};
 	return tellClient;
 }

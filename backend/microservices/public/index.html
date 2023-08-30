@@ -9,19 +9,20 @@
 <body>
     <div>Hi</div>
     <script>
-        fetch("/portNumber").then(k=>k.json()).then(portNo=>{
-            var socket = io(`http://localhost:${portNo||5000}`);
+        fetch("/getPort").then(k=>k.json()).then(data=>{
+            var socket = io(`http://localhost:${data.portNo}`);
             socket.on('connect', function(){
                 console.log('connected');
             });
             socket.on('allData', function(data){
+                // You will get the data you passed in the data variable
                 console.log(data);
             });
             socket.on('disconnect', function(){
                 console.log('disconnected');
             });
 
-        })
+        }).catch(console.err);
 
     </script>
 </body>

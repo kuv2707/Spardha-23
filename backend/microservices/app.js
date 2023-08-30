@@ -8,7 +8,7 @@ import sockedFn from "./socket.js";
 import path from "path";
 
 //* Connecting to DB
-// connectDB();
+connectDB();
 
 export const app = express();
 config();
@@ -28,7 +28,7 @@ app.use(express.static(path.resolve("./public")));
 app.get("/getPort", (req,res,next) => {
 	try {
 		res.status(200).json({
-			port: process.env.PORT
+			portNo: process.env.PORT
 		})
 	} catch (error) {
 		next(error);

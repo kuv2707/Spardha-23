@@ -1,51 +1,65 @@
-import DB from "../gameData.js";
-const { getData, addData, deleteData, patchData } = DB;
+import Game from "../models/gameModel.js";
 export default function (tellClient) {
-	const addGame = (req, res, next) => {
+	const addGame = async (req, res, next) => {
 		try {
-			const data = req.body;
-			let id = addData(data);
+			const {game_name, game_timestamp, data} = req.body;
+			const game = await Game.create({ game_name, game_timestamp, data});
 			tellClient("Added");
 			res.status(201).json({
 				success: true,
 				message: "Game added successfully",
-				id,
+				game_id: game._id,
 			});
 		} catch (error) {
 			next(error);
 		}
 	};
 
-	const allGames = (req, res, next) => {
+	const allGames = async (req, res, next) => {
 		try {
-			const data = getData();
+			const data = await Game.find({});
 			res.status(200).json({
-				data,
+				data
 			});
 		} catch (error) {
 			next(error);
 		}
 	};
 
-	const editGame = (req, res, next) => {
+	const editGame = async (req, res, next) => {
 		try {
-			const { id, data } = req.body;
-			patchData(id, data);
+			const { game_id, editTo } = req.body;
+			const game = await Game.findById(game_id);
+			if(editTo.game_name) {
+				game.game_name = editTo.game_name;
+			}
+			if(editTo.game_timestamp) {
+				game.game_timestamp = editTo.game_timestamp;
+			}
+			for(let field in game.data)
+			{
+				if(!editTo.data[field]) {
+					editTo.data[field]=game.data[field];
+				}
+			}
+			game.data = editTo.data;
+			await game.save()
 			tellClient("Edited");
 			res.status(200).json({
 				success: true,
 				message: "Game edited successfully",
+				updatedGame: game
 			});
 		} catch (error) {
 			next(error);
 		}
 	};
 
-	const deleteGame = (req, res, next) => {
+	const deleteGame = async (req, res, next) => {
 		try {
-			const { id, data } = req.body;
-			deleteData(id);
-			tellClient("Edited");
+			const { game_id } = req.body;
+			await Game.findByIdAndDelete(game_id);
+			tellClient("Deleted");
 			res.status(200).json({
 				success: true,
 				message: "Game deleted successfully",

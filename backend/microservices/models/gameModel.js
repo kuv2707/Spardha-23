@@ -4,7 +4,15 @@ const gameSchema = new mongoose.Schema({
     game_name: {
         type: String,
         required: true
+    },
+    game_timestamp: {
+        type: Date,
+        required: true
+    },
+    data: {
+        type: JSON
     }
 })
 
-export const User = mongoose.model("User", userSchema);
+const Game = mongoose.model("Game", gameSchema);
+export default Game;
