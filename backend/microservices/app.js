@@ -24,9 +24,10 @@ app.use(
 app.use("/games", gameRouter );
 
 app.get('/', (req, res) => {
-    res.send('Welcome to Microservice');
+    res.sendFile(__dirname+"/index.html");
 });
 
 app.use(errorMiddleware);
+
 
 
