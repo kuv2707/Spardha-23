@@ -1,7 +1,9 @@
 
 export default function(tellClient)
 {
-const addGame = (req, res, next) => {};
+const addGame = (req, res, next) => {
+    
+};
 
 const allGames = (req, res, next) => {};
 

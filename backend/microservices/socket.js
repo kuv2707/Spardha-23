@@ -18,8 +18,8 @@ export default function (expressApp) {
 		console.log("Socket.IO server listening on port 3000");
 	});
 
-	let tellClient = function () {
-		io.sockets.broadcast("allData", gameData.getData());
+	let tellClient = function (str) {
+		io.sockets.emit("allData", { data: gameData.getData() , message:str});
 	};
 	return tellClient;
 }

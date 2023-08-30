@@ -28,9 +28,7 @@ app.use(express.static(path.resolve("./public")));
 //using routes
 app.use("/games", gameRouter(tellClient) );
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname+"/index.html");
-});
+
 
 app.listen(process.env.PORT,() => console.log(`listening on http://localhost:${process.env.PORT} in ${process.env.NODE_ENV} mode`));
 
