@@ -8,5 +8,6 @@ export default function (tellClient) {
 	router.post("/addGame", fns.addGame);
 	router.get("/allGames", fns.allGames);
 	router.patch("/editGame", fns.editGame);
+	router.delete("/deleteGame", fns.deleteGame);
 	return router;
 }

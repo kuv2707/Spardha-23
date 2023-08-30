@@ -1,7 +1,9 @@
 import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 const gameData = new Map();
-JSON.parse(fs.readFileSync("gameData.json", "utf8")).forEach((data) =>
+let r=[]//JSON.parse(fs.readFileSync("gameData.json", "utf8"))
+console.log(r, typeof(r))
+r.forEach((data) =>
 	map.set(data.id, data)
 );
 
@@ -10,10 +12,10 @@ function getData() {
 	for (const [key, value] of gameData.entries()) {
 		data.push(value);
 	}
-	return data;
+	return JSON.stringify(data);
 }
 
-function setData(data) {
+function addData(data) {
 	let newid = uuidv4();
 	data.id = newid;
 	gameData.set(newid, data);
@@ -36,4 +38,4 @@ function writeFile()
     fs.writeFileSync("gameData.json", JSON.stringify(getData()));
 }
 
-export default {getData,setData,deleteData,patchData}
+export default {getData,addData,deleteData,patchData}
