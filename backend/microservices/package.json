@@ -10,5 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "socketio": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/socket.io": "^3.0.2"
   }
 }
