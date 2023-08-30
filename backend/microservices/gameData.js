@@ -1,18 +1,18 @@
 import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 const gameData = new Map();
-let r=[]//JSON.parse(fs.readFileSync("gameData.json", "utf8"))
-console.log(r, typeof(r))
-r.forEach((data) =>
-	map.set(data.id, data)
-);
+// let r=[]//JSON.parse(fs.readFileSync("gameData.json", "utf8"))
+// console.log(r, typeof(r))
+// r.forEach((data) =>
+// 	map.set(data.id, data)
+// );
 
 function getData() {
 	const data = [];
 	for (const [key, value] of gameData.entries()) {
 		data.push(value);
 	}
-	return JSON.stringify(data);
+	return (data);
 }
 
 function addData(data) {
@@ -20,6 +20,7 @@ function addData(data) {
 	data.id = newid;
 	gameData.set(newid, data);
 	writeFile();
+	return newid;
 }
 
 function deleteData(id) {
@@ -35,7 +36,8 @@ function patchData(id, changedData) {
 
 function writeFile()
 {
-    fs.writeFileSync("gameData.json", JSON.stringify(getData()));
+    console.log("dfsfa",gameData)
+	// fs.writeFileSync("gameData.json", JSON.stringify(getData()));
 }
 
 export default {getData,addData,deleteData,patchData}
