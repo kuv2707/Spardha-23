@@ -26,7 +26,7 @@ app.use(
 app.use("/games", gameRouter(tellClient) );
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname+"/index.html");
+    res.sendFile(process.cwd()+"/index.html");
 });
 
 app.use(errorMiddleware);

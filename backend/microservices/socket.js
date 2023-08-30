@@ -1,11 +1,10 @@
-const http = require("http");
-const socketIo = require("socket.io");
-const gameData=require("gameData")
+import http from "http";
+import {Server} from "socket.io";
+import gameData from "./gameData.js";
 
-
-export function sockedFn(expressApp) {
+export default function (expressApp) {
 	const server = http.createServer(expressApp);
-	const io = socketIo(server);
+	const io = new Server(server);
 
 	io.on("connection", (socket) => {
 		console.log("A user connected");
@@ -19,9 +18,8 @@ export function sockedFn(expressApp) {
 		console.log("Socket.IO server listening on port 3000");
 	});
 
-	let tellClient= function()
-	{
-		io.sockets.broadcast("allData",gameData.getData());
+	let tellClient = function () {
+		io.sockets.broadcast("allData", gameData.getData());
 	};
-	return tellClient
+	return tellClient;
 }
