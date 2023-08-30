@@ -5,6 +5,7 @@ import gameRouter from "./routes/gameRouter.js"
 import {errorMiddleware} from "./middlewares/error.js";
 import cors from "cors"
 import sockedFn from "./socket.js";
+import path from "path";
 
 //* Connecting to DB
 // connectDB();
@@ -22,12 +23,16 @@ app.use(
         credentials: true,
     }));
 
+app.use(express.static(path.resolve("./public")));
+
 //using routes
 app.use("/games", gameRouter(tellClient) );
 
 app.get('/', (req, res) => {
-    res.sendFile(process.cwd()+"/index.html");
+    res.sendFile(__dirname+"/index.html");
 });
+
+app.listen(process.env.PORT,() => console.log(`listening on http://localhost:${process.env.PORT} in ${process.env.NODE_ENV} mode`));
 
 app.use(errorMiddleware);
 
