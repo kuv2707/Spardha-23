@@ -11,7 +11,7 @@ import path from "path";
 // connectDB();
 
 export const app = express();
-// config();
+config();
 const tellClient = sockedFn(app);
 
 //Using middlewares
@@ -25,6 +25,16 @@ app.use(
 );
 
 app.use(express.static(path.resolve("./public")));
+app.get("/getPort", (req,res,next) => {
+	try {
+		res.status(200).json({
+			port: process.env.PORT
+		})
+	} catch (error) {
+		next(error);
+	}
+});
+
 
 //using routes
 app.use("/games", gameRouter(tellClient));
