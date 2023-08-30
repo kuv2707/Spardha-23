@@ -2,7 +2,8 @@ const http = require("http");
 const socketIo = require("socket.io");
 const gameData=require("gameData")
 
-export default function (expressApp) {
+
+export function sockedFn(expressApp) {
 	const server = http.createServer(expressApp);
 	const io = socketIo(server);
 
@@ -18,8 +19,9 @@ export default function (expressApp) {
 		console.log("Socket.IO server listening on port 3000");
 	});
 
-	return function()
+	let tellClient= function()
 	{
 		io.sockets.broadcast("allData",gameData.getData());
 	};
+	return tellClient
 }
