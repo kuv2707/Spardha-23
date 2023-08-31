@@ -17,8 +17,6 @@ config();
 const tellClient = sockedFn(app);
 
 //Using middlewares
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDef));
-app.use(express.json());
 app.use(
 	cors({
 		origin: "*",
@@ -26,17 +24,10 @@ app.use(
 		credentials: true,
 	})
 );
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDef));
+app.use(express.json());
 
 app.use(express.static(path.resolve("./public")));
-app.get("/getPort", (req,res,next) => {
-	try {
-		res.status(200).json({
-			portNo: process.env.PORT
-		})
-	} catch (error) {
-		next(error);
-	}
-});
 
 
 //using routes

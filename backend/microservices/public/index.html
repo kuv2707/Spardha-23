@@ -9,8 +9,8 @@
 <body>
     <div>Hi</div>
     <script>
-        fetch("/getPort").then(k=>k.json()).then(data=>{
-            var socket = io(`https://microservice-fmi4.onrender.com`);
+            // var socket = io(`https://microservice-fmi4.onrender.com`);
+            var socket = io(`http://localhost:5000/`);
             socket.on('connect', function(){
                 console.log('connected');
             });
@@ -21,9 +21,6 @@
             socket.on('disconnect', function(){
                 console.log('disconnected');
             });
-
-        }).catch(console.err);
-
     </script>
 </body>
 </html>
