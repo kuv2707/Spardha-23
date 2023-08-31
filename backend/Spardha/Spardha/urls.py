@@ -7,6 +7,7 @@ from drf_yasg.generators import OpenAPISchemaGenerator
 from drf_yasg import openapi
 from django.conf.urls.static import static
 from django.conf import settings
+from Authentication.views import StatusCheck
 
 admin.site.site_header = "Spardha Site Backend Administration"
 
@@ -36,6 +37,8 @@ urlpatterns = [
     path("auth/", include("Authentication.urls")),
     path("teams/", include("Teams.urls")),
     path("manager/", include("Manager.urls")),
+    path("documents/", include("Documents.urls")),
+    path("status/", StatusCheck.as_view(), name="status"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

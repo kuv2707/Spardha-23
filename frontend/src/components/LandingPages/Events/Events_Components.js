@@ -1,28 +1,28 @@
 import React from 'react';
 import styles from './Events.module.css';
 import rules from './rules.jpg';
-import trophy from './trophy.jpg';
+// import trophy from './trophy.jpg';
 import contacts from './contacts.jpg';
 import { FaTimes } from 'react-icons/fa';
-import AthleticsPDF from './AthleticsPDF.pdf';
-import BadmintonPDF from './BadmintonPDF.pdf';
-import BasketballPDF from './BasketballPDF.pdf';
-import BoxingPDF from './BoxingPDF.pdf';
-import CricketPDF from './CricketPDF.pdf';
-import ChessPDF from './ChessPDF.pdf';
+import AthleticsPDF from './athletics.pdf';
+import BadmintonPDF from './badminton.pdf';
+import BasketballPDF from './basketball.pdf';
+import BoxingPDF from './boxing.pdf';
+import CricketPDF from './cricket.pdf';
+import ChessPDF from './chess.pdf';
 import CyclingPDF from './CyclingPDF.pdf';
-import FootballPDF from './FootballPDF.pdf';
-import HandballPDF from './HandBallPDF.pdf';
-import HockeyPDF from './HockeyPDF.pdf';
-import KabbadiPDF from './KabbadiPDF.pdf';
-import KhoKhoPDF from './KhoKhoPDF.pdf';
-import PowerliftingPDF from './PowerliftingPDF.pdf';
-import SquashPDF from './SquashPDF.pdf';
-import TableTennisPDF from './TableTennisPDF.pdf';
-import TennisPDF from './TennisPDF.pdf';
-import VolleyballPDF from './VolleyBallPDF.pdf';
-import WeightliftingPDF from './WeightliftingPDF.pdf';
-import TaekwondoPDF from './TaekwondoPDF.pdf';
+import FootballPDF from './football.pdf';
+import HandballPDF from './handball.pdf';
+import HockeyPDF from './hockey.pdf';
+import KabbadiPDF from './kabbadi.pdf';
+import KhoKhoPDF from './khokho.pdf';
+import PowerliftingPDF from './powerlifting.pdf';
+import SquashPDF from './squash.pdf';
+import TableTennisPDF from './tabletennis.pdf';
+import TennisPDF from './tennis.pdf';
+import VolleyballPDF from './volleyball.pdf';
+import WeightliftingPDF from './weightlifting.pdf';
+import TaekwondoPDF from './taekwondo.pdf';
 
 // const Aqautics = (props) => {
 //   return (
@@ -238,7 +238,7 @@ const Athletics = (props) => {
               </div>
             </div>
 
-            <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+            {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
               <div className={`${styles.event_block}`}>
                 <div className={`${styles.winner_box} ${styles.info}`}>
                   <div className={`${styles.image}`}>
@@ -271,7 +271,7 @@ const Athletics = (props) => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
               <div className={`${styles.event_block}`}>
@@ -389,7 +389,7 @@ const Badminton = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -419,7 +419,7 @@ const Badminton = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
@@ -528,7 +528,7 @@ const Basketball = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -558,7 +558,7 @@ const Basketball = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
@@ -664,7 +664,7 @@ const Boxing = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -691,7 +691,7 @@ const Boxing = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
@@ -791,7 +791,7 @@ const Chess = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -819,7 +819,7 @@ const Chess = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
@@ -921,7 +921,7 @@ const Cricket = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -949,7 +949,7 @@ const Cricket = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
@@ -1050,7 +1050,7 @@ const Cycling = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -1077,7 +1077,7 @@ const Cycling = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
@@ -1177,7 +1177,7 @@ const Football = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -1205,7 +1205,7 @@ const Football = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
@@ -1307,7 +1307,7 @@ const Handball = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -1335,7 +1335,7 @@ const Handball = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
@@ -1438,7 +1438,7 @@ const Hockey = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -1467,7 +1467,7 @@ const Hockey = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
@@ -1568,7 +1568,7 @@ const Kabbadi = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -1595,7 +1595,7 @@ const Kabbadi = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
@@ -1701,7 +1701,7 @@ const Khokho = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -1734,7 +1734,7 @@ const Khokho = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
@@ -1849,7 +1849,7 @@ const Powerlifting = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -1877,7 +1877,7 @@ const Powerlifting = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
@@ -1980,7 +1980,7 @@ const Squash = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -2008,7 +2008,7 @@ const Squash = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
@@ -2107,7 +2107,7 @@ const TableTennis = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -2134,7 +2134,7 @@ const TableTennis = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
@@ -2234,7 +2234,7 @@ const Taekwondo = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -2261,7 +2261,7 @@ const Taekwondo = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
@@ -2361,7 +2361,7 @@ const Tennis = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -2388,7 +2388,7 @@ const Tennis = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
@@ -2494,7 +2494,7 @@ const Volleyball = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -2527,7 +2527,7 @@ const Volleyball = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
@@ -2639,7 +2639,7 @@ const WeightLifting = (props) => {
             </div>
           </div>
 
-          <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
+          {/* <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>
               <div className={`${styles.winner_box} ${styles.info}`}>
                 <div className={`${styles.image}`}>
@@ -2667,7 +2667,7 @@ const WeightLifting = (props) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
             <div className={`${styles.event_block}`}>

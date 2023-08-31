@@ -60,6 +60,21 @@ class TeamSerializer(serializers.ModelSerializer):
             "players",
         ]
 
+class AllContingentSerializer(serializers.Serializer):
+    username = serializers.CharField(max_length=100)
+    email= serializers.EmailField(max_length=60)
+    name = serializers.CharField(max_length=100)
+    institution_name = serializers.CharField(max_length=200)
+    designation = serializers.CharField(max_length=100)
+    phone_no = serializers.CharField(max_length=10)
+    leader_name = serializers.CharField(max_length=50)
+    leader_contact_num = serializers.CharField(max_length=10)
+    num_of_boys = serializers.IntegerField()
+    num_of_girls = serializers.IntegerField()
+    num_of_coaches_pti = serializers.IntegerField(default=0)
+    num_of_faculty_members = serializers.IntegerField(default=0)
+    num_of_supporting_staff = serializers.IntegerField(default=0)
+    games = serializers.ListField(child=serializers.CharField(max_length=20))
 
 class ContingentSerializer(serializers.ModelSerializer):
     college_rep = serializers.EmailField()

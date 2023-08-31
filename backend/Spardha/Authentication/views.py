@@ -405,3 +405,9 @@ class DeleteAccountView(generics.GenericAPIView):
                 {"error": "Account with this mail is not registered!"},
                 status=status.HTTP_403_FORBIDDEN,
             )
+
+class StatusCheck(generics.GenericAPIView):
+    def get(request, user):
+        return Response(
+                    status = status.HTTP_200_OK,
+                )
