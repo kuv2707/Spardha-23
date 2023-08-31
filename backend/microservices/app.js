@@ -8,6 +8,9 @@ import sockedFn from "./socket.js";
 import path from "path";
 import swaggerUi from "swagger-ui-express";
 import swaggerDef from "./utils/swaggerDef.js";
+import catchAsync from "./utils/catchAsync.js";
+import cron from "node-cron";
+import axios from "axios";
 
 //* Connecting to DB
 connectDB();
@@ -32,6 +35,16 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDef));
 app.use(express.json());
 
 app.use(express.static(path.resolve("./public")));
+app.get("/cron-job", catchAsync(async (req, res) => {
+	res.status(200).json({
+		success: true
+	});
+}));
+
+//Schedule the cron job to run every 14 minutes to make sure server doesn't get down
+cron.schedule('*/14 * * * *', () => {
+	axios.get(`${process.env.BACKEND_URL}/cron-job`).then(res => {}).catch(err => console.log(err))
+})
 
 
 //using routes
