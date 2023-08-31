@@ -18,7 +18,7 @@ export default function (tellClient) {
 	 * /games/addGame:
 	 *   post:
 	 *     summary: Add a new game
-	 *     description: Add a new game with game name, start date, and data.
+	 *     description: Add a new game with game name, start date, and data. You can send teams, scores, and any other data you want specific to a game and use it to render in the frontend of matches page.
 	 *     tags: [Games]
 	 *     requestBody:
 	 *       required: true
@@ -109,7 +109,7 @@ export default function (tellClient) {
 	 *         description: Game edited successfully
 	 *         content:
 	 *           application/json:
-	 *             example: { "success": true, "message": "Game edited successfully", editedGame: { "game_name": "Game 1", "game_start": "2023-09-01T12:00:00Z", "is_completed": false, "data": {"...": "..."} } }
+	 *             example: { "success": true, "message": "Game edited successfully", editedGame: { "game_name": "Game 1", "game_start": "2023-09-01T12:00:00Z", "is_completed": false, "data": {"teamA": "...", "teamB": "...", "score": "...", ..."anyField": "anyValue"} } }
 	 *       400:
 	 *         description: Bad request
 	 *         content:
