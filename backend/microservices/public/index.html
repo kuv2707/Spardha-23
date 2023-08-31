@@ -7,10 +7,9 @@
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-    <div>Hi</div>
+    <div>Socket testing</div>
     <script>
-            // var socket = io(`https://microservice-fmi4.onrender.com`);
-            var socket = io(`http://localhost:5000/`);
+            var socket = io(`https://microservice-fmi4.onrender.com`);
             socket.on('connect', function(){
                 console.log('connected');
             });
