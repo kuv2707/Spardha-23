@@ -15,7 +15,7 @@ export default function (expressApp) {
 	});
 
 	server.listen(process.env.PORT, () => {
-		console.log("Socket.IO server listening on http://localhost:" + process.env.PORT);
+		console.log("Socket.IO server listening on port" + process.env.PORT);
 	});
 
 	let tellClient = async (str) => {

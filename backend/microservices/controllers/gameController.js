@@ -52,7 +52,6 @@ export default function (tellClient) {
 			res.status(200).json({
 				success: true,
 				message: "Game edited successfully",
-				updatedGame: game
 			});
 		} catch (error) {
 			next(error);

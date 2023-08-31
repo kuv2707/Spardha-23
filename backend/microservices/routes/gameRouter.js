@@ -110,7 +110,7 @@ export default function (tellClient) {
  *         description: Game edited successfully
  *         content:
  *           application/json:
- *             example: { "success": true, "message": "Game edited successfully", "updatedGame": { "game_name": "Updated Game", "game_start": "2023-09-01T12:00:00Z", "is_completed": true, "data": {} } }
+ *             example: { "success": true, "message": "Game edited successfully" }
  *       400:
  *         description: Bad request
  *         content:
