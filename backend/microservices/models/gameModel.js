@@ -5,9 +5,13 @@ const gameSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    game_timestamp: {
+    game_start: {
         type: Date,
         required: true
+    },
+    is_completed: {
+        type: Boolean,
+        default: false
     },
     data: {
         type: JSON

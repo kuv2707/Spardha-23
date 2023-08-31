@@ -2,8 +2,8 @@ import Game from "../models/gameModel.js";
 export default function (tellClient) {
 	const addGame = async (req, res, next) => {
 		try {
-			const {game_name, game_timestamp, data} = req.body;
-			const game = await Game.create({ game_name, game_timestamp, data});
+			const {game_name, game_start, data} = req.body;
+			const game = await Game.create({ game_name, game_start, data});
 			tellClient("Added");
 			res.status(201).json({
 				success: true,
@@ -28,13 +28,17 @@ export default function (tellClient) {
 
 	const editGame = async (req, res, next) => {
 		try {
-			const { game_id, editTo } = req.body;
+			const {game_id} = req.params;
+			const editTo = req.body;
 			const game = await Game.findById(game_id);
 			if(editTo.game_name) {
 				game.game_name = editTo.game_name;
 			}
-			if(editTo.game_timestamp) {
-				game.game_timestamp = editTo.game_timestamp;
+			if(editTo.game_start) {
+				game.game_start = editTo.game_start;
+			}
+			if(editTo.is_completed !== undefined) {
+				game.is_completed = editTo.is_completed;
 			}
 			for(let field in game.data)
 			{
@@ -57,7 +61,7 @@ export default function (tellClient) {
 
 	const deleteGame = async (req, res, next) => {
 		try {
-			const { game_id } = req.body;
+			const {game_id} = req.params;
 			await Game.findByIdAndDelete(game_id);
 			tellClient("Deleted");
 			res.status(200).json({

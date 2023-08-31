@@ -6,6 +6,8 @@ import { errorMiddleware } from "./middlewares/error.js";
 import cors from "cors";
 import sockedFn from "./socket.js";
 import path from "path";
+import swaggerUi from "swagger-ui-express";
+import swaggerDef from "./swaggerDef.js";
 
 //* Connecting to DB
 connectDB();
@@ -15,6 +17,7 @@ config();
 const tellClient = sockedFn(app);
 
 //Using middlewares
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDef));
 app.use(express.json());
 app.use(
 	cors({
