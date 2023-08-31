@@ -7,10 +7,14 @@ import cors from "cors";
 import sockedFn from "./socket.js";
 import path from "path";
 import swaggerUi from "swagger-ui-express";
-import swaggerDef from "./swaggerDef.js";
+import swaggerDef from "./utils/swaggerDef.js";
 
 //* Connecting to DB
 connectDB();
+
+if(process.env.NODE_ENV === 'production'){
+	// console.log=()=>{}
+}
 
 export const app = express();
 config();
