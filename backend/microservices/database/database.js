@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { logDiscord } from "../utils/logDiscord.js";
 
 export const connectDB = async () => {
 	try {
@@ -7,9 +8,9 @@ export const connectDB = async () => {
 			useUnifiedTopology: true,
 			dbName: process.env.DB_NAME,
 		});
-
 		console.log(`Database connected with host: ${connection.connection.host}`);
 	} catch (error) {
 		console.error("Error connecting to the database:", error.message);
+		logDiscord(error);
 	}
 };

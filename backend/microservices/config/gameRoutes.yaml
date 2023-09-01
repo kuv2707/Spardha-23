@@ -1,92 +1,300 @@
-openapi: 3.0.0
+openapi: 3.0.3
 info:
-  title: Game API
-  version: 1.0.0
+  title: Spardha Microservices API
+  description: >-
+    [Base Url: https://microservice-fmi4.onrender.com/api/v1]
+    
+  version: 1.0.11
+servers:
+  - url: https://microservice-fmi4.onrender.com/api/v1
+tags:
+  - name: Games
+    description: To add, get, edit, delete Games
 paths:
-  /api/v1/games:
+  /games/addGame:
     post:
-      summary: Add a new game
       tags:
         - Games
+      summary: Add a new Game Fixture
+      description: Add a new Game Fixture
+      operationId: addGame
       requestBody:
+        description: Add a new Game Fixture
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GameInput'
-      responses:
-        '201':
-          description: Game added successfully
-          content:
-            application/json:
-              example:
-                success: true
-                message: Game added successfully
-                game_id: 12345
-    get:
-      summary: Get all games
-      tags:
-        - Games
+              allOf:
+                - $ref: '#/components/schemas/GameModelWithoutId'
+                - type: object
+                  required:
+                    - game_name
+                    - game_start
+                    - game_venue
+                    - team1
+                    - team2
+
       responses:
         '200':
-          description: List of games
+          description: Addition of Game successful
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GameList'
+                $ref: '#/components/schemas/AddGame'
+        '400':
+          description: Invalid Data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+  /games/allGames:
+    get:
+      tags:
+        - Games
+      summary: Getting all games
+      description: Get all games
+      operationId: getAllGames
+      responses:
+        '200':
+          description: Fetched All Games successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetGames"
+        '400':
+          description: Invalid Data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+  /games/editGame/{game_id}:
+    patch:
+      tags:
+        - Games
+      summary: Updates a game
+      description: Edit a Game
+      operationId: updateGame
+      parameters:
+        - name: game_id
+          in: path
+          description: 'Id of the game to be edited'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: You can send one or more than one fields in the request body to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GameModelWithoutId"
+      responses:
+        '200':
+          description: Game edited successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditGame'
+        '400':
+          description: Invalid Data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '404':
+          description: Game Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Game not found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+                
+                
+  /games/deleteGame/{game_id}:
+    delete:
+      tags:
+        - Games
+      summary: Deletes a game
+      description:  Deletes a game with the given id
+      operationId: deleteGame
+      parameters:
+        - name: game_id
+          in: path
+          description: 'Id of the game to be deleted'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Game deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteGame"
+          
+        '400':
+          description: Invalid Data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '404':
+          description: Game Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Game not found: No deletion occured"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+            
 components:
   schemas:
-    GameInput:
+    GameModelWithoutId:
       type: object
       properties:
         game_name:
           type: string
-          example: "Example Game"
+          example: Cricket
         game_start:
           type: string
           format: date-time
-          example: "2023-09-01T08:00:00Z"
-        data:
-          type: object
-          example: {}  # Add your data structure here
-      required:
-        - game_name
-        - game_start
-    GameList:
-      type: object
+        game_venue:
+          type: string
+          example: Rajputana Grounds
+        team1:
+          type: string
+          example: College 1
+        team2:
+          type: string
+          example: College 2
+        is_completed:
+          type: boolean
+          example: false
+    
+    GameModel:
+      allOf:
+        - type: object
+          properties:
+            _id:
+              type: string
+              example: 64f1f42a4d4a7b6444b20cdb
+        - $ref: '#/components/schemas/GameModelWithoutId'
+          
+    GameArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/GameModel'
+      example: 
+          - _id: 64f1f42a4d4a7b6444b20cdb
+            game_name: Cricket
+            game_start: 2023-09-01T18:09:58.462Z
+            game_venue: Rajputana grounds
+            team1: College 1
+            team2: College 2
+    GetGames:
       properties:
         success:
           type: boolean
           example: true
         length:
-          type: integer
-          example: 2
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Game'
-    Game:
-      type: object
+          type: number
+          example: 1
+        data: 
+          $ref: "#/components/schemas/GameArray"
+    AddGame:
       properties:
-        game_name:
-          type: string
-          example: "Example Game"
-        game_start:
-          type: string
-          format: date-time
-          example: "2023-09-01T08:00:00Z"
-        game_venue:
-          type: string
-          example: "Venue"
-        team1:
-          type: string
-          example: "Team A"
-        team2:
-          type: string
-          example: "Team B"
-        is_completed:
+        success:
           type: boolean
-          example: false
+          example: true
+        message: 
+          type: string
+          example: Game Added successfully
         game_id:
           type: string
-          example: "12345"
+          example: 64f1f42a4d4a7b6444b20cdb
+      
+    EditGame:
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Game edited successfully
+        editedGame: 
+          $ref: "#/components/schemas/GameModel"
+          
+    DeleteGame:
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Game deleted successfully
+        deletedGame: 
+          $ref: "#/components/schemas/GameModel"
+    ValidationError:
+      properties:
+        success: 
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: Invalid Input
+        errors:
+          type: array
+          example:
+            - type: field
+              value: ''
+              msg: Game name cannot be empty
+              path: game_name
+              location: body
+            - type: field
+              value: 'Saturday 9am'
+              msg: Invalid date format. Use ISO8601 format for game start date
+              path: game_name
+              location: body
+    GeneralError:
+      properties:
+        success: 
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: Internal Server Error

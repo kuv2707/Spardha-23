@@ -1,15 +1,14 @@
 import AppError from "../middlewares/error.js";
 import Game from "../models/gameModel.js";
 import catchAsync from "../utils/catchAsync.js";
-import { validatePATCHData, validatePOSTData } from "../utils/validators.js";
+// import { validatePATCHData, validatePOSTData } from "../utils/validators.js";
+import { validationResult } from 'express-validator';
 
 
 const addGame = catchAsync(async (req, res) => {
-	const [verdict,validatedData]=validatePOSTData(req.body);
-	if(!verdict)
-	throw new AppError("Invalid data",400);
-	const game = await Game.create(validatedData);
-	
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) throw new AppError("Invalid Input",400, errors.array());
+	const game = await Game.create(req.body);
 	res.status(201).json({
 		success: true,
 		message: "Game added successfully",
@@ -17,7 +16,7 @@ const addGame = catchAsync(async (req, res) => {
 	});
 });
 
-const allGames = catchAsync(async (_, res) => {
+const allGames = catchAsync(async (req, res) => {
 	const data = await Game.find({});
 	res.status(200).json({
 		success: true,
@@ -27,18 +26,14 @@ const allGames = catchAsync(async (_, res) => {
 });
 
 const editGame = catchAsync(async (req, res) => {
-	const { game_id } = req.params;
-	if(!game_id)
-	throw new AppError("Provide a valid game_id",400);
-	const game = await Game.findById(game_id);
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) throw new AppError("Invalid Input",400, errors.array());
+	const game = await Game.findById(req.params.game_id);
 	if (!game) throw new AppError("Game not found", 404);
 
-	//TODO: validate editTo
-	const [verdict, validatedData] = validatePATCHData(req.body);
-	if (!verdict) throw new AppError("Invalid data", 400);
-	for(let field in validatedData)
+	for(let field in req.body)
 	{
-		game[field]=validatedData[field];
+		game[field]=req.body[field];
 	}
 
 	let editedGame = await game.save();
@@ -50,12 +45,10 @@ const editGame = catchAsync(async (req, res) => {
 });
 
 const deleteGame = catchAsync(async (req, res) => {
-	const { game_id } = req.params;
-	if(!game_id)
-	throw new AppError("Provide a valid game_id",400);
-	const deletedGame=await Game.findByIdAndDelete(game_id);
-	if (!deletedGame)
-	throw new AppError("Game not found:No deletion occured", 404);
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) throw new AppError("Invalid Input",400, errors.array());
+	const deletedGame=await Game.findByIdAndDelete(req.params.game_id);
+	if (!deletedGame) throw new AppError("Game not found:No deletion occured", 404);
 	res.status(200).json({
 		success: true,
 		message: "Game deleted successfully",

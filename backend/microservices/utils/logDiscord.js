@@ -1,9 +1,12 @@
-const URL = process.env.DISCORD_WEBHOOK_URL;
 import axios from "axios";
+import { config } from "dotenv";
+config();
+
+const URL = process.env.DISCORD_WEBHOOK_URL;
 export async function logDiscord(err) {
 	try{
         await axios.post(URL, {
-            content: `Error at timestamp ${Date.now()}\n Error Message: ${
+            content: `Error in Microservices to update Fixtures\nError at timestamp ${Date.now()}\nError Message: ${
                 err.message
             }\nError stack:\n ${err.stack}`,
         });
