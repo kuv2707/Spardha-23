@@ -4,10 +4,12 @@ import { config } from "dotenv";
 import { logDiscord } from "./utils/logDiscord.js";
 config();
 
-app.listen(process.env.PORT, () => {
+const server=app.listen(process.env.PORT, () => {
 	connectDB();
 	console.log("listening on port " + process.env.PORT);
 });
+
+server.on("error",logDiscord)
 
 
 process.on("uncaughtException", logDiscord);
