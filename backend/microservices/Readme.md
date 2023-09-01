@@ -24,3 +24,15 @@ Refer to [API Endpoints Document](https://microservice-fmi4.onrender.com/api-doc
    npm run dev
    ``` 
 
+## Calling the API:
+
+1. Base Url: https://microservice-fmi4.onrender.com/
+2. To call an API, say getting allGames (Sample API Call):
+   ```
+   axios.get("https://microservice-fmi4.onrender.com/api/v1/games/allGames").then(function (response) {
+    console.log('Response data:', response.data);
+   })
+   .catch(function (error) {
+      console.error('Error:', error);
+   });
+   ```
