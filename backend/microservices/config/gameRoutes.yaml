@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  title: Game API
+  version: 1.0.0
+paths:
+  /api/v1/games:
+    post:
+      summary: Add a new game
+      tags:
+        - Games
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameInput'
+      responses:
+        '201':
+          description: Game added successfully
+          content:
+            application/json:
+              example:
+                success: true
+                message: Game added successfully
+                game_id: 12345
+    get:
+      summary: Get all games
+      tags:
+        - Games
+      responses:
+        '200':
+          description: List of games
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameList'
+components:
+  schemas:
+    GameInput:
+      type: object
+      properties:
+        game_name:
+          type: string
+          example: "Example Game"
+        game_start:
+          type: string
+          format: date-time
+          example: "2023-09-01T08:00:00Z"
+        data:
+          type: object
+          example: {}  # Add your data structure here
+      required:
+        - game_name
+        - game_start
+    GameList:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        length:
+          type: integer
+          example: 2
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Game'
+    Game:
+      type: object
+      properties:
+        game_name:
+          type: string
+          example: "Example Game"
+        game_start:
+          type: string
+          format: date-time
+          example: "2023-09-01T08:00:00Z"
+        game_venue:
+          type: string
+          example: "Venue"
+        team1:
+          type: string
+          example: "Team A"
+        team2:
+          type: string
+          example: "Team B"
+        is_completed:
+          type: boolean
+          example: false
+        game_id:
+          type: string
+          example: "12345"

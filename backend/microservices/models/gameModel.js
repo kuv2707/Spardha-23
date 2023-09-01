@@ -9,13 +9,22 @@ const gameSchema = new mongoose.Schema({
 		type: Date,
 		required: true,
 	},
+	game_venue: {
+		type: String,
+		required: true,
+	},
+	team1: {
+		type: String,
+		required: true,
+	},
+	team2: {
+		type: String,
+		required: true,
+	},
 	is_completed: {
 		type: Boolean,
 		default: false,
-	},
-	data: {
-		type: JSON,
-	},
+	}
 });
 
 const Game = mongoose.model("Game", gameSchema);
