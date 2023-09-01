@@ -1,6 +1,7 @@
 import { app } from "./app.js";
 import { connectDB } from "./database/database.js";
 import { config } from "dotenv";
+import { logDiscord } from "./utils/logDiscord.js";
 config();
 
 app.listen(process.env.PORT, () => {
