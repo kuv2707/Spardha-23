@@ -1,7 +1,6 @@
 import AppError from "../middlewares/error.js";
 import Game from "../models/gameModel.js";
 import catchAsync from "../utils/catchAsync.js";
-// import { validatePATCHData, validatePOSTData } from "../utils/validators.js";
 import { validationResult } from 'express-validator';
 
 
