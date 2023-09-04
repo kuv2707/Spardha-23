@@ -10,8 +10,10 @@ from .serializers import (
 )
 from drf_yasg.utils import swagger_auto_schema
 from scripts.user_registration import UsersSheet
+from drf_yasg import openapi
 # from scripts.team_registration import TeamsSheet
 
+token_param = openapi.Parameter('Authorization', openapi.IN_HEADER, description="Token ...", type=openapi.TYPE_STRING)
 
 class AllGamesView(generics.ListAPIView):
     serializer_class = GameSerializer
@@ -72,6 +74,10 @@ def serialized_data(contingent):
 
 class AllContingentView(generics.GenericAPIView):
     serializer_class = AllContingentSerializer
+
+    @swagger_auto_schema(
+        manual_parameters=[token_param]
+    )
     def get(self, request):
         if request.user.is_staff:
             #* The below line fetches all the teams and the game associated with the team. It optimizes the speed of queries by decreasing N queries into a single query
