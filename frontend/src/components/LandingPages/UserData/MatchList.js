@@ -29,6 +29,7 @@ const minutes = dateTime.getUTCMinutes();
     <div className="match-item">
       <div className="match-details">
         <div className="match-teams">{match.team1}</div>
+        <div className="match-teams">{match.team2}</div>
         {/*
         @NOTE: temporarily removing institution
         <div className="match-info">
