@@ -70,7 +70,7 @@ body {
 
 .match-teams {
   flex:1;
-  flex-grow: 3.5;
+  flex-grow: 2.0;
   font-size: 1.2rem;
   font-weight: bold;
   width: max-content;
