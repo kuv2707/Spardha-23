@@ -3,15 +3,16 @@ import Sidebar from './Sidebar';
 import MatchList from './MatchList';
 import './Styles.css';
 import axios from 'axios';
-console.log(process.env.REACT_APP_MICROSERVICE_URL )
-const MICROSERVICE_URL_GAME = process.env.REACT_APP_MICROSERVICE_URL+"api/v1/games";
+const MICROSERVICE_URL_GAME =
+  process.env.REACT_APP_MICROSERVICE_URL + 'api/v1/games';
 const AllGameFixtures = () => {
   const [sportsAndFixtures, setSportsAndFixtures] = useState();
   const [sportNames, setSportNames] = useState();
   const [selectedSport, setSelectedSport] = useState();
-  const [isLoaded, setIsLoaded]=useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   useEffect(function () {
-    axios.get(MICROSERVICE_URL_GAME)
+    axios
+      .get(MICROSERVICE_URL_GAME)
       .then((resp) => {
         let games = resp.data.data;
         let sports_o = {};
@@ -20,7 +21,7 @@ const AllGameFixtures = () => {
           sports_o[game.game_name].push(game);
         }
 
-        setSportsAndFixtures(()=>sports_o);
+        setSportsAndFixtures(() => sports_o);
         let sportnames = Object.keys(sports_o);
         setSportNames(sportnames);
         setSelectedSport(sportnames[0]);
@@ -28,12 +29,10 @@ const AllGameFixtures = () => {
       })
       .catch(console.err);
   }, []);
-  const handleSelectSport = (sport) => {
-    setSelectedSport(sport);
-  };
+  const handleSelectSport = setSelectedSport;
 
-  return (
-    isLoaded?(<div className="app" id="userdata">
+  return isLoaded ? (
+    <div className="app" id="userdata">
       <Sidebar
         sports={sportNames}
         onSelectSport={handleSelectSport}
@@ -49,16 +48,18 @@ const AllGameFixtures = () => {
         <MatchList matches={sportsAndFixtures[selectedSport]} />
       </div>
     </div>
-  ):<Loading/>);
+  ) : (
+    <Loading />
+  );
 };
 
-function Loading(){
+function Loading() {
   return (
     <div className="loading">
       <div className="spinner"></div>
       <p>Loading...</p>
     </div>
   );
-};
+}
 
 export { AllGameFixtures };
