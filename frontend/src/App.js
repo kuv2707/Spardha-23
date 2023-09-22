@@ -9,7 +9,7 @@ import InitializeReactGA from './helper/googleAnalytics.ts';
 import NotFound from './components/LandingPages/NotFound/NotFound';
 import ShowTable from './components/LandingPages/UserData/ShowTable';
 import ShowallTable from './components/LandingPages/UserData/ShowallTable';
-import { UserData } from './components/LandingPages/UserData/UserData';
+import { AllGameFixtures } from './components/LandingPages/UserData/AllGameFixtures';
 
 const LandingPages = React.lazy(() =>
   import('./components/LandingPages/LandingPages')
@@ -89,7 +89,7 @@ function App() {
           path="/"
           element={
             <Suspense fallback={<Preloader />}>
-              <UserData />{' '}
+              <LandingPages />{' '}
             </Suspense>
           }
         >
@@ -257,7 +257,15 @@ function App() {
             path="showtable"
             element={
               <Suspense fallback={<Spinner />}>
-                <ShowTable/>
+                <ShowTable />
+              </Suspense>
+            }
+          />
+          <Route
+            path="allgames"
+            element={
+              <Suspense fallback={<Spinner />}>
+                <AllGameFixtures />
               </Suspense>
             }
           />
@@ -265,7 +273,7 @@ function App() {
             path="allusers"
             element={
               <Suspense fallback={<Spinner />}>
-                <ShowallTable/>
+                <ShowallTable />
               </Suspense>
             }
           />

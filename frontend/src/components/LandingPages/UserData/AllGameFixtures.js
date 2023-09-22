@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from './Sidebar';
 import MatchList from './MatchList';
 import './Styles.css';
-const MICROSERVICE_URL = 'http://localhost:5000/api/v1/games';
-const UserData = () => {
+import axios from 'axios';
+console.log(process.env.REACT_APP_MICROSERVICE_URL )
+const MICROSERVICE_URL_GAME = process.env.REACT_APP_MICROSERVICE_URL+"api/v1/games";
+const AllGameFixtures = () => {
   const [sportsAndFixtures, setSportsAndFixtures] = useState();
   const [sportNames, setSportNames] = useState();
   const [selectedSport, setSelectedSport] = useState();
   const [isLoaded, setIsLoaded]=useState(false);
   useEffect(function () {
-    fetch(MICROSERVICE_URL)
-      .then((r) => r.json())
+    axios.get(MICROSERVICE_URL_GAME)
       .then((resp) => {
-        let games = resp.data;
+        let games = resp.data.data;
         let sports_o = {};
         for (let game of games) {
           if (!sports_o[game.game_name]) sports_o[game.game_name] = [];
@@ -60,4 +61,4 @@ function Loading(){
   );
 };
 
-export { UserData };
+export { AllGameFixtures };
