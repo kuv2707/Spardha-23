@@ -46,7 +46,7 @@ const AllGameFixtures = () => {
           <img src={`/images/${selectedSport}.jpeg`} alt={selectedSport} />
         </div> */}
         <div className="heading">
-          <h1>{selectedSport} Player Registered</h1>
+          <h1>{selectedSport} Players Registered</h1>
         </div>
         <MatchList matches={sportsAndFixtures[selectedSport]} />
       </div>
