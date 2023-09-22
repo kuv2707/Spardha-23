@@ -3,8 +3,11 @@ import Sidebar from './Sidebar';
 import MatchList from './MatchList';
 import './Styles.css';
 import axios from 'axios';
-const MICROSERVICE_URL_GAME =
-  process.env.REACT_APP_MICROSERVICE_URL + 'api/v1/games';
+let MICROSERVICE_URL_GAME = process.env.REACT_APP_MICROSERVICE_URL;
+if (MICROSERVICE_URL_GAME.substring(MICROSERVICE_URL_GAME.length - 1) !== '/')
+  MICROSERVICE_URL_GAME += '/';
+MICROSERVICE_URL_GAME += 'api/v1/games';
+console.log(MICROSERVICE_URL_GAME)
 const AllGameFixtures = () => {
   const [sportsAndFixtures, setSportsAndFixtures] = useState();
   const [sportNames, setSportNames] = useState();
