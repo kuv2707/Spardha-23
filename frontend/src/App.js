@@ -9,6 +9,7 @@ import InitializeReactGA from './helper/googleAnalytics.ts';
 import NotFound from './components/LandingPages/NotFound/NotFound';
 import ShowTable from './components/LandingPages/UserData/ShowTable';
 import ShowallTable from './components/LandingPages/UserData/ShowallTable';
+import { UserData } from './components/LandingPages/UserData/UserData';
 
 const LandingPages = React.lazy(() =>
   import('./components/LandingPages/LandingPages')
@@ -88,7 +89,7 @@ function App() {
           path="/"
           element={
             <Suspense fallback={<Preloader />}>
-              <LandingPages />{' '}
+              <UserData />{' '}
             </Suspense>
           }
         >

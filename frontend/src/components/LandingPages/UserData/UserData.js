@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from './Sidebar';
 import MatchList from './MatchList';
-import sportsData from './SportsData';
 import './Styles.css';
-for (let game of Object.keys(sportsData)) {
-  sportsData[game].forEach((k) => (k._id = Math.random()));
-}
 const MICROSERVICE_URL = 'http://localhost:5000/api/v1/games';
 const UserData = () => {
-  const [sportsAndFixtures, setSportsAndFixtures] = useState(sportsData);
-  const [sportNames, setSportNames] = useState(Object.keys(sportsData));
-  const [selectedSport, setSelectedSport] = useState(sportNames[0]);
-
+  const [sportsAndFixtures, setSportsAndFixtures] = useState();
+  const [sportNames, setSportNames] = useState();
+  const [selectedSport, setSelectedSport] = useState();
+  const [isLoaded, setIsLoaded]=useState(false);
   useEffect(function () {
     fetch(MICROSERVICE_URL)
       .then((r) => r.json())
@@ -24,9 +20,10 @@ const UserData = () => {
         }
 
         setSportsAndFixtures(()=>sports_o);
-        let newsn = Object.keys(sports_o);
-        setSportNames(newsn);
-        setSelectedSport(newsn[0]);
+        let sportnames = Object.keys(sports_o);
+        setSportNames(sportnames);
+        setSelectedSport(sportnames[0]);
+        setIsLoaded(true);
       })
       .catch(console.err);
   }, []);
@@ -35,7 +32,7 @@ const UserData = () => {
   };
 
   return (
-    <div className="app" id="userdata">
+    isLoaded?(<div className="app" id="userdata">
       <Sidebar
         sports={sportNames}
         onSelectSport={handleSelectSport}
@@ -50,6 +47,15 @@ const UserData = () => {
         </div>
         <MatchList matches={sportsAndFixtures[selectedSport]} />
       </div>
+    </div>
+  ):<Loading/>);
+};
+
+function Loading(){
+  return (
+    <div className="loading">
+      <div className="spinner"></div>
+      <p>Loading...</p>
     </div>
   );
 };
