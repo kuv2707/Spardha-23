@@ -167,8 +167,7 @@ class AllTeamsView(generics.ListAPIView):
                     "captain_phone": ...
                     "game": ...
                     "players": ...
-                    }]""",
-            404: """{"error":"No teams found"}""",
+                    }]"""
         }
     )
     def get(self, request):
@@ -180,9 +179,7 @@ class AllTeamsView(generics.ListAPIView):
 
     @swagger_auto_schema(
         responses={
-            200: """{"success": "Team has been created"}""",
-            404: """{"error":"Game not found"}
-                    {"error":"Team already exists"}""",
+            200: """{"success": "Changes made x elements added, y elements removed"}"""
         }
     )
     def patch(self, request):
@@ -213,7 +210,7 @@ class AllTeamsView(generics.ListAPIView):
         
         from django.db import transaction
         with transaction.atomic():
-            Team.objects.bulk_create(saveTeams)
+            Team.objects.bulk_create(saveTeams, ignore_conflicts=True)# if duplicate team is created, ignore it
 
         return True
 
