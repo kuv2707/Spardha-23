@@ -24,6 +24,9 @@ const About = React.lazy(() => import('./components/LandingPages/About/About'));
 const Events = React.lazy(() =>
   import('./components/LandingPages/Events/Events')
 );
+const Admin = React.lazy(() =>
+  import('./components/DashBoard/Admin/Admin')
+);
 const Team = React.lazy(() => import('./components/LandingPages/Team/Team'));
 const Sponsors = React.lazy(() =>
   import('./components/LandingPages/Sponsors/Sponsors')
@@ -220,7 +223,40 @@ function App() {
             }
           />
         </Route>
+        
+        <Route
+          path="admin"  
+          element={
+            <Suspense fallback={<Preloader />}>
+              <Admin/>
+            </Suspense>
+          }
+          />
+          <Route
+            path="admin/showtable"
+            element={
+              <Suspense fallback={<Spinner />}>
+                <ShowTable />
+              </Suspense>
+            }
+          />
+           <Route
+            path="admin/allgames"
+            element={
+              <Suspense fallback={<Spinner />}>
+                <AllGameFixtures />
+              </Suspense>
+            }
+          />
 
+          <Route
+            path="admin/allusers"
+            element={
+              <Suspense fallback={<Spinner />}>
+                <ShowallTable />
+              </Suspense>
+            }
+          />
         <Route
           path="/dashboard"
           element={
@@ -250,30 +286,6 @@ function App() {
             element={
               <Suspense fallback={<Spinner />}>
                 <ContingentEdit />
-              </Suspense>
-            }
-          />
-          <Route
-            path="showtable"
-            element={
-              <Suspense fallback={<Spinner />}>
-                <ShowTable />
-              </Suspense>
-            }
-          />
-          <Route
-            path="allgames"
-            element={
-              <Suspense fallback={<Spinner />}>
-                <AllGameFixtures />
-              </Suspense>
-            }
-          />
-          <Route
-            path="allusers"
-            element={
-              <Suspense fallback={<Spinner />}>
-                <ShowallTable />
               </Suspense>
             }
           />
