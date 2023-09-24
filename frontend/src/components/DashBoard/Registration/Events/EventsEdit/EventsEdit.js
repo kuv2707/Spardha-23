@@ -120,7 +120,7 @@ function EventsEdit() {
     let changes = getChanges();
     setLoading(true);
     axios
-      .post(
+      .patch(
         `${baseUrl}teams/`,
         { changes },
         {

@@ -173,13 +173,10 @@ class AllTeamsView(generics.ListAPIView):
     )
     def get(self, request):
         team = Team.objects.filter(user=request.user)
-        if team.exists():
-            serializer = self.get_serializer(team, many=True)
-            data = serializer.data
-            data.sort(key=lambda x: x.get('game'))
-            return Response(data, status=status.HTTP_200_OK)
-        else:
-            return Response({"error": "No teams found"}, status=status.HTTP_404_NOT_FOUND)
+        serializer = self.get_serializer(team, many=True)
+        data = serializer.data
+        data.sort(key=lambda x: x.get('game'))
+        return Response(data, status=status.HTTP_200_OK)
 
     @swagger_auto_schema(
         responses={
@@ -188,31 +185,39 @@ class AllTeamsView(generics.ListAPIView):
                     {"error":"Team already exists"}""",
         }
     )
-    def post(self, request):
+    def patch(self, request):
         if request.data.get("changes") is None:
             return Response({"error": "No changes found"}, status=status.HTTP_400_BAD_REQUEST)
         addList = []
         removeList = []
-        if(request.data["changes"]["add"] is not None):
+        if (request.data["changes"]["add"] is not None):
             addList = request.data["changes"]["add"]
-            for key in addList:
-                self.addData(key)
-        if(request.data["changes"]["remove"] is not None):
+            verdict = self.addData(addList,request.user)
+            if verdict == False:
+                return Response({"error": "Games not added"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        if (request.data["changes"]["remove"] is not None):
             removeList = request.data["changes"]["remove"]
-            for key in removeList:
-                deleteData(request, key)
+            deleteData(request, removeList)
         return Response({"success": f"Changes made {len(addList)} elements added, {len(removeList)} elements removed"}, status=status.HTTP_200_OK)
 
+    def addData(self, keys,user):
+        saveTeams = []
+        for key in keys:
+            serializer = self.get_serializer(data={
+                "game": key
+            })
+            serializer.is_valid(raise_exception=True)
+            saveTeams.append(serializer.getSaveData(user=user))
+            # TeamsSheet.new_team(team)
+        UsersSheet.update_user(self.request.user.email)
+        from django.db import transaction
+        try:
+            with transaction.atomic():
+                Team.objects.bulk_create(saveTeams)
+        except:
+            return False
 
-    def addData(self, key):
-        serializer = self.get_serializer(data={
-            "game":key
-        })
-        serializer.is_valid(raise_exception=True)
-        team=serializer.save(user=self.request.user)
-        # TeamsSheet.new_team(team)
-        UsersSheet.update_user(team.user.email)
-        return Response({"success": "Team has been created"}, status=status.HTTP_200_OK)
+        return True
 
 
 class TeamView(generics.GenericAPIView):
@@ -244,25 +249,32 @@ class TeamView(generics.GenericAPIView):
 
     @swagger_auto_schema(
         responses={
-            200: """{"success": "Team has been deleted"}""",
+            200: """{"success": "Teams have been deleted"}""",
             204: """{"error":"Team not found"}""",
         }
     )
-    def delete(self, request, game):
-        if deleteData(request, game) == True:
-            return Response({"success": "Team has been deleted"}, status=status.HTTP_200_OK)
+    def delete(self, request, games):
+        if deleteData(request, games) == True:
+            return Response({"success": "Teams have been deleted"}, status=status.HTTP_200_OK)
         else:
             return Response({"error": "Team not found"}, status=status.HTTP_204_NO_CONTENT)
 
 
-def deleteData(request, game):
-    game = Game.objects.get(name=game.split(
-        '_')[0], game_type=game.split('_')[1])
-    team = Team.objects.filter(game=game, user=request.user)
-    if team.exists():
-        # TeamsSheet.delete_team(team[0])
-        user_email = team[0].user.email
-        team.delete()
-        UsersSheet.update_user(user_email)
+from django.db.models import Q
+
+def deleteData(request, games):
+    if(len(games)==0):
+        return False
+    q_objects = Q()
+    for game in games:
+        game_name, game_type = game.split('_')[0], game.split('_')[1]
+        q_objects |= Q(game__name=game_name, game__game_type=game_type, user=request.user)
+
+    teams = Team.objects.filter(q_objects)
+    
+    if teams.exists():
+        teams.delete()
+        UsersSheet.update_user(request.user.email)
         return True
     return False
+
