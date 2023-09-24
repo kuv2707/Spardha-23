@@ -192,15 +192,16 @@ class AllTeamsView(generics.ListAPIView):
         removeList = []
         if (request.data["changes"]["add"] is not None):
             addList = request.data["changes"]["add"]
-            verdict = self.addData(addList,request.user)
-            if verdict == False:
-                return Response({"error": "Games not added"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            self.addData(addList,request.user)
         if (request.data["changes"]["remove"] is not None):
             removeList = request.data["changes"]["remove"]
             deleteData(request, removeList)
+        UsersSheet.update_user(self.request.user.email)
         return Response({"success": f"Changes made {len(addList)} elements added, {len(removeList)} elements removed"}, status=status.HTTP_200_OK)
 
     def addData(self, keys,user):
+        if(len(keys)==0):
+            return True
         saveTeams = []
         for key in keys:
             serializer = self.get_serializer(data={
@@ -209,13 +210,10 @@ class AllTeamsView(generics.ListAPIView):
             serializer.is_valid(raise_exception=True)
             saveTeams.append(serializer.getSaveData(user=user))
             # TeamsSheet.new_team(team)
-        UsersSheet.update_user(self.request.user.email)
+        
         from django.db import transaction
-        try:
-            with transaction.atomic():
-                Team.objects.bulk_create(saveTeams)
-        except:
-            return False
+        with transaction.atomic():
+            Team.objects.bulk_create(saveTeams)
 
         return True
 
@@ -255,6 +253,7 @@ class TeamView(generics.GenericAPIView):
     )
     def delete(self, request, games):
         if deleteData(request, games) == True:
+            UsersSheet.update_user(request.user.email)
             return Response({"success": "Teams have been deleted"}, status=status.HTTP_200_OK)
         else:
             return Response({"error": "Team not found"}, status=status.HTTP_204_NO_CONTENT)
@@ -264,7 +263,7 @@ from django.db.models import Q
 
 def deleteData(request, games):
     if(len(games)==0):
-        return False
+        return True
     q_objects = Q()
     for game in games:
         game_name, game_type = game.split('_')[0], game.split('_')[1]
@@ -274,7 +273,6 @@ def deleteData(request, games):
     
     if teams.exists():
         teams.delete()
-        UsersSheet.update_user(request.user.email)
         return True
     return False
 
