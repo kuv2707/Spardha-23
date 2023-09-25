@@ -1,5 +1,6 @@
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
+from django.http import FileResponse
 from .models import Game, Team, Contingent
 from .serializers import (
     GameSerializer,
@@ -12,10 +13,9 @@ from drf_yasg.utils import swagger_auto_schema
 from scripts.user_registration import UsersSheet
 from drf_yasg import openapi
 # from scripts.team_registration import TeamsSheet
+from Teams.create_form import create_form
 
-token_param = openapi.Parameter('Authorization', openapi.IN_HEADER,
-                                description="Token <YourToken>", type=openapi.TYPE_STRING)
-
+token_param = openapi.Parameter('Authorization', openapi.IN_HEADER, description="Token <YourToken>", type=openapi.TYPE_STRING)
 
 class AllGamesView(generics.ListAPIView):
     serializer_class = GameSerializer
@@ -33,7 +33,8 @@ class AllGamesView(generics.ListAPIView):
                                     id = 0 for Boys
                                     id = 1 for Girls
                                     id = 2 for Mixed"}""",
-        }
+        },
+        manual_parameters=[token_param]
     )
     def get(self, request, id):
         if id == 0:  # For Boys
@@ -167,8 +168,10 @@ class AllTeamsView(generics.ListAPIView):
                     "captain_phone": ...
                     "game": ...
                     "players": ...
-                    }]"""
-        }
+                    }]""",
+            404: """{"error":"No teams found"}""",
+        },
+        manual_parameters=[token_param]
     )
     def get(self, request):
         team = Team.objects.filter(user=request.user)
@@ -179,8 +182,11 @@ class AllTeamsView(generics.ListAPIView):
 
     @swagger_auto_schema(
         responses={
-            200: """{"success": "Changes made x elements added, y elements removed"}"""
-        }
+            200: """{"success": "Team has been created"}""",
+            404: """{"error":"Game not found"}
+                    {"error":"Team already exists"}""",
+        },
+        manual_parameters=[token_param]
     )
     def patch(self, request):
         if request.data.get("changes") is None:
@@ -223,7 +229,8 @@ class TeamView(generics.GenericAPIView):
         responses={
             200: """{"success":"Team Details Modified"}""",
             404: """{"error":"Team not found"}""",
-        }
+        },
+        manual_parameters=[token_param]
     )
     def put(self, request, game):
         game = Game.objects.get(name=game.split(
@@ -273,3 +280,42 @@ def deleteData(request, games):
         return True
     return False
 
+def form_serialized_data(contingent):
+    college_rep = contingent.college_rep
+    data = {
+        "institution_name": college_rep.institution_name,
+        "phone_no": college_rep.phone_no,
+        "leader_name": contingent.leader_name,
+        "leader_contact_num": contingent.leader_contact_num,
+        "num_of_boys": contingent.num_of_boys,
+        "num_of_girls": contingent.num_of_girls,
+        "num_of_coaches_pti": contingent.num_of_coaches_pti,
+        "num_of_faculty_members": contingent.num_of_faculty_members,
+        "num_of_supporting_staff": contingent.num_of_supporting_staff,
+        "games": [
+            {
+                "game_name": team.game.name,
+                "max_players": team.game.max_players,
+                "players": team.players,
+                "game_type": team.game.game_type
+            } for team in college_rep.team_set.all()
+        ]
+        #* college_rep.team_set fetches all the teams it is referred by foreign key
+    }
+    return data
+class ContingentFormView(generics.GenericAPIView):
+
+    @swagger_auto_schema(
+        responses={
+            200: """Download file""",
+        },
+        manual_parameters=[token_param]
+    )
+    def get(self, request):
+        contingents = Contingent.objects.prefetch_related('college_rep__team_set__game').filter(college_rep=request.user)
+        data = {}
+        for contingent in contingents:
+            data = form_serialized_data(contingent)
+        response = FileResponse(create_form(data), content_type='application/msword')
+        response['Content-Disposition'] = 'attachment; filename="Spardha23_detailed_entry_form.docx"'
+        return response
