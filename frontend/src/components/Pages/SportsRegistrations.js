@@ -1,17 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
-import Sidebar from "./Sidebar";
-import "./Styles.css";
 import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-import TeamList from "./TeamList";
+import "./table.css";
 
-const baseUrl = process.env.REACT_APP_BASE_URL;
-const AllGames = () => {
-	const [sportTeams, setSportTeams] = useState();
-	const [sportNames, setSportNames] = useState();
-	const [selectedSport, setSelectedSport] = useState();
-	const [isLoaded, setIsLoaded] = useState(false);
+function SportsRegistrations() {
+	const baseUrl = process.env.REACT_APP_BASE_URL;
+	const [contingents, setContingents] = useState([]);
 	const { token } = useContext(AuthContext);
+
+	const formatText = (str) => {
+		const words = str.split("_");
+		const capitalizedWords = words.map(
+			(word) => word.charAt(0).toUpperCase() + word.slice(1)
+		);
+		const result = capitalizedWords.join(" ");
+		return result;
+	};
+
 	useEffect(() => {
 		axios
 			.get(`${baseUrl}/teams/contingent/all`, {
@@ -20,57 +25,41 @@ const AllGames = () => {
 				},
 			})
 			.then((res) => {
-				let snames={}
-				res.data.forEach(user=>{
-					user.games.forEach(game=>{
-						if(snames[game]===undefined)
-							snames[game]=[]
-						snames[game].push(user)
-					})
-				})
-				let sportnames = Object.keys(snames);
-				setSportNames(sportnames);
-				setSelectedSport(sportnames[0]);
-				setSportTeams(() => snames);
-				setIsLoaded(true);
-				
+				setContingents(res.data);
 			})
 			.catch((err) => console.error(err));
-	}, [ token]);
-	const handleSelectSport = setSelectedSport;
-
-	return isLoaded ? (
-		<div className="app" id="userdata">
-			<Sidebar
-				sports={sportNames}
-				onSelectSport={handleSelectSport}
-				selectedSport={selectedSport}
-			/>
-			<div className="content">
-				{/* <div className="image-container">
-          <img src={`/images/${selectedSport}.jpeg`} alt={selectedSport} />
-        </div> */}
-				<div className="heading">
-					<h1>{selectedSport} Teams Registered</h1>
-				</div>
-				{
-					sportTeams[selectedSport]!==undefined?
-					<TeamList teams={sportTeams[selectedSport]} />:"Logical error"
-				}
-			</div>
-		</div>
-	) : (
-		<Loading />
-	);
-};
-
-function Loading() {
+	}, [baseUrl, token]);
 	return (
-		<div className="loading">
-			<div className="spinner"></div>
-			<p>Loading...</p>
+		<div>
+			<h1>All Sports Registrations</h1>
+			{contingents.length === 0 ? (
+				<p>No Registrations</p>
+			) : (
+				<table className="table">
+					<thead>
+						<tr>
+							{Object.keys(contingents[0]).map((key) => (
+								<th key={key}>{formatText(key)}</th>
+							))}
+						</tr>
+					</thead>
+					<tbody>
+						{contingents.map((contingent, index) => (
+							<tr key={index}>
+								{Object.keys(contingent).map((key) => (
+									<td key={key + contingent[key]}>
+										{key === "games"
+											? contingent[key].join(", ")
+											: contingent[key]}
+									</td>
+								))}
+							</tr>
+						))}
+					</tbody>
+				</table>
+			)}
 		</div>
 	);
 }
 
-export default AllGames;
+export default SportsRegistrations;
