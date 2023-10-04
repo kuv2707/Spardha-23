@@ -1,0 +1,21 @@
+/* styles.module.css */
+.teamTableContainer {
+  margin: 20px;
+}
+
+.teamTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.teamTable th, .teamTable td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.noGames {
+  margin: 20px;
+  font-size: 18px;
+  color: #555;
+}

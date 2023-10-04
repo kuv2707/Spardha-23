@@ -37,6 +37,8 @@ body {
   font-weight: bold;
   padding: 30px;
   box-shadow: 3px 0px 5px rgba(0, 0, 0, 0.1);
+  overflow-y:scroll;
+  min-width:200px;
 }
 
 .sidebar-icon {
