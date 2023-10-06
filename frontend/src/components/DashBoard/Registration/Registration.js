@@ -13,8 +13,8 @@ const Registration = () => {
     leader_name: '-',
     leader_contact_num: '-',
     num_of_faculty_members: '-',
-    num_of_coaches_pti:'-',
-    num_of_supporting_staff:'-',
+    num_of_coaches_pti: '-',
+    num_of_supporting_staff: '-',
   });
   const token = localStorage.getItem('token');
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -40,8 +40,8 @@ const Registration = () => {
   return (
     <div className="user-dashboard regn_Pad">
       <div className="row_dbRegistration">
-        <div className="col-xs-12 gutter widthAdjust">
-          <div className="welcome-text">
+        <div className="col-xs-12 gutter2 widthAdjust">
+          <div className="welcome-text2">
             {/* <div
               style={{ textAlign: 'center', fontSize: '15px', color: 'red' }}
             >
@@ -54,102 +54,121 @@ const Registration = () => {
             <div className="text-justify">
               <h2>
                 <br></br>
-                <div style={{ textAlign: 'right' }}>
-                  <Link
-                    to="/dashboard/contingentEdit"
-                    style={{ textDecoration: 'none' }}
-                  >
-                    Edit
-                  </Link>
-                </div>
-                <div className="events-heading">CONTINGENT DETAILS</div>
-                <table align="center" cellpadding="20" className="events-table">
-                  <tr>
-                    <td className="left-column" style={{ textAlign: 'left' }}>
-                      <b>Total Number of Boys</b>{' '}
-                    </td>
-                    <td className="right-column">{contdetails.num_of_boys}</td>
-                  </tr>
-                  <tr>
-                    <td className="left-column" style={{ textAlign: 'left' }}>
-                      <b>Total Number of Girls</b>{' '}
-                    </td>
-                    <td className="right-column">{contdetails.num_of_girls}</td>
-                  </tr>
+                <div className="sub_details">
+                  <div className='contingent' >
+                    <div className="events-heading">CONTINGENT DETAILS</div>
+                    <div className="edit_button">
+                      <Link
+                        to="/dashboard/contingentEdit"
+                        style={{ textDecoration: 'none', color: '#760e53' }}
+                      >
+                        Edit
+                      </Link>
+                    </div>
+                  </div>
 
-                  <tr>
-                    <td
-                      className="left-column"
-                      style={{ textAlign: 'left', lineHeight: '1.5' }}
-                    >
-                      <b>
-                        Total Number of Faculty members accompanying the
-                        contingent
-                      </b>{' '}
-                    </td>
-                    <td className="right-column">
-                      {contdetails.num_of_faculty_members}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td
-                      className="left-column"
-                      style={{ textAlign: 'left', lineHeight: '1.5' }}
-                    >
-                      <b>
-                        {`Total Number of Coaches & PTI accompanying the contingent`}
-                      </b>{' '}
-                    </td>
-                    <td className="right-column">
-                      {contdetails.num_of_coaches_pti}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td
-                      className="left-column"
-                      style={{ textAlign: 'left', lineHeight: '1.5' }}
-                    >
-                      <b>
-                        Total Number of Supporting Staff accompanying the
-                        contingent
-                      </b>{' '}
-                    </td>
-                    <td className="right-column">
-                      {contdetails.num_of_supporting_staff}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td
-                      className="left-column"
-                      style={{ textAlign: 'left', lineHeight: '1.5' }}
-                    >
-                      <b>Full Name of Contingent Leader</b>{' '}
-                    </td>
-                    <td className="right-column">{contdetails.leader_name}</td>
-                  </tr>
-                  <tr>
-                    <td
-                      className="left-column"
-                      style={{ textAlign: 'left', lineHeight: '1.5' }}
-                    >
-                      <b>Contact Number of Contingent Leader</b>{' '}
-                    </td>
-                    <td className="right-column">
-                      {contdetails.leader_contact_num}
-                    </td>
-                  </tr>
-                </table>
+                  <table
+                    align="center"
+                    cellpadding="20"
+                    className="events-table"
+                  >
+                    <tr>
+                      <td className="left-column" style={{ textAlign: 'left' }}>
+                        <b>Total Number of Boys</b>{' '}
+                      </td>
+                      <td className="right-column">
+                        {contdetails.num_of_boys}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="left-column" style={{ textAlign: 'left' }}>
+                        <b>Total Number of Girls</b>{' '}
+                      </td>
+                      <td className="right-column">
+                        {contdetails.num_of_girls}
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td
+                        className="left-column"
+                        style={{ textAlign: 'left', lineHeight: '1.5' }}
+                      >
+                        <b>
+                          Total Number of Faculty members accompanying the
+                          contingent
+                        </b>{' '}
+                      </td>
+                      <td className="right-column">
+                        {contdetails.num_of_faculty_members}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        className="left-column"
+                        style={{ textAlign: 'left', lineHeight: '1.5' }}
+                      >
+                        <b>
+                          {`Total Number of Coaches & PTI accompanying the contingent`}
+                        </b>{' '}
+                      </td>
+                      <td className="right-column">
+                        {contdetails.num_of_coaches_pti}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        className="left-column"
+                        style={{ textAlign: 'left', lineHeight: '1.5' }}
+                      >
+                        <b>
+                          Total Number of Supporting Staff accompanying the
+                          contingent
+                        </b>{' '}
+                      </td>
+                      <td className="right-column">
+                        {contdetails.num_of_supporting_staff}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        className="left-column"
+                        style={{ textAlign: 'left', lineHeight: '1.5' }}
+                      >
+                        <b>Full Name of Contingent Leader</b>{' '}
+                      </td>
+                      <td className="right-column">
+                        {contdetails.leader_name}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        className="left-column"
+                        style={{ textAlign: 'left', lineHeight: '1.5' }}
+                      >
+                        <b>Contact Number of Contingent Leader</b>{' '}
+                      </td>
+                      <td className="right-column">
+                        {contdetails.leader_contact_num}
+                      </td>
+                    </tr>
+                  </table>
+                </div>
                 <br></br>
                 <br></br>
-
-                <div style={{ textAlign: 'right' }}>
-                  <Link
-                    to="/dashboard/events"
-                    style={{ textDecoration: 'none' }}
-                  >
-                    Edit
-                  </Link>
-                </div>
+                {/* <div className="contingent_details">
+                <div style={{ display: 'flex',alignItems: 'center',justifyContent:'space-between',paddingLeft:'38%'}}>
+                    <div className="edit_button">
+                      <Link
+                        to="/dashboard/events"
+                        style={{ textDecoration: 'none', color: '#760e53' }}
+                      >
+                        Edit
+                      </Link>
+                    </div>
+                  </div>
+                  <Events />
+                </div> */}
                 <Events />
               </h2>
             </div>

@@ -5,7 +5,7 @@ import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router';
-toast.configure();
+//toast.configure();
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -91,10 +91,10 @@ const Profile = () => {
   };
 
   return (
-    <div className="user-dashboard profile_Pad">
+    <div className="user-dashboard3 profile_Pad">
       <div className="row_dbProfile">
-        <div className="col-xs-12 gutter widthAdjust">
-          <div className="welcome-text" style={{ lineHeight: '1' }}>
+        <div className="col-xs-12 gutter3 widthAdjust">
+          <div className="welcome-text3" style={{ lineHeight: '1' }}>
             <div className="text-justify">
               <h2>
                 {/* <div style={{textAlign: right}}><a href="profile.php?mode=edit">Edit</a></div> */}
@@ -104,67 +104,54 @@ const Profile = () => {
                   className="profile-table"
                 >
                   <tr>
-                    <td className="left-column">Name: </td>
-                    <td className="right-column overHandle">{user.name}</td>
+                    <td className="left-column">Name</td>
+                    <td className="right-column">
+                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
+                      {user.name}
+                    </td>
                   </tr>
                   <tr>
-                    <td className="left-column">Email: </td>
-                    <td className="right-column overHandle">{user.email}</td>
+                    <td className="left-column">Email</td>
+                    <td className="right-column">
+                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
+                      {user.email}
+                    </td>
                   </tr>
                   <tr>
-                    <td className="left-column">Username: </td>
-                    <td className="right-column overHandle">{user.username}</td>
+                    <td className="left-column">Username</td>
+                    <td className="right-column">
+                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
+                      {user.username}
+                    </td>
                   </tr>
                   <tr>
-                    <td className="left-column">Designation: </td>
-                    <td className="right-column overHandle">
+                    <td className="left-column">Designation </td>
+
+                    <td className="right-column">
+                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
                       {user.designation}
                     </td>
                   </tr>
                   <tr>
-                    <td className="left-column">Institute Name: </td>
-                    <td className="right-column overHandle">
+                    <td className="left-column">Institute Name </td>
+                    <td className="right-column">
+                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
                       {user.institution}
                     </td>
                   </tr>
                   <tr>
-                    <td className="left-column">Phone Number: </td>
-                    <td className="right-column overHandle"> {user.phone}</td>
+                    <td className="left-column">Phone Number </td>
+                    <td className="right-column">
+                      {' '}
+                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
+                      {user.phone}
+                    </td>
                   </tr>
                   {/* <tr>
                     <td className="left-column"></td>
-                    <td className="right-column overHandle"></td>
+                    <td className="right-column"></td>
                   </tr> */}
-                  <tr className="mine_proDbs">
-                    <td>
-                      <button
-                        href="#"
-                        className="register-now"
-                        data-toggle="modal"
-                        data-target="#change_username"
-                        style={{ marginRight: '0', padding: '8px' }}
-                        onClick={changePass}
-                      >
-                        Change&nbsp;Password
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        href="#"
-                        className="register-now"
-                        data-toggle="modal"
-                        data-target="#change_password"
-                        style={{
-                          backgroundColor: 'red',
-                          border: '1px solid red',
-                          padding: '8px',
-                        }}
-                        onClick={toggle}
-                      >
-                        Delete&nbsp;Profile
-                      </button>
-                    </td>
-                  </tr>
+                  
                 </table>
 
                 <Modal isOpen={modal} toggle={toggle} size="lg">
@@ -189,6 +176,36 @@ const Profile = () => {
                   </ModalBody>
                 </Modal>
               </h2>
+              <div className='bottom_button'>
+              <tr className="mine_proDbs">
+                    <td className='button_gap'>
+                      <button
+                        href="#"
+                        className="change-now"
+                        data-toggle="modal"
+                        data-target="#change_username"
+                        onClick={changePass}
+                      >
+                        Change&nbsp;Password
+                      </button>
+                    </td>
+                    <td className='button_gap'>
+                      <button
+                        href="#"
+                        className="delete_button"
+                        data-toggle="modal"
+                        data-target="#change_password"
+                        style={{
+                          
+                          border: '2px solid red',
+                          padding: '9px 33px',
+                        }}
+                        onClick={toggle}
+                      >
+                        Delete&nbsp;Profile
+                      </button>
+                    </td>
+                  </tr></div>
             </div>
           </div>
         </div>

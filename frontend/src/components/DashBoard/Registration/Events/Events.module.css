@@ -3,7 +3,7 @@
 .events-heading {
   font-family: 'League Spartan';
   text-align: center;
-  color: cornflowerblue;
+  color: #760E53;
   font-size: 30px;
   padding-bottom: 10px;
   text-transform: uppercase;
@@ -13,25 +13,26 @@
 
 .events-table {
   font-size: 17px;
+  margin-top: 10px;
 }
 
 .events-table th.middle-column {
   max-width: 55vw;
-  min-width: 55vw;
+  /* min-width: 55vw; */
   border: 1px solid black;
 }
 
 .events-table .left-column {
   padding-right: 10px;
   line-height: 1;
-  min-width: 66px;
+  /* min-width: 66px; */
   border: 1px solid black;
   border-right: none;
 }
 
 .events-table .right-column {
   padding-left: 10px;
-  min-width: 122px;
+  /* min-width: 122px; */
   border: 1px solid black;
   border-left: none;
 }
@@ -50,9 +51,9 @@ td {
   color: white;
 }
 
-.events-table tr td {
+.events-table tr{
   font-weight: 500;
-  color: #616f8a;
+  color: black;
   text-align: center;
 }
 
@@ -64,7 +65,7 @@ td {
 
 .events-table td,
 .events-table th {
-  border: 1px solid #ddd;
+  border: 1px solid #760E53;
   padding: 8px;
 }
 
@@ -73,7 +74,8 @@ td {
 }
 
 .events-table tr:hover {
-  background-color: #ddd;
+  background-color: #B4147E;
+  color: white;
 }
 
 .modal-table td {
@@ -83,29 +85,38 @@ td {
   color: #333;
   box-sizing: border-box;
 }
+.modal-body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background-color: #760e53;
+  border-radius: 200px;
+}
 
 .events-table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: darkslategray;
+  background-color: #B4147E;
   color: white;
 }
 
 .register-now {
-  background: limegreen none repeat scroll 0 0;
+  background: white;
   border: medium none;
   border-radius: 100px;
-  color: #ffffff;
+  color: #760E53;
   font-size: 14px;
   font-weight: 600;
   padding: 10px 20px 10px 20px;
   position: relative;
+  border: 1px solid #760E53;
 }
 
 .register-now:hover {
   color: #ffffff;
-  background: forestgreen none repeat scroll 0 0;
+  background: #760E53;
 }
 
 .register-now:focus {
@@ -130,7 +141,7 @@ td {
 .login-header {
   display: inline-block;
   width: 100%;
-  background: rgb(0, 78, 0);
+  background: #760E53;
 }
 
 .login-header .navbar-right {
@@ -178,10 +189,10 @@ td {
 }
 
 .modal-footer .register-now {
-  background: limegreen none repeat scroll 0 0;
-  border: medium none;
-  border-radius: 100px;
-  color: #ffffff;
+  background: white;
+  border: 2px solid #760E53;
+  border-radius: 40px;
+  color: #760E53;
   font-size: 14px;
   font-weight: 600;
   padding: 10px 30px;
@@ -193,20 +204,24 @@ td {
 }
 
 .modal-footer .register-now:hover {
-  background: forestgreen none repeat scroll 0 0;
+  background: #760E53;
+  color: white;
 }
 
 .modal-footer {
   border: 0 none;
   padding: 10px 15px 26px;
-  text-align: right;
+  /* text-align: right; */
+  justify-content: center;
+  gap: 9rem;
 }
 
 .cancel {
-  background: limegreen;
-  border: medium none;
-  border-radius: 100px;
-  color: #ffffff;
+  background: white;
+  border-radius: 40px;
+  border: 2px solid #F71018;
+  /* border-radius: 100px; */
+  color: #F71018;
   font-size: 14px;
   font-weight: 600;
   padding: 10px 30px;
@@ -214,9 +229,11 @@ td {
 }
 
 .cancel:hover {
-  background: forestgreen;
+  background: #F71018;
 }
-
+.alert-warning{
+  background-color: #760E53;
+}
 .modal {
   top: 20%;
 }
@@ -226,11 +243,13 @@ td {
 }
 
 .search input:focus {
-  border-bottom: 1px solid #bdc4d4;
+  border-bottom: 1px solid #760E53;
   line-height: 22px;
   transition: 0.1s all;
 }
-
+.form-control{
+  border: 1px solid #760E53 !important;
+}
 .modal-header.login-header {
   border: none;
   border-top-left-radius: 5px;
@@ -239,7 +258,14 @@ td {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   /*Main CSS*/
 }
-
+input{
+  border: 1px solid #760E53 !important;
+}
+@media (max-width:998px) {
+  .events-table tr{
+    display: table-row !important;
+  }
+}
 @media only screen and (max-width: 767px) {
   .events-table {
     font-size: 12px;
@@ -254,5 +280,16 @@ td {
 @media only screen and (min-width: 767px) and (max-width: 998px) {
   .events-table {
     font-size: 14px;
+  }
+}
+@media (max-width:500px) {
+  .modal-footer {
+    gap: 10px;
+  }
+}
+@media (max-width:350px) {
+  .register-now{
+    font-size: 10px;
+    padding: 5px 3px 5px 3px;
   }
 }

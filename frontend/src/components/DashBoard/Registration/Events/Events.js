@@ -9,12 +9,15 @@ import {
   Alert,
 } from 'reactstrap';
 import styles from './Events.module.css';
+import { Link } from 'react-router-dom';
 
 const EventsDb = () => {
   const token = localStorage.getItem('token');
   const [showModals, setShowModals] = useState({
     Athletics_B: false,
     Athletics_G: false,
+    Aquatics_B: false,
+    Aquatics_G: false,
     Badminton_B: false,
     Badminton_G: false,
     Basketball_B: false,
@@ -46,6 +49,7 @@ const EventsDb = () => {
     Weightlifting_B: false,
   });
   const [Athletics_G, setAthletics_G] = useState({});
+  const [Aquatics_G, setAquatics_G] = useState({});
   const [Boxing_G, setBoxing_G] = useState({});
   const [Taekwondo_G, setTaekwondo_G] = useState({});
   const [Volleyball_B, setVolleyball_B] = useState({});
@@ -82,6 +86,7 @@ const EventsDb = () => {
 
   const inputFields = {
     Athletics_G: [Athletics_G, setAthletics_G],
+    Aquatics_G: [Aquatics_G, setAquatics_G],
     Boxing_G: [Boxing_G, setBoxing_G],
     Taekwondo_G: [Taekwondo_G, setTaekwondo_G],
     Volleyball_B: [Volleyball_B, setVolleyball_B],
@@ -294,792 +299,831 @@ const EventsDb = () => {
 
   return (
     <>
-      <div className={`${styles['events-heading']}`}>Boys</div>
-      <table
-        className={`${styles['events-table']}`}
-        align="center"
-        cellpadding="20"
-        border="1"
-      >
-        <tr>
-          <th
-            className={`${styles['left-column']}`}
-            style={{ textAlign: 'center' }}
-          >
-            Event Name
-          </th>
-          <th
-            className={`${styles['middle-column']}`}
-            style={{ textAlign: 'center' }}
-          >
-            Players Name / Count
-          </th>
-          <th
-            className={`${styles['right-column']}`}
-            style={{ textAlign: 'center' }}
-          >
-            Edit Players
-          </th>
-        </tr>
-        {boyTeams.length === 0 ? (
-          <tr style={{ textAlign: 'center' }}>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
+      <div className='sub_details'>
+        <div className='heading-register'>
+          <div className="events-heading">BOYS</div>
+          <div className="edit_button">
+            <Link
+              to="/dashboard/events"
+              style={{ textDecoration: 'none', color: '#760e53' }}
+            >
+              Edit
+            </Link>
+          </div>
+        </div>
+        <table
+          className={`${styles['events-table']}`}
+          align="center"
+          cellpadding="20"
+          border="1"
+        >
+          <tr>
+            <th
+              className={`${styles['left-column']}`}
+              style={{ textAlign: 'center' }}
+            >
+              Event Name
+            </th>
+            <th
+              className={`${styles['middle-column']}`}
+              style={{ textAlign: 'center' }}
+            >
+              Players Name / Count
+            </th>
+            <th
+              className={`${styles['right-column']}`}
+              style={{ textAlign: 'center' }}
+            >
+              Edit Players
+            </th>
           </tr>
-        ) : (
-          boyTeams.map((team, ind) => {
-            return (
-              <tr key={ind}>
-                <td>
-                  <b>{team.game.substr(0, team.game.length - 2)}</b>
-                </td>
-                <td>
-                  {team.captain_name && (
-                    <b>
-                      Captain / Leader: {team.captain_name}{' '}
-                      {team.captain_phone && (
-                        <span>({team.captain_phone})</span>
-                      )}
-                      <br />
-                    </b>
-                  )}
-                  {team.players.some((row) => row.some((s) => s.length)) && (
-                    <b>
-                      {/* {team.game.substr(0, team.game.length - 2) ===
+          {boyTeams.length === 0 ? (
+            <tr style={{ textAlign: 'center' }}>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          ) : (
+            boyTeams.map((team, ind) => {
+              return (
+                <tr key={ind}>
+                  <td>
+                    <b>{team.game.substr(0, team.game.length - 2)}</b>
+                  </td>
+                  <td>
+                    {team.captain_name && (
+                      <b>
+                        Captain / Leader: {team.captain_name}{' '}
+                        {team.captain_phone && (
+                          <span>({team.captain_phone})</span>
+                        )}
+                        <br />
+                      </b>
+                    )}
+                    {team.players.some((row) => row.some((s) => s.length)) && (
+                      <b>
+                        {/* {team.game.substr(0, team.game.length - 2) ===
                       'Athletics' ? (
                         <span>Total Number of Boys: </span>
                       ) : (
                         <span>Players Name: </span>
                       )} */}
-                      <span>Players Name: </span>
-                    </b>
-                  )}
-                  {team.players
-                    .reduce((prev, cur) => [
-                      ...prev.filter((s) => s.length),
-                      ...cur.filter((s) => s.length),
-                    ])
-                    .slice(
-                      0,
-                      team.players.reduce((prev, cur) => [
-                        ...prev.filter((s) => s.length),
-                        ...cur.filter((s) => s.length),
-                      ]).length - 1
-                    )
-                    .map((player, ind) => {
-                      return <span key={ind}>{player}, </span>;
-                    })}
-                  {team.players.reduce((prev, cur) => [
-                    ...prev.filter((s) => s.length),
-                    ...cur.filter((s) => s.length),
-                  ]).length !== 0 && (
-                    <span>
-                      {
-                        team.players
-                          .reduce((prev, cur) => [
-                            ...prev.filter((s) => s.length),
-                            ...cur.filter((s) => s.length),
-                          ])
-                          .slice(-1)[0]
-                      }
-                    </span>
-                  )}
-                </td>
-                <td>
-                  <Button
-                    className={`${styles['register-now']}`}
-                    data-toggle={team.game}
-                    onClick={() => clickHandler(team.game)}
-                  >
-                    Add&nbsp;/&nbsp;Edit
-                  </Button>
-                  <Modal
-                    isOpen={showModals[`${team.game}`]}
-                    toggle={() => clickHandler(team.game)}
-                    centered
-                    scrollable
-                    keyboard
-                    size="lg"
-                  >
-                    <ModalHeader
-                      className={`${styles['modal-header']} ${styles['login-header']}`}
-                    >
-                      Players - {team.game.substr(0, team.game.length - 2)} [
-                      {team.game.endsWith('B') && 'BOYS'}
-                      {team.game.endsWith('G') && 'GIRLS'}
-                      {team.game.endsWith('M') && 'MIXED'}]
-                    </ModalHeader>
-                    <ModalBody className={`${styles['modal-body']}`}>
-                      <Alert
-                        color="warning"
-                        style={{
-                          fontSize: '16px',
-                          paddingTop: '10px',
-                          paddingBottom: '10px',
-                        }}
-                      >
-                        {' '}
-                        Your changes are not saved unless you submit them.
-                      </Alert>
-                      <table
-                        align="center"
-                        cellPadding="20"
-                        className={`${styles['modal-table']}`}
-                      >
-                        {['Taekwondo', 'Boxing'].includes(
-                          team.game.substr(0, team.game.length - 2)
-                        ) && (
-                          <tr>
-                            <td>
-                              <b> </b>
-                            </td>
-                            <td colSpan="2" className="text-danger text-center">
-                              <b>
-                                MAXIMUM PLAYERS:{' '}
-                                {team.game.substr(0, team.game.length - 2) ===
-                                'Boxing' ? (
-                                  <span>10</span>
-                                ) : (
-                                  <span>15</span>
-                                )}
-                              </b>
-                            </td>
-                          </tr>
-                        )}
-                        {['Taekwondo', 'Weightlifting', 'Boxing'].includes(
-                          team.game.substr(0, team.game.length - 2)
-                        ) && (
-                          <tr>
-                            {' '}
-                            <td>
-                              <b> </b>
-                            </td>
-                            <td colSpan="2" className="text-danger text-center">
-                              <b>
-                                Maximum 2 players are allowed in each weight
-                                category
-                              </b>
-                            </td>
-                          </tr>
-                        )}
-                        <tr>
-                          {['Taekwondo', 'Weightlifting', 'Boxing'].includes(
-                            team.game.substr(0, team.game.length - 2)
-                          ) && (
-                            <td>
-                              <b>
-                                {
-                                  labels[
-                                    team.game.substr(0, team.game.length - 2)
-                                  ][0]
-                                }
-                              </b>
-                            </td>
-                          )}
-                          <td>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Captain / Leader Name"
-                              data-game={team.game}
-                              name="captain_name"
-                              value={
-                                inputFields[`${team.game}`][0]['captain_name']
-                              }
-                              onChange={inputChangeHandler}
-                            ></input>
-                          </td>
-                          <td>
-                            <input
-                              type="tel"
-                              className="form-control"
-                              data-game={team.game}
-                              name="captain_phone"
-                              placeholder="Captain / Leader Phone No."
-                              value={
-                                inputFields[`${team.game}`][0]['captain_phone']
-                              }
-                              onChange={inputChangeHandler}
-                            ></input>
-                          </td>
-                        </tr>
-                      </table>
-                      <table
-                        align="center"
-                        cellpadding="20"
-                        className={`${styles['modal-table']}`}
-                      >
-                        {team.players.map((row, rowIndex) => {
-                          return (
-                            <tr>
-                              {[
-                                'Taekwondo',
-                                'Weightlifting',
-                                'Boxing',
-                              ].includes(
-                                team.game.substr(0, team.game.length - 2)
-                              ) && (
-                                <td>
-                                  <b>
-                                    {
-                                      labels[
-                                        team.game.substr(
-                                          0,
-                                          team.game.length - 2
-                                        )
-                                      ][rowIndex + 1]
-                                    }
-                                  </b>
-                                </td>
-                              )}
-                              {row.map((col, colIndex) => {
-                                return (
-                                  <td>
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder={`Player ${
-                                        2 * rowIndex + colIndex + 1
-                                      }`}
-                                      data-game={team.game}
-                                      name={`${2 * rowIndex + colIndex}`}
-                                      value={
-                                        inputFields[`${team.game}`][0][
-                                          'players'
-                                        ][rowIndex][colIndex]
-                                      }
-                                      onChange={inputChangeHandler}
-                                    ></input>
-                                  </td>
-                                );
-                              })}
-                            </tr>
-                          );
-                        })}
-                      </table>
-                    </ModalBody>
-                    <ModalFooter className={`${styles['modal-footer']}`}>
-                      <Button
-                        className={`${styles.cancel}`}
-                        onClick={() => clickHandler(team.game)}
-                      >
-                        Cancel
-                      </Button>
-                      <Button
-                        className={`${styles['register-now']}`}
-                        onClick={() => {
-                          submitHandler(team.game);
-                        }}
-                      >
-                        Submit
-                      </Button>
-                    </ModalFooter>
-                  </Modal>
-                </td>
-              </tr>
-            );
-          })
-        )}
-      </table>
-      <br />
-      <div className={`${styles['events-heading']}`}>Girls</div>
-      <table
-        className={`${styles['events-table']}`}
-        align="center"
-        cellpadding="20"
-        border="1"
-      >
-        <tr>
-          <th
-            className={`${styles['left-column']}`}
-            style={{ textAlign: 'center' }}
-          >
-            Event Name
-          </th>
-          <th
-            className={`${styles['middle-column']}`}
-            style={{ textAlign: 'center' }}
-          >
-            Players Name / Count
-          </th>
-          <th
-            className={`${styles['right-column']}`}
-            style={{ textAlign: 'center' }}
-          >
-            Edit Players
-          </th>
-        </tr>
-        {girlTeams.length === 0 ? (
-          <tr style={{ textAlign: 'center' }}>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-          </tr>
-        ) : (
-          girlTeams.map((team, ind) => {
-            return (
-              <tr key={ind}>
-                <td>
-                  <b>{team.game.substr(0, team.game.length - 2)}</b>
-                </td>
-                <td>
-                  {team.captain_name && (
-                    <b>
-                      Captain / Leader: {team.captain_name}{' '}
-                      {team.captain_phone && (
-                        <span>({team.captain_phone})</span>
-                      )}
-                      <br />
-                    </b>
-                  )}
-                  {team.players.some((row) => row.some((s) => s.length)) && (
-                    <b>
-                      {/* {team.game.substr(0, team.game.length - 2) ===
-                      'Athletics' ? (
-                        <span>Total Number of Boys: </span>
-                      ) : (
                         <span>Players Name: </span>
-                      )} */}
-                      <span>Players Name: </span>
-                    </b>
-                  )}
-                  {team.players
-                    .reduce((prev, cur) => [
-                      ...prev.filter((s) => s.length),
-                      ...cur.filter((s) => s.length),
-                    ])
-                    .slice(
-                      0,
-                      team.players.reduce((prev, cur) => [
+                      </b>
+                    )}
+                    {team.players
+                      .reduce((prev, cur) => [
                         ...prev.filter((s) => s.length),
                         ...cur.filter((s) => s.length),
-                      ]).length - 1
-                    )
-                    .map((player, ind) => {
-                      return <span key={ind}>{player}, </span>;
-                    })}
-                  {team.players.reduce((prev, cur) => [
-                    ...prev.filter((s) => s.length),
-                    ...cur.filter((s) => s.length),
-                  ]).length !== 0 && (
-                    <span>
-                      {
-                        team.players
-                          .reduce((prev, cur) => [
-                            ...prev.filter((s) => s.length),
-                            ...cur.filter((s) => s.length),
-                          ])
-                          .slice(-1)[0]
-                      }
-                    </span>
-                  )}
-                </td>
-                <td>
-                  <Button
-                    className={`${styles['register-now']}`}
-                    data-toggle={team.game}
-                    onClick={() => clickHandler(team.game)}
-                  >
-                    Add&nbsp;/&nbsp;Edit
-                  </Button>
-                  <Modal
-                    isOpen={showModals[`${team.game}`]}
-                    toggle={() => clickHandler(team.game)}
-                    centered
-                    scrollable
-                    keyboard
-                    size="lg"
-                  >
-                    <ModalHeader
-                      className={`${styles['modal-header']} ${styles['login-header']}`}
+                      ])
+                      .slice(
+                        0,
+                        team.players.reduce((prev, cur) => [
+                          ...prev.filter((s) => s.length),
+                          ...cur.filter((s) => s.length),
+                        ]).length - 1
+                      )
+                      .map((player, ind) => {
+                        return <span key={ind}>{player}, </span>;
+                      })}
+                    {team.players.reduce((prev, cur) => [
+                      ...prev.filter((s) => s.length),
+                      ...cur.filter((s) => s.length),
+                    ]).length !== 0 && (
+                        <span>
+                          {
+                            team.players
+                              .reduce((prev, cur) => [
+                                ...prev.filter((s) => s.length),
+                                ...cur.filter((s) => s.length),
+                              ])
+                              .slice(-1)[0]
+                          }
+                        </span>
+                      )}
+                  </td>
+                  <td>
+                    <Button
+                      className={`${styles['register-now']}`}
+                      data-toggle={team.game}
+                      onClick={() => clickHandler(team.game)}
                     >
-                      Players - {team.game.substr(0, team.game.length - 2)} [
-                      {team.game.endsWith('B') && 'BOYS'}
-                      {team.game.endsWith('G') && 'GIRLS'}
-                      {team.game.endsWith('M') && 'MIXED'}]
-                    </ModalHeader>
-                    <ModalBody className={`${styles['modal-body']}`}>
-                      <Alert
-                        color="warning"
-                        style={{
-                          fontSize: '16px',
-                          paddingTop: '10px',
-                          paddingBottom: '10px',
-                        }}
+                      Add&nbsp;/&nbsp;Edit
+                    </Button>
+                    <Modal
+                      isOpen={showModals[`${team.game}`]}
+                      toggle={() => clickHandler(team.game)}
+                      centered
+                      scrollable
+                      keyboard
+                      size="lg"
+                    >
+                      <ModalHeader
+                        className={`${styles['modal-header']} ${styles['login-header']}`}
                       >
-                        {' '}
-                        Your changes are not saved unless you submit them.
-                      </Alert>
-
-                      <table
-                        align="center"
-                        cellPadding="20"
-                        className={`${styles['modal-table']}`}
-                      >
-                        {['Taekwondo', 'Boxing'].includes(
-                          team.game.substr(0, team.game.length - 2)
-                        ) && (
-                          <tr>
-                            <td>
-                              <b> </b>
-                            </td>
-                            <td colSpan="2" className="text-danger text-center">
-                              <b>
-                                MAXIMUM PLAYERS:{' '}
-                                {team.game.substr(0, team.game.length - 2) ===
-                                'Boxing' ? (
-                                  <span>10</span>
-                                ) : (
-                                  <span>15</span>
-                                )}
-                              </b>
-                            </td>
-                          </tr>
-                        )}
-                        {['Taekwondo', 'Weightlifting', 'Boxing'].includes(
-                          team.game.substr(0, team.game.length - 2)
-                        ) && (
-                          <tr>
-                            {' '}
-                            <td>
-                              <b> </b>
-                            </td>
-                            <td colSpan="2" className="text-danger text-center">
-                              <b>
-                                Maximum 2 players are allowed in each weight
-                                category
-                              </b>
-                            </td>
-                          </tr>
-                        )}
-                        <tr>
+                        Players - {team.game.substr(0, team.game.length - 2)} [
+                        {team.game.endsWith('B') && 'BOYS'}
+                        {team.game.endsWith('G') && 'GIRLS'}
+                        {team.game.endsWith('M') && 'MIXED'}]
+                      </ModalHeader>
+                      <ModalBody className={`${styles['modal-body']}`}>
+                        <Alert
+                          color="warning"
+                          style={{
+                            fontSize: '16px',
+                            paddingTop: '10px',
+                            paddingBottom: '10px',
+                          }}
+                        >
+                          {' '}
+                          Your changes are not saved unless you submit them.
+                        </Alert>
+                        <table
+                          align="center"
+                          cellPadding="20"
+                          className={`${styles['modal-table']}`}
+                        >
                           {['Taekwondo', 'Boxing'].includes(
                             team.game.substr(0, team.game.length - 2)
                           ) && (
-                            <td>
-                              <b>
-                                {
-                                  labels[
-                                    team.game.substr(0, team.game.length - 2)
-                                  ][0]
-                                }
-                              </b>
-                            </td>
-                          )}
-                          <td>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Captain / Leader Name"
-                              data-game={team.game}
-                              name="captain_name"
-                              value={
-                                inputFields[`${team.game}`][0]['captain_name']
-                              }
-                              onChange={inputChangeHandler}
-                            ></input>
-                          </td>
-                          <td>
-                            <input
-                              type="tel"
-                              className="form-control"
-                              data-game={team.game}
-                              name="captain_phone"
-                              placeholder="Captain / Leader Phone No."
-                              value={
-                                inputFields[`${team.game}`][0]['captain_phone']
-                              }
-                              onChange={inputChangeHandler}
-                            ></input>
-                          </td>
-                        </tr>
-                      </table>
-                      <table
-                        align="center"
-                        cellpadding="20"
-                        className={`${styles['modal-table']}`}
-                      >
-                        {team.players.map((row, rowIndex) => {
-                          return (
-                            <tr>
-                              {['Taekwondo', 'Boxing'].includes(
-                                team.game.substr(0, team.game.length - 2)
-                              ) && (
+                              <tr>
+                                <td>
+                                  <b> </b>
+                                </td>
+                                <td colSpan="2" className="text-danger text-center">
+                                  <b>
+                                    MAXIMUM PLAYERS:{' '}
+                                    {team.game.substr(0, team.game.length - 2) ===
+                                      'Boxing' ? (
+                                      <span>10</span>
+                                    ) : (
+                                      <span>15</span>
+                                    )}
+                                  </b>
+                                </td>
+                              </tr>
+                            )}
+                          {['Taekwondo', 'Weightlifting', 'Boxing'].includes(
+                            team.game.substr(0, team.game.length - 2)
+                          ) && (
+                              <tr>
+                                {' '}
+                                <td>
+                                  <b> </b>
+                                </td>
+                                <td colSpan="2" className="text-danger text-center">
+                                  <b>
+                                    Maximum 2 players are allowed in each weight
+                                    category
+                                  </b>
+                                </td>
+                              </tr>
+                            )}
+                          <tr>
+                            {['Taekwondo', 'Weightlifting', 'Boxing'].includes(
+                              team.game.substr(0, team.game.length - 2)
+                            ) && (
                                 <td>
                                   <b>
                                     {
                                       labels[
-                                        team.game.substr(
-                                          0,
-                                          team.game.length - 2
-                                        )
-                                      ][rowIndex + 1]
+                                      team.game.substr(0, team.game.length - 2)
+                                      ][0]
                                     }
                                   </b>
                                 </td>
                               )}
-                              {row.map((col, colIndex) => {
-                                return (
-                                  <td>
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder={`Player ${
-                                        2 * rowIndex + colIndex + 1
-                                      }`}
-                                      data-game={team.game}
-                                      name={`${2 * rowIndex + colIndex}`}
-                                      value={
-                                        inputFields[`${team.game}`][0][
+                            <td>
+                              <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Captain / Leader Name"
+                                data-game={team.game}
+                                name="captain_name"
+                                value={
+                                  inputFields[`${team.game}`][0]['captain_name']
+                                }
+                                onChange={inputChangeHandler}
+                              ></input>
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                className="form-control"
+                                data-game={team.game}
+                                name="captain_phone"
+                                placeholder="Captain / Leader Phone No."
+                                value={
+                                  inputFields[`${team.game}`][0]['captain_phone']
+                                }
+                                onChange={inputChangeHandler}
+                              ></input>
+                            </td>
+                          </tr>
+                        </table>
+                        <table
+                          align="center"
+                          cellpadding="20"
+                          className={`${styles['modal-table']}`}
+                        >
+                          {team.players.map((row, rowIndex) => {
+                            return (
+                              <tr>
+                                {[
+                                  'Taekwondo',
+                                  'Weightlifting',
+                                  'Boxing',
+                                ].includes(
+                                  team.game.substr(0, team.game.length - 2)
+                                ) && (
+                                    <td>
+                                      <b>
+                                        {
+                                          labels[
+                                          team.game.substr(
+                                            0,
+                                            team.game.length - 2
+                                          )
+                                          ][rowIndex + 1]
+                                        }
+                                      </b>
+                                    </td>
+                                  )}
+                                {row.map((col, colIndex) => {
+                                  return (
+                                    <td>
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder={`Player ${2 * rowIndex + colIndex + 1
+                                          }`}
+                                        data-game={team.game}
+                                        name={`${2 * rowIndex + colIndex}`}
+                                        value={
+                                          inputFields[`${team.game}`][0][
                                           'players'
-                                        ][rowIndex][colIndex]
-                                      }
-                                      onChange={inputChangeHandler}
-                                    ></input>
-                                  </td>
-                                );
-                              })}
-                            </tr>
-                          );
-                        })}
-                      </table>
-                    </ModalBody>
-                    <ModalFooter className={`${styles['modal-footer']}`}>
-                      <Button
-                        className={`${styles.cancel}`}
-                        onClick={() => clickHandler(team.game)}
-                      >
-                        Cancel
-                      </Button>
-                      <Button
-                        className={`${styles['register-now']}`}
-                        onClick={() => {
-                          submitHandler(team.game);
-                        }}
-                      >
-                        Submit
-                      </Button>
-                    </ModalFooter>
-                  </Modal>
-                </td>
-              </tr>
-            );
-          })
-        )}
-      </table>
+                                          ][rowIndex][colIndex]
+                                        }
+                                        onChange={inputChangeHandler}
+                                      ></input>
+                                    </td>
+                                  );
+                                })}
+                              </tr>
+                            );
+                          })}
+                        </table>
+                      </ModalBody>
+                      <ModalFooter className={`${styles['modal-footer']}`}>
+                        <Button
+                          className={`${styles.cancel}`}
+                          onClick={() => clickHandler(team.game)}
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          className={`${styles['register-now']}`}
+                          onClick={() => {
+                            submitHandler(team.game);
+                          }}
+                        >
+                          Submit
+                        </Button>
+                      </ModalFooter>
+                    </Modal>
+                  </td>
+                </tr>
+              );
+            })
+          )}
+        </table>
+      </div>
       <br />
-      <div className={`${styles['events-heading']}`}>Mixed</div>
-      <table
-        className={`${styles['events-table']}`}
-        align="center"
-        cellpadding="20"
-        border="1"
-      >
-        <tr>
-          <th
-            className={`${styles['left-column']}`}
-            style={{ textAlign: 'center' }}
-          >
-            Event Name
-          </th>
-          <th
-            className={`${styles['middle-column']}`}
-            style={{ textAlign: 'center' }}
-          >
-            Players Name / Count
-          </th>
-          <th
-            className={`${styles['right-column']}`}
-            style={{ textAlign: 'center' }}
-          >
-            Edit Players
-          </th>
-        </tr>
-        {mixedTeams.length === 0 ? (
-          <tr style={{ textAlign: 'center' }}>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
+      <div className='sub_details'>
+        <div className='heading-register'>
+          <div className="events-heading">Girls</div>
+          <div className="edit_button">
+            <Link
+              to="/dashboard/events"
+              style={{ textDecoration: 'none', color: '#760e53' }}
+            >
+              Edit
+            </Link>
+          </div>
+        </div>
+        {/* <div className={`${styles['events-heading']}`}>Girls</div> */}
+        <table
+          className={`${styles['events-table']}`}
+          align="center"
+          cellpadding="20"
+          border="1"
+        >
+          <tr>
+            <th
+              className={`${styles['left-column']}`}
+              style={{ textAlign: 'center' }}
+            >
+              Event Name
+            </th>
+            <th
+              className={`${styles['middle-column']}`}
+              style={{ textAlign: 'center' }}
+            >
+              Players Name / Count
+            </th>
+            <th
+              className={`${styles['right-column']}`}
+              style={{ textAlign: 'center' }}
+            >
+              Edit Players
+            </th>
           </tr>
-        ) : (
-          mixedTeams.map((team, ind) => {
-            return (
-              <tr key={ind}>
-                <td>
-                  <b>{team.game.substr(0, team.game.length - 2)}</b>
-                </td>
-                <td>
-                  {team.captain_name && (
-                    <b>
-                      Captain / Leader: {team.captain_name}{' '}
-                      {team.captain_phone && (
-                        <span>({team.captain_phone})</span>
-                      )}
-                      <br />
-                    </b>
-                  )}
-                  {team.players.some((row) => row.some((s) => s.length)) && (
-                    <b>
-                      {/* {team.game.substr(0, team.game.length - 2) ===
+          {girlTeams.length === 0 ? (
+            <tr style={{ textAlign: 'center' }}>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          ) : (
+            girlTeams.map((team, ind) => {
+              return (
+                <tr key={ind}>
+                  <td>
+                    <b>{team.game.substr(0, team.game.length - 2)}</b>
+                  </td>
+                  <td>
+                    {team.captain_name && (
+                      <b>
+                        Captain / Leader: {team.captain_name}{' '}
+                        {team.captain_phone && (
+                          <span>({team.captain_phone})</span>
+                        )}
+                        <br />
+                      </b>
+                    )}
+                    {team.players.some((row) => row.some((s) => s.length)) && (
+                      <b>
+                        {/* {team.game.substr(0, team.game.length - 2) ===
                       'Athletics' ? (
                         <span>Total Number of Boys: </span>
                       ) : (
                         <span>Players Name: </span>
                       )} */}
-                      <span>Players Name: </span>
-                    </b>
-                  )}
-                  {team.players
-                    .reduce((prev, cur) => [
-                      ...prev.filter((s) => s.length),
-                      ...cur.filter((s) => s.length),
-                    ])
-                    .slice(
-                      0,
-                      team.players.reduce((prev, cur) => [
+                        <span>Players Name: </span>
+                      </b>
+                    )}
+                    {team.players
+                      .reduce((prev, cur) => [
                         ...prev.filter((s) => s.length),
                         ...cur.filter((s) => s.length),
-                      ]).length - 1
-                    )
-                    .map((player, ind) => {
-                      return <span key={ind}>{player}, </span>;
-                    })}
-                  {team.players.reduce((prev, cur) => [
-                    ...prev.filter((s) => s.length),
-                    ...cur.filter((s) => s.length),
-                  ]).length !== 0 && (
-                    <span>
-                      {
-                        team.players
-                          .reduce((prev, cur) => [
-                            ...prev.filter((s) => s.length),
-                            ...cur.filter((s) => s.length),
-                          ])
-                          .slice(-1)[0]
-                      }
-                    </span>
-                  )}
-                </td>
-                <td>
-                  <Button
-                    className={`${styles['register-now']}`}
-                    data-toggle={team.game}
-                    onClick={() => clickHandler(team.game)}
-                  >
-                    Add&nbsp;/&nbsp;Edit
-                  </Button>
-                  <Modal
-                    isOpen={showModals[`${team.game}`]}
-                    toggle={() => clickHandler(team.game)}
-                    centered
-                    scrollable
-                    keyboard
-                    size="lg"
-                  >
-                    <ModalHeader
-                      className={`${styles['modal-header']} ${styles['login-header']}`}
+                      ])
+                      .slice(
+                        0,
+                        team.players.reduce((prev, cur) => [
+                          ...prev.filter((s) => s.length),
+                          ...cur.filter((s) => s.length),
+                        ]).length - 1
+                      )
+                      .map((player, ind) => {
+                        return <span key={ind}>{player}, </span>;
+                      })}
+                    {team.players.reduce((prev, cur) => [
+                      ...prev.filter((s) => s.length),
+                      ...cur.filter((s) => s.length),
+                    ]).length !== 0 && (
+                        <span>
+                          {
+                            team.players
+                              .reduce((prev, cur) => [
+                                ...prev.filter((s) => s.length),
+                                ...cur.filter((s) => s.length),
+                              ])
+                              .slice(-1)[0]
+                          }
+                        </span>
+                      )}
+                  </td>
+                  <td>
+                    <Button
+                      className={`${styles['register-now']}`}
+                      data-toggle={team.game}
+                      onClick={() => clickHandler(team.game)}
                     >
-                      Players - {team.game.substr(0, team.game.length - 2)} [
-                      {team.game.endsWith('B') && 'BOYS'}
-                      {team.game.endsWith('G') && 'GIRLS'}
-                      {team.game.endsWith('M') && 'MIXED'}]
-                    </ModalHeader>
-                    <ModalBody className={`${styles['modal-body']}`}>
-                      <Alert
-                        color="warning"
-                        style={{
-                          fontSize: '16px',
-                          paddingTop: '10px',
-                          paddingBottom: '10px',
-                        }}
+                      Add&nbsp;/&nbsp;Edit
+                    </Button>
+                    <Modal
+                      isOpen={showModals[`${team.game}`]}
+                      toggle={() => clickHandler(team.game)}
+                      centered
+                      scrollable
+                      keyboard
+                      size="lg"
+                    >
+                      <ModalHeader
+                        className={`${styles['modal-header']} ${styles['login-header']}`}
                       >
-                        {' '}
-                        Your changes are not saved unless you submit them.
-                      </Alert>
-                      <table align="center" cellPadding="20">
-                        <tr>
-                          <td>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Captain / Leader Name"
-                              data-game={team.game}
-                              name="captain_name"
-                              value={
-                                inputFields[`${team.game}`][0]['captain_name']
-                              }
-                              onChange={inputChangeHandler}
-                            ></input>
-                          </td>
-                          <td>
-                            <input
-                              type="tel"
-                              className="form-control"
-                              data-game={team.game}
-                              name="captain_phone"
-                              placeholder="Captain / Leader Phone No."
-                              value={
-                                inputFields[`${team.game}`][0]['captain_phone']
-                              }
-                              onChange={inputChangeHandler}
-                            ></input>
-                          </td>
-                        </tr>
-                      </table>
-                      <table align="center" cellpadding="20">
-                        {team.players.map((row, rowIndex) => {
-                          return (
-                            <tr>
-                              {row.map((col, colIndex) => {
-                                return (
-                                  <td>
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder={`Player ${
-                                        2 * rowIndex + colIndex + 1
-                                      }`}
-                                      data-game={team.game}
-                                      name={`${2 * rowIndex + colIndex}`}
-                                      value={
-                                        inputFields[`${team.game}`][0][
+                        Players - {team.game.substr(0, team.game.length - 2)} [
+                        {team.game.endsWith('B') && 'BOYS'}
+                        {team.game.endsWith('G') && 'GIRLS'}
+                        {team.game.endsWith('M') && 'MIXED'}]
+                      </ModalHeader>
+                      <ModalBody className={`${styles['modal-body']}`}>
+                        <Alert
+                          color="warning"
+                          style={{
+                            fontSize: '16px',
+                            paddingTop: '10px',
+                            paddingBottom: '10px',
+                          }}
+                        >
+                          {' '}
+                          Your changes are not saved unless you submit them.
+                        </Alert>
+
+                        <table
+                          align="center"
+                          cellPadding="20"
+                          className={`${styles['modal-table']}`}
+                        >
+                          {['Taekwondo', 'Boxing'].includes(
+                            team.game.substr(0, team.game.length - 2)
+                          ) && (
+                              <tr>
+                                <td>
+                                  <b> </b>
+                                </td>
+                                <td colSpan="2" className="text-danger text-center">
+                                  <b>
+                                    MAXIMUM PLAYERS:{' '}
+                                    {team.game.substr(0, team.game.length - 2) ===
+                                      'Boxing' ? (
+                                      <span>10</span>
+                                    ) : (
+                                      <span>15</span>
+                                    )}
+                                  </b>
+                                </td>
+                              </tr>
+                            )}
+                          {['Taekwondo', 'Weightlifting', 'Boxing'].includes(
+                            team.game.substr(0, team.game.length - 2)
+                          ) && (
+                              <tr>
+                                {' '}
+                                <td>
+                                  <b> </b>
+                                </td>
+                                <td colSpan="2" className="text-danger text-center">
+                                  <b>
+                                    Maximum 2 players are allowed in each weight
+                                    category
+                                  </b>
+                                </td>
+                              </tr>
+                            )}
+                          <tr>
+                            {['Taekwondo', 'Boxing'].includes(
+                              team.game.substr(0, team.game.length - 2)
+                            ) && (
+                                <td>
+                                  <b>
+                                    {
+                                      labels[
+                                      team.game.substr(0, team.game.length - 2)
+                                      ][0]
+                                    }
+                                  </b>
+                                </td>
+                              )}
+                            <td>
+                              <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Captain / Leader Name"
+                                data-game={team.game}
+                                name="captain_name"
+                                value={
+                                  inputFields[`${team.game}`][0]['captain_name']
+                                }
+                                onChange={inputChangeHandler}
+                              ></input>
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                className="form-control"
+                                data-game={team.game}
+                                name="captain_phone"
+                                placeholder="Captain / Leader Phone No."
+                                value={
+                                  inputFields[`${team.game}`][0]['captain_phone']
+                                }
+                                onChange={inputChangeHandler}
+                              ></input>
+                            </td>
+                          </tr>
+                        </table>
+                        <table
+                          align="center"
+                          cellpadding="20"
+                          className={`${styles['modal-table']}`}
+                        >
+                          {team.players.map((row, rowIndex) => {
+                            return (
+                              <tr>
+                                {['Taekwondo', 'Boxing'].includes(
+                                  team.game.substr(0, team.game.length - 2)
+                                ) && (
+                                    <td>
+                                      <b>
+                                        {
+                                          labels[
+                                          team.game.substr(
+                                            0,
+                                            team.game.length - 2
+                                          )
+                                          ][rowIndex + 1]
+                                        }
+                                      </b>
+                                    </td>
+                                  )}
+                                {row.map((col, colIndex) => {
+                                  return (
+                                    <td>
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder={`Player ${2 * rowIndex + colIndex + 1
+                                          }`}
+                                        data-game={team.game}
+                                        name={`${2 * rowIndex + colIndex}`}
+                                        value={
+                                          inputFields[`${team.game}`][0][
                                           'players'
-                                        ][rowIndex][colIndex]
-                                      }
-                                      onChange={inputChangeHandler}
-                                    ></input>
-                                  </td>
-                                );
-                              })}
-                            </tr>
-                          );
-                        })}
-                      </table>
-                    </ModalBody>
-                    <ModalFooter className={`${styles['modal-footer']}`}>
-                      <Button
-                        className={`${styles.cancel}`}
-                        onClick={() => clickHandler(team.game)}
+                                          ][rowIndex][colIndex]
+                                        }
+                                        onChange={inputChangeHandler}
+                                      ></input>
+                                    </td>
+                                  );
+                                })}
+                              </tr>
+                            );
+                          })}
+                        </table>
+                      </ModalBody>
+                      <ModalFooter className={`${styles['modal-footer']}`}>
+                        <Button
+                          className={`${styles.cancel}`}
+                          onClick={() => clickHandler(team.game)}
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          className={`${styles['register-now']}`}
+                          onClick={() => {
+                            submitHandler(team.game);
+                          }}
+                        >
+                          Submit
+                        </Button>
+                      </ModalFooter>
+                    </Modal>
+                  </td>
+                </tr>
+              );
+            })
+          )}
+        </table>
+      </div>
+      <br />
+      <div className='sub_details'>
+        <div className='heading'>
+          <div className="events-heading">Mixed</div>
+          <div className="edit_button">
+            <Link
+              to="/dashboard/events"
+              style={{ textDecoration: 'none', color: '#760e53' }}
+            >
+              Edit
+            </Link>
+          </div>
+        </div>
+        {/* <div className={`${styles['events-heading']}`}>Mixed</div> */}
+        <table
+          className={`${styles['events-table']}`}
+          align="center"
+          cellpadding="20"
+          border="1"
+        >
+          <tr>
+            <th
+              className={`${styles['left-column']}`}
+              style={{ textAlign: 'center' }}
+            >
+              Event Name
+            </th>
+            <th
+              className={`${styles['middle-column']}`}
+              style={{ textAlign: 'center' }}
+            >
+              Players Name / Count
+            </th>
+            <th
+              className={`${styles['right-column']}`}
+              style={{ textAlign: 'center' }}
+            >
+              Edit Players
+            </th>
+          </tr>
+          {mixedTeams.length === 0 ? (
+            <tr style={{ textAlign: 'center' }}>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          ) : (
+            mixedTeams.map((team, ind) => {
+              return (
+                <tr key={ind}>
+                  <td>
+                    <b>{team.game.substr(0, team.game.length - 2)}</b>
+                  </td>
+                  <td>
+                    {team.captain_name && (
+                      <b>
+                        Captain / Leader: {team.captain_name}{' '}
+                        {team.captain_phone && (
+                          <span>({team.captain_phone})</span>
+                        )}
+                        <br />
+                      </b>
+                    )}
+                    {team.players.some((row) => row.some((s) => s.length)) && (
+                      <b>
+                        {/* {team.game.substr(0, team.game.length - 2) ===
+                      'Athletics' ? (
+                        <span>Total Number of Boys: </span>
+                      ) : (
+                        <span>Players Name: </span>
+                      )} */}
+                        <span>Players Name: </span>
+                      </b>
+                    )}
+                    {team.players
+                      .reduce((prev, cur) => [
+                        ...prev.filter((s) => s.length),
+                        ...cur.filter((s) => s.length),
+                      ])
+                      .slice(
+                        0,
+                        team.players.reduce((prev, cur) => [
+                          ...prev.filter((s) => s.length),
+                          ...cur.filter((s) => s.length),
+                        ]).length - 1
+                      )
+                      .map((player, ind) => {
+                        return <span key={ind}>{player}, </span>;
+                      })}
+                    {team.players.reduce((prev, cur) => [
+                      ...prev.filter((s) => s.length),
+                      ...cur.filter((s) => s.length),
+                    ]).length !== 0 && (
+                        <span>
+                          {
+                            team.players
+                              .reduce((prev, cur) => [
+                                ...prev.filter((s) => s.length),
+                                ...cur.filter((s) => s.length),
+                              ])
+                              .slice(-1)[0]
+                          }
+                        </span>
+                      )}
+                  </td>
+                  <td>
+                    <Button
+                      className={`${styles['register-now']}`}
+                      data-toggle={team.game}
+                      onClick={() => clickHandler(team.game)}
+                    >
+                      Add&nbsp;/&nbsp;Edit
+                    </Button>
+                    <Modal
+                      isOpen={showModals[`${team.game}`]}
+                      toggle={() => clickHandler(team.game)}
+                      centered
+                      scrollable
+                      keyboard
+                      size="lg"
+                    >
+                      <ModalHeader
+                        className={`${styles['modal-header']} ${styles['login-header']}`}
                       >
-                        Cancel
-                      </Button>
-                      <Button
-                        className={`${styles['register-now']}`}
-                        onClick={() => {
-                          submitHandler(team.game);
-                        }}
-                      >
-                        Submit
-                      </Button>
-                    </ModalFooter>
-                  </Modal>
-                </td>
-              </tr>
-            );
-          })
-        )}
-      </table>
+                        Players - {team.game.substr(0, team.game.length - 2)} [
+                        {team.game.endsWith('B') && 'BOYS'}
+                        {team.game.endsWith('G') && 'GIRLS'}
+                        {team.game.endsWith('M') && 'MIXED'}]
+                      </ModalHeader>
+                      <ModalBody className={`${styles['modal-body']}`}>
+                        <div style={{ backgroundColor: 'red' }}>
+                          <Alert
+                            // color="warning"
+                            style={{
+                              fontSize: '16px',
+                              paddingTop: '10px',
+                              paddingBottom: '10px',
+                              backgroundColor: 'red'
+                            }}
+
+                          >
+                            {' '}
+                            Your changes are not saved unless you submit them.
+                          </Alert></div>
+                        <table align="center" cellPadding="20">
+                          <tr>
+                            <td>
+                              <input
+                                type="text"
+                                style={{ border: '2px solid #760e53' }}
+                                className={`${styles['form-control']}`}
+                                placeholder="Captain / Leader Name"
+                                data-game={team.game}
+                                name="captain_name"
+                                value={
+                                  inputFields[`${team.game}`][0]['captain_name']
+                                }
+                                onChange={inputChangeHandler}
+                              ></input>
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                className="form-control"
+                                data-game={team.game}
+                                name="captain_phone"
+                                placeholder="Captain / Leader Phone No."
+                                value={
+                                  inputFields[`${team.game}`][0]['captain_phone']
+                                }
+                                onChange={inputChangeHandler}
+                              ></input>
+                            </td>
+                          </tr>
+                        </table>
+                        <table align="center" cellpadding="20">
+                          {team.players.map((row, rowIndex) => {
+                            return (
+                              <tr>
+                                {row.map((col, colIndex) => {
+                                  return (
+                                    <td>
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder={`Player ${2 * rowIndex + colIndex + 1
+                                          }`}
+                                        data-game={team.game}
+                                        name={`${2 * rowIndex + colIndex}`}
+                                        value={
+                                          inputFields[`${team.game}`][0][
+                                          'players'
+                                          ][rowIndex][colIndex]
+                                        }
+                                        style={{ border: '1px solid #760e53' }}
+                                        onChange={inputChangeHandler}
+                                      ></input>
+                                    </td>
+                                  );
+                                })}
+                              </tr>
+                            );
+                          })}
+                        </table>
+                      </ModalBody>
+                      <ModalFooter className={`${styles['modal-footer']}`}>
+                        <Button
+                          className={`${styles.cancel}`}
+                          onClick={() => clickHandler(team.game)}
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          className={`${styles['register-now']}`}
+                          onClick={() => {
+                            submitHandler(team.game);
+                          }}
+                        >
+                          Submit
+                        </Button>
+                      </ModalFooter>
+                    </Modal>
+                  </td>
+                </tr>
+              );
+            })
+          )}
+        </table></div>
       <br />
     </>
   );

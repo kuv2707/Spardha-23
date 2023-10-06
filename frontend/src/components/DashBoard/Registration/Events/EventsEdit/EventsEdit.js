@@ -9,6 +9,10 @@ import { EventContext } from '../../../../../contexts/EventContext';
 const GAMES = {
   boys: [
     'Athletics',
+<<<<<<< HEAD
+=======
+    'Aquatics',
+>>>>>>> 99d5d6563e7cfd75a6c95c4c6097fa9fa73d59d1
     'Badminton',
     'Basketball',
     'Boxing',
@@ -28,6 +32,10 @@ const GAMES = {
   ],
   girls: [
     'Athletics',
+<<<<<<< HEAD
+=======
+    'Aquatics',
+>>>>>>> 99d5d6563e7cfd75a6c95c4c6097fa9fa73d59d1
     'Badminton',
     'Basketball',
     'Boxing',
@@ -89,7 +97,11 @@ function EventsEdit() {
       })
       .catch((err) => {
         console.error(err.message);
+<<<<<<< HEAD
         setErrorMessage('Could not fetch data '+err.message);
+=======
+        setErrorMessage('Could not fetch data ' + err.message);
+>>>>>>> 99d5d6563e7cfd75a6c95c4c6097fa9fa73d59d1
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -135,7 +147,11 @@ function EventsEdit() {
       })
       .catch((err) => {
         console.error(err); //could not submit changes
+<<<<<<< HEAD
         setErrorMessage('Could not submit changes '+err.message);
+=======
+        setErrorMessage('Could not submit changes ' + err.message);
+>>>>>>> 99d5d6563e7cfd75a6c95c4c6097fa9fa73d59d1
       })
       .finally(() => {
         setLoading(false);
@@ -155,7 +171,7 @@ function EventsEdit() {
                       setShowBoys((prevState) => !prevState);
                     }}
                     className={`${styles['panel-title']} text-center align-items-center`}
-                    style={{ color: '#59ba00' }}
+                    style={{ color: '#FFFFFF' }}
                   >
                     <FaMale /> <b>Boys </b>
                   </h4>
@@ -199,7 +215,7 @@ function EventsEdit() {
                       setShowGirls((prevState) => !prevState);
                     }}
                     className={`${styles['panel-title']} text-center align-items-center`}
-                    style={{ color: '#59ba00' }}
+                    style={{ color: '#FFFFFF' }}
                   >
                     <FaFemale /> <b>Girls </b>
                   </h4>
@@ -245,7 +261,7 @@ function EventsEdit() {
                       setShowMixed((prevState) => !prevState);
                     }}
                     className={`${styles['panel-title']} text-center align-items-center`}
-                    style={{ color: '#59ba00' }}
+                    style={{ color: '#FFFFFF' }}
                   >
                     <b>Mixed </b>
                   </h4>
@@ -286,8 +302,10 @@ function EventsEdit() {
         <ErrorMessage message={errorMessage} />
         <Button
           color="success"
-          style={{ fontWeight: 'bold', width: 'fit-content' }}
-          className="mt-4"
+          style={{
+            fontWeight: 'bold', width: 'fit-content',
+          }}
+          className={styles['btn']}
           onClick={submitHandler}
           disabled={loading}
         >

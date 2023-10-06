@@ -7,6 +7,7 @@ from .serializers import (
     check,
     LoginSerializer,
     UserSerializer,
+    DummySerializer
 )
 from .models import UserAccount
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -85,7 +86,8 @@ class LoginView(generics.GenericAPIView):
 
         login(request, user)
         token, _ = Token.objects.get_or_create(user=user)
-        return Response({"token": token.key})
+        role = "staff" if user.is_staff else "admin" if user.is_admin else "not-staff-admin"
+        return Response({"token": token.key, "role": role})
 
 
 class LogoutView(generics.GenericAPIView):
@@ -429,7 +431,23 @@ class AllUsersView(generics.GenericAPIView):
             return Response({"error": "You are not allowed to access this endpoint"}, status=status.HTTP_403_FORBIDDEN)
 
 class StatusCheck(generics.GenericAPIView):
+    serializer_class = DummySerializer
     def get(request, user):
         return Response(
                     status = status.HTTP_200_OK,
                 )
+
+class AllUsersView(generics.GenericAPIView):
+    queryset = UserAccount.objects.all()
+    serializer_class = UserSerializer
+
+    @swagger_auto_schema(
+        manual_parameters=[token_param]
+    )
+    def get(self, request):
+        if request.user.is_staff or request.user.is_admin:
+            users = self.get_queryset()  # Retrieve the queryset of users
+            serializer = self.get_serializer(users, many=True)  # Serialize the data
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "You are not allowed to access this endpoint"}, status=status.HTTP_403_FORBIDDEN)

@@ -1,31 +1,42 @@
 .user-dashboard {
   padding: 0 20px;
+  background-color: #D9D9D9;
 }
 
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"; 
+
 .user-dashboard h1 {
-  color: rgb(0, 78, 0);
-  font-size: 30px;
+  color: black;
+  font: Poppins;
+  font-size: 22px;
   font-weight: 500;
   margin: 0;
   padding: 21px 0;
+  
+}
+.username{
+  color:#760E53
+}
+.num{
+  color:#760E53;
+  font-weight: 1000;
+}
+.home_scroller{
+  overflow: auto;
+  height: 75vh;
+  overflow-x: hidden;
+  padding-right:10px;
+}
+.home_scroller::-webkit-scrollbar {
+  width: 10px;
 }
 
-/* .user-dashboard .btn.btn-secondary.btn-lg.dropdown-toggle>span {
-    font-size: 11px;
-} */
-
-/* .user-dashboard .welcome-text button {
-    font-size: 11px;
-    padding-right: 23px;
-} */
-
-/* .user-dashboard .welcome-text h2 {
-    font-size: 14px;
+.home_scroller::-webkit-scrollbar-thumb {
+  background-color: #760e53;
+  border-radius: 200px;
 }
 
-.user-dashboard h1 {
-    font-size: 25px;
-} */
+
 
 @media only screen and (min-width: 767px) and (max-width: 998px) {
   .user-dashboard .header-top {
@@ -34,7 +45,7 @@
 
   .user-dashboard .header-rightside {
     display: inline-block;
-    float: left;
+    /* float: left; */
     width: 100%;
   }
 
@@ -42,17 +53,23 @@
     max-width: 41px !important;
   }
 
-  .user-dashboard .welcome-text button {
+  /* .user-dashboard .welcome-text button {
     font-size: 10px;
-  }
+  } */
 
   .user-dashboard .btn.btn-secondary.btn-lg.dropdown-toggle > span {
     font-size: 12px;
   }
 
-  .user-dashboard .welcome-text h2 {
+  /* .user-dashboard .welcome-text h2 {
     font-size: 16px;
-  }
+  } */
+}
+
+.register{
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 27px;
 }
 
 .row_dbHome {
@@ -61,20 +78,63 @@
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
 }
 
 .gutter {
-  padding: 0;
+  padding: 10px 0;
+  justify-content: center;
+  display: flex;
+}
+
+.welcome-text h2{
+  font: Poppins;
+  color: #760E53;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 33px;
+
+}
+
+.register {
+  background-color: transparent;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.1rem !important;
+  padding: 9px, 33px, 9px, 33px;
+  border-radius: 35px;
+  width: 176px;
+  height: Fixed (40px);
+  top: 580px;
+  left: 1045px;
+  border: 2px;
+  gap: 10px;
+  border: 2px solid rgba(118, 14, 83, 1);
+  display: flex;
+  margin-left: auto;
+  font-weight: 500;
+  font-size: 18px;
+  color: #760E53;
+}
+
+.register:hover {
+  background-color: #760E53;
+  color: white;
+  transition: ease-out;
+  transition-duration: 300ms;
+}
+
+.register:focus {
+  color: #ffffff;
 }
 
 .welcome-text {
   background: #ffffff none repeat scroll 0 0;
-  border: 1px solid #d4d9e3;
+  border: 1px solid #D9D9D9;
   display: inline-block;
   padding: 15px;
   width: 100%;
+  border-radius: 20px;
 }
 
 /* .welcome-text button {
@@ -103,14 +163,15 @@
   float: right;
 }
 
-.welcome-text h2 {
-  color: #8492af;
+.welcome-text h3 {
+  color: black;
   /* float: left; */
-  font-size: 21px;
-  font-weight: 600;
+  font: Poppins;
+  font-size: 20px;
+  font-weight: 400;
   margin: 0;
   padding: 0 0 0;
-  line-height: 1.5;
+  line-height: 30px;
 }
 
 .welcome-text .btn-group.open .dropdown-toggle,
@@ -120,7 +181,7 @@
 }
 
 .welcome-text .dropdown-menu > a {
-  color: rgb(0, 78, 0);
+  color: #760E53;
   display: inline-block;
   font-weight: 800;
   padding: 9px 0;
@@ -129,15 +190,15 @@
 }
 
 .welcome-text .dropdown-menu > a:hover {
-  color: limegreen;
+  color: #B4147E;
 }
 
 @media only screen and (max-width: 767px) {
-  .user-dashboard .welcome-text h2 {
-    color: #8492af;
+  .user-dashboard .welcome-text h3 {
+    color: black;
     /* float: left; */
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
     margin: 0;
     padding: 0 0 0;
   }
@@ -147,12 +208,12 @@
   }
 
   .user-dashboard .welcome-text button {
-    font-size: 11px;
+    /* font-size: 11px; */
     padding-right: 23px;
   }
 
   .user-dashboard .welcome-text h2 {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .user-dashboard h1 {
@@ -160,7 +221,7 @@
   }
 
   .gutter {
-    padding: 0;
+    padding: 6px 0;
   }
 }
 
@@ -180,7 +241,14 @@
   }
 }
 
-.linkbutton_db {
+.text-justify{
+  font:Poppins;
+  font-weight: 400;
+  font-size: 20px;
+  text-align: justify;
+}
+
+ /* .linkbutton_db {
   background: none;
   border: none;
   font-weight: 700;
@@ -199,6 +267,47 @@
     font-size: inherit !important;
     padding-right: inherit !important;
   }
+} */
+
+.btnform{
+  margin-top: 15px;
+
+  border-radius: 100px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px 10px 20px;
+  position: relative;
+
+  background-color: transparent;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.1rem !important;
+  padding: 9px, 33px, 9px, 33px;
+  border-radius: 35px;
+  /* width: 176px; */
+  height: Fixed (40px);
+  /* top: 580px;
+  left: 1045px; */
+  border: 2px;
+  gap: 10px;
+  border: 2px solid rgba(118, 14, 83, 1);
+  display: flex;
+  margin-right: auto;
+  font-weight: 500;
+  font-size: 18px;
+  color: #760E53;
+} 
+.btnform:hover {
+  background-color: #760E53;
+  color: white;
+  transition: ease-out;
+  transition-duration: 300ms;
+}
+
+.btnform:focus {
+  color: #ffffff;
 }
 
 .btnform{

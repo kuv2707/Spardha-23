@@ -5,6 +5,8 @@
   transition: all 0.5s ease;
 }
 
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
 @media (min-width: 991.98px) {
   .spardha-logo {
     width: 40% !important;
@@ -34,10 +36,11 @@
 }
 
 .navi .item_nav {
-  border-bottom: 1px solid rgb(0, 60, 0);
-  border-top: 1px solid rgb(0, 60, 0);
+  border-bottom: 1px solid rgba(118, 14, 83, 1);
+  border-top: 1px solid rgba(118, 14, 83, 1);
   color: #ffffff;
   display: block;
+  font:Poppins;
   font-size: 17px;
   font-weight: 500;
   padding: 28px 20px;
@@ -46,25 +49,28 @@
 
 .navi i {
   margin-right: 15px;
-  color: limegreen;
+  color: #B4147E;
 }
 
 .navi .active .item_nav {
-  background: darkgreen;
-  border-left: 5px solid limegreen;
+  background: #760E53;
+  border-left: 5px solid #B4147E;
   padding-left: 15px;
 }
 
 .navi .item_nav:hover {
-  background: darkgreen none repeat scroll 0 0;
-  border-left: 5px solid limegreen;
+  background: #B4147E none repeat scroll 0 0;
+  border-left: 15px solid #760E53;
+  border-right: 10px solid #760E53;
+  border-top: 1.5px solid white;
+  border-bottom:1.5px solid white ;
   display: block;
   padding-left: 15px;
 }
 
 #navigation {
   /* position: fixed; */
-  background: rgb(0, 78, 0);
+  background: rgba(118, 14, 83, 1);
 }
 
 #navigation {
@@ -87,7 +93,7 @@
 
   #navigation .navi .item_nav:hover,
   #navigation .navi .active .item_nav {
-    background: darkgreen none repeat scroll 0 0;
+    background: rgba(118, 14, 83, 1) none repeat scroll 0 0;
     border-left: none;
     display: block;
     padding-left: 20px;
@@ -107,6 +113,6 @@
 }
 
 #navigation svg {
-  color: limegreen;
+  color: white;
   margin-right: 7px;
 }

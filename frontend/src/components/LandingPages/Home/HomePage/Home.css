@@ -1,0 +1,22 @@
+.sctn {
+	width:100vw;
+	display: flex;
+	height: 95vh;
+
+
+}
+
+.hehe {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	
+
+	
+}
+@media(max-width:390px){
+	.hehe{
+		margin-top: 50px;
+	}
+}
+

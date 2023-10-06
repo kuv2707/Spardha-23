@@ -23,8 +23,12 @@ const Topbar = ({ toggleSidebar }) => {
 
   const [user, setUser] = useState('');
   const [numevents, setNumEvents] = useState('loading...');
+<<<<<<< HEAD
   const {getEventCount}=React.useContext(EventContext);
 
+=======
+  const { getEventCount } = React.useContext(EventContext);
+>>>>>>> 99d5d6563e7cfd75a6c95c4c6097fa9fa73d59d1
 
   useEffect(() => {
     axios
@@ -41,7 +45,11 @@ const Topbar = ({ toggleSidebar }) => {
       .catch((err) => {
         console.log('error=', err);
       });
+<<<<<<< HEAD
 setNumEvents('loading...');
+=======
+    setNumEvents('loading...');
+>>>>>>> 99d5d6563e7cfd75a6c95c4c6097fa9fa73d59d1
     axios
       .get(`${baseUrl}teams/`, {
         headers: {
@@ -55,8 +63,13 @@ setNumEvents('loading...');
       })
       .catch((err) => {
         console.log('error=', err);
+<<<<<<< HEAD
         if (err.response.status === 404 ||err.response.status === 429) {
           setNumEvents("error!");
+=======
+        if (err.response.status === 404 || err.response.status === 429) {
+          setNumEvents('error!');
+>>>>>>> 99d5d6563e7cfd75a6c95c4c6097fa9fa73d59d1
         }
         
       });
@@ -68,7 +81,7 @@ setNumEvents('loading...');
     <Navbar
       color="light"
       light
-      className="navbar shadow-sm bg-white rounded"
+      className="navbar1"
       expand="md"
     >
       <div className="left_content">
@@ -97,7 +110,8 @@ setNumEvents('loading...');
                 </li>
                 <li className="dropdown">
                   <button className="dropdown-toggle" onClick={toggleOpen}>
-                    <img src="/images/icons/user.png" alt="user" />
+                    <img src="/images/icons/Male user.png" alt="user" />
+                    <img style={{width:'20px'}} src="/images/icons/Expand Arrow.png" alt="user" />
                     <b className="caret"></b>
                   </button>
                   <ul

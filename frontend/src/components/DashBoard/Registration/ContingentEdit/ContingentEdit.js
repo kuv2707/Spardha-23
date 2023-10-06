@@ -18,7 +18,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router';
-toast.configure();
+import '../../Profile/Profile.css'
+//toast.configure();
 
 const ContingentEdit = () => {
   // const [contdetails,setContDetails] = useState('');
@@ -170,21 +171,23 @@ const ContingentEdit = () => {
   return (
     <div className="user-dashboard cont_Pad">
       <div className="row_dbContingent">
-        <div className="col-xs-12 gutter widthAdjust">
-          <div className="welcome-text">
+        <div className='new_div'>
+        <div className="col-xs-12 gutter-cont widthAdjust">
+          <div className="welcome-text-cont">
             <div className="text-justify">
               <h2>
-                <Form>
+                <Form className='border_div'>
                   <table
                     align="center"
                     cellpadding="20"
                     className="profile-table"
                   >
                     <tr>
-                      <td className="left-column" style={{ textAlign: 'left' }}>
-                        Total Number of Boys :{' '}
+                      <td className="left-column single-line" style={{ textAlign: 'left', maxWidth: '66vw' }}>
+                        Total Number of Boys {' '}
                       </td>
                       <td className="right-column" width="30%">
+                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
                         <FormGroup>
                           <Input
                             type="tel"
@@ -208,10 +211,11 @@ const ContingentEdit = () => {
                     </tr>
 
                     <tr>
-                      <td className="left-column" style={{ textAlign: 'left' }}>
-                        Total Number of Girls :{' '}
+                      <td className="left-column single-line" style={{ textAlign: 'left' }}>
+                        Total Number of Girls {' '}
                       </td>
                       <td className="right-column" width="30%">
+                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
                         <FormGroup>
                           <Input
                             type="tel"
@@ -237,10 +241,11 @@ const ContingentEdit = () => {
                     </tr>
 
                     <tr>
-                      <td className="left-column" style={{ textAlign: 'left' }}>
-                        Total Number of Faculty members :{' '}
+                      <td className="left-column single-line" style={{ textAlign: 'left' }}>
+                        Total Number of Faculty members {' '}
                       </td>
                       <td className="right-column" width="30%">
+                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
                         <FormGroup>
                           <Input
                             type="tel"
@@ -266,10 +271,11 @@ const ContingentEdit = () => {
                     </tr>
 
                     <tr>
-                      <td className="left-column" style={{ textAlign: 'left' }}>
-                        Total Number of Coaches & PTI :{' '}
+                      <td className="left-column single-line" style={{ textAlign: 'left' }}>
+                        Total Number of Coaches & PTI {' '}
                       </td>
                       <td className="right-column" width="30%">
+                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
                         <FormGroup>
                           <Input
                             type="tel"
@@ -292,10 +298,11 @@ const ContingentEdit = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td className="left-column" style={{ textAlign: 'left' }}>
-                        Total Number of Supporting Staff :{' '}
+                      <td className="left-column single-line" style={{ textAlign: 'left' }}>
+                        Total Number of Supporting Staff {' '}
                       </td>
                       <td className="right-column" width="30%">
+                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
                         <FormGroup>
                           <Input
                             type="tel"
@@ -321,11 +328,12 @@ const ContingentEdit = () => {
                     </tr>
 
                     <tr>
-                      <td className="left-column" style={{ textAlign: 'left' }}>
+                      <td className="left-column single-line" style={{ textAlign: 'left' }}>
                         Full Name of Contingent Leader{' '}
-                        <span style={{ color: 'red' }}>*</span> :{' '}
+                        <span style={{ color: 'red' }}>*</span>{' '}
                       </td>
                       <td className="right-column" width="30%">
+                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
                         <FormGroup>
                           <Input
                             type="text"
@@ -347,11 +355,12 @@ const ContingentEdit = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td className="left-column" style={{ textAlign: 'left' }}>
+                      <td className="left-column single-line" style={{ textAlign: 'left' }}>
                         Contact Number of Contingent Leader{' '}
-                        <span style={{ color: 'red' }}>*</span> :{' '}
+                        <span style={{ color: 'red' }}>*</span>{' '}
                       </td>
                       <td className="right-column" width="30%">
+                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
                         <FormGroup>
                           <Input
                             type="tel"
@@ -376,7 +385,7 @@ const ContingentEdit = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td className="left-column"></td>
+                      <td className="left-column single-line"></td>
                       <td
                         className="right-column"
                         style={{ color: 'red', fontSize: '15px' }}
@@ -389,22 +398,22 @@ const ContingentEdit = () => {
                 <table
                   align="center"
                   cellpadding="20"
-                  className="profile-table"
+                  className="profile-table button-work"
                 >
                   <tr className="mine_contDb">
-                    <td>
-                      <button
-                        onClick={cancelButton}
-                        className="register-now"
-                        style={{ marginRight: '0' }}
-                      >
-                        Cancel
-                      </button>
-                    </td>
-                    <td>
+                  <td>
                       {' '}
                       <button onClick={submitButton} className="register-now">
                         Submit
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        onClick={cancelButton}
+                        className="del_button"
+                        style={{ marginRight: '0' }}
+                      >
+                        Cancel
                       </button>
                     </td>
                   </tr>
@@ -413,6 +422,7 @@ const ContingentEdit = () => {
             </div>
           </div>
         </div>
+       </div>
       </div>
     </div>
   );

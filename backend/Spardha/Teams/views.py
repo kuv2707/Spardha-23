@@ -1,6 +1,5 @@
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
-from django.http import FileResponse
 from .models import Game, Team, Contingent
 from .serializers import (
     GameSerializer,
@@ -8,6 +7,7 @@ from .serializers import (
     TeamUpdateSerializer,
     AllContingentSerializer,
     ContingentSerializer,
+    FormSerializer
 )
 from drf_yasg.utils import swagger_auto_schema
 from scripts.user_registration import UsersSheet
@@ -78,12 +78,10 @@ def serialized_data(contingent):
 
 class AllContingentView(generics.GenericAPIView):
     serializer_class = AllContingentSerializer
-
     def get(self, request):
         if request.user.is_staff:
-            # * The below line fetches all the teams and the game associated with the team. It optimizes the speed of queries by decreasing N queries into a single query
-            contingents = Contingent.objects.prefetch_related(
-                'college_rep__team_set__game').all()
+            #* The below line fetches all the teams and the game associated with the team. It optimizes the speed of queries by decreasing N queries into a single query
+            contingents = Contingent.objects.prefetch_related('college_rep__team_set__game').all()
             data = [serialized_data(contingent) for contingent in contingents]
             serializer = AllContingentSerializer(data=data, many=True)
             serializer.is_valid(raise_exception=True)
@@ -255,67 +253,13 @@ class TeamView(generics.GenericAPIView):
             204: """{"error":"Team not found"}""",
         }
     )
-    def delete(self, request, games):
-        if deleteData(request, games) == True:
-            UsersSheet.update_user(request.user.email)
-            return Response({"success": "Teams have been deleted"}, status=status.HTTP_200_OK)
-        else:
-            return Response({"error": "Team not found"}, status=status.HTTP_204_NO_CONTENT)
-
-
-from django.db.models import Q
-
-def deleteData(request, games):
-    if(len(games)==0):
-        return True
-    q_objects = Q()
-    for game in games:
-        game_name, game_type = game.split('_')[0], game.split('_')[1]
-        q_objects |= Q(game__name=game_name, game__game_type=game_type, user=request.user)
-
-    teams = Team.objects.filter(q_objects)
-    
-    if teams.exists():
-        teams.delete()
-        return True
-    return False
-
-def form_serialized_data(contingent):
-    college_rep = contingent.college_rep
-    data = {
-        "institution_name": college_rep.institution_name,
-        "phone_no": college_rep.phone_no,
-        "leader_name": contingent.leader_name,
-        "leader_contact_num": contingent.leader_contact_num,
-        "num_of_boys": contingent.num_of_boys,
-        "num_of_girls": contingent.num_of_girls,
-        "num_of_coaches_pti": contingent.num_of_coaches_pti,
-        "num_of_faculty_members": contingent.num_of_faculty_members,
-        "num_of_supporting_staff": contingent.num_of_supporting_staff,
-        "games": [
-            {
-                "game_name": team.game.name,
-                "max_players": team.game.max_players,
-                "players": team.players,
-                "game_type": team.game.game_type
-            } for team in college_rep.team_set.all()
-        ]
-        #* college_rep.team_set fetches all the teams it is referred by foreign key
-    }
-    return data
-class ContingentFormView(generics.GenericAPIView):
-
-    @swagger_auto_schema(
-        responses={
-            200: """Download file""",
-        },
-        manual_parameters=[token_param]
-    )
-    def get(self, request):
-        contingents = Contingent.objects.prefetch_related('college_rep__team_set__game').filter(college_rep=request.user)
-        data = {}
-        for contingent in contingents:
-            data = form_serialized_data(contingent)
-        response = FileResponse(create_form(data), content_type='application/msword')
-        response['Content-Disposition'] = 'attachment; filename="Spardha23_detailed_entry_form.docx"'
-        return response
+    def delete(self, request, game):
+        game=Game.objects.get(name=game.split('_')[0],game_type=game.split('_')[1])
+        team = Team.objects.filter(game=game, user=request.user)
+        if team.exists():
+            # TeamsSheet.delete_team(team[0])
+            user_email = team[0].user.email
+            team.delete()
+            UsersSheet.update_user(user_email)
+            return Response({"success": "Team has been deleted"}, status=status.HTTP_200_OK)
+        return Response({"error":"Team not found"},status=status.HTTP_204_NO_CONTENT)

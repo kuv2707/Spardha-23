@@ -1,9 +1,26 @@
 import React from 'react';
 import styles from './Events.module.css';
-import rules from './rules.jpg';
-// import trophy from './trophy.jpg';
-import contacts from './contacts.jpg';
 import { FaTimes } from 'react-icons/fa';
+import athletics from './image/athletics.png';
+import basketball from './image/basketball.png';
+import badminton from './image/badminton.png';
+import boxing from './image/boxing.png';
+import chess from './image/chess.png';
+import cricket from './image/cricket.png';
+import football from './image/football.png';
+import handball from './image/handball.png';
+import hockey from './image/hockey.png';
+import kabaddi from './image/kabaddi.png';
+import khokho from './image/kho-kho.png'
+import cycling from './image/cycling.png';
+import squash from './image/squash.png';
+import powerlifting from './image/powerlifting.png';
+import tabletennis from './image/table-tennis.png';
+import taekwondo from './image/taekwondo.png';
+import tennis from './image/tennis.png';
+import volleyball from './image/volleyball.png';
+import weightlifting from './image/weightlifting.png';
+import aquatics from './image/aquatics.png';
 import AthleticsPDF from './athletics.pdf';
 import BadmintonPDF from './badminton.pdf';
 import BasketballPDF from './basketball.pdf';
@@ -24,216 +41,39 @@ import VolleyballPDF from './volleyball.pdf';
 import WeightliftingPDF from './weightlifting.pdf';
 import TaekwondoPDF from './taekwondo.pdf';
 
-// const Aqautics = (props) => {
-//   return (
-//     <div>
-//       <div className="row" style={{ marginLeft: '5px', marginRight: '5px' }}>
-//         <div
-//           className={`${styles.col_10} ${styles.text_center} ${styles.Main_block}`}
-//         >
-//           <button
-//             className={`${styles.fa} ${styles.fa_times}`}
-//             id="0x"
-//             onClick={() => props.changeState(false)}
-//           >
-//             <FaTimes />
-//           </button>
-//           <div
-//             className="row"
-//             style={{ marginLeft: '15px', marginRight: '15px' }}
-//           >
-//             <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
-//               <div className={`${styles.event_block}`}>
-//                 <div className={`${styles.rule_box}`}>
-//                   <div className={`${styles.a_rule}`}>
-//                     <div className={`${styles.image}`}>
-//                       <img
-//                         className={`${styles.img_responsive}`}
-//                         src={rules}
-//                         alt="img"
-//                       />
-//                     </div>
-//                     <div className={`${styles.info} ${styles.rule}`}>
-//                       <h4> Rules </h4>
-//                       {/* <a
-//                      href={AthleticsPDF}//add aquatics rules pdf
-//                         target="_blank"
-//                         rel="noreferrer"
-//                         className={`${styles.rulebook}`}
-//                       >
-//                         CLICK HERE FOR RULES
-//                       </a>*/}
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                     </div>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-
-//             <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
-//               <div className={`${styles.event_block}`}>
-//                 <div className={`${styles.winner_box} ${styles.info}`}>
-//                   <div className={`${styles.image}`}>
-//                     <img
-//                       className={`${styles.img_responsive}`}
-//                       src={trophy}
-//                       alt="img"
-//                     />
-//                   </div>
-//                   <div className={`${styles.info}`}>
-//                     <h4>Aqautics</h4>
-//                     <p>
-//                       Coming Soon
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                       <br />
-//                     </p>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-
-//             <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
-//               <div className={`${styles.event_block}`}>
-//                 <div className={`${styles.contact_box}`}>
-//                   <div className={`${styles.image}`}>
-//                     <img
-//                       className={`${styles.img_responsive}`}
-//                       src={contacts}
-//                       alt="img"
-//                     />
-//                   </div>
-//                   <div className={`${styles.info}`}>
-//                     <h4>Contacts</h4>
-//                     <p
-//                       className={`${styles.paragraph}`}
-//                       style={{ paddingBottom: '10px' }}
-//                     >
-//                       <b>CAPTAIN</b>
-//                       <br />
-//                       Rohit Diwakar
-//                       <br />
-//                       8827687934
-//                       <br />
-//                       rohit.diwakar.ece19@itbhu.ac.in
-//                       <br />
-//                       <br />
-//                       Anshika Singh <b>(W)</b>
-//                       <br />
-//                       7985967630
-//                       <br />
-//                       anshika.singh.phy19@itbhu.ac.in
-//                       <br />
-//                       <br />
-//                       <b>VICE-CAPTAIN</b>
-//                       <br />
-//                       Gurjot
-//                       <br />
-//                       7528980380
-//                       <br />
-//                       gurjot.student.ece19@itbhu.ac.in
-//                       <br />
-//                       <br />
-//                       Shivanjali Verma <b>(W)</b>
-//                       <br />
-//                       8869038250
-//                       <br />
-//                       shivanjali.verma.mec19@itbhu.ac.in
-//                       <br />
-//                     </p>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-const Athletics = (props) => {
+const EventCard = (props) => {
   return (
-    <div>
-      <div className="row" style={{ marginLeft: '5px', marginRight: '5px' }}>
-        <div
-          className={`${styles.col_10} ${styles.text_center} ${styles.Main_block}`}
-        >
-          <button
-            className={`${styles.fa} ${styles.fa_times}`}
-            id="0x"
-            onClick={() => props.changeState(false)}
-          >
-            <FaTimes />
-          </button>
-          <div
-            className="row"
-            style={{ marginLeft: '15px', marginRight: '15px' }}
-          >
-            <div className={`${styles.col_md_4} ${styles.col_sm_4}`}>
-              <div className={`${styles.event_block}`}>
-                <div className={`${styles.rule_box}`}>
-                  <div className={`${styles.a_rule}`}>
-                    <div className={`${styles.image}`}>
-                      <img
-                        className={`${styles.img_responsive}`}
-                        src={rules}
-                        alt="img"
-                      />
-                    </div>
-                    <div className={`${styles.info} ${styles.rule}`}>
-                      <h4> Rules </h4>
-                      <a
-                        href={AthleticsPDF}
-                        target="_blank"
-                        rel="noreferrer"
-                        className={`${styles.rulebook}`}
-                      >
-                        CLICK HERE FOR RULES
-                      </a>
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                    </div>
-                  </div>
+    <div className={`${styles.main_event_div}`}>
+      <div className={`${styles.events_main_block}`}>
+        <div className={`${styles.events_main_block_div1}`} >
+          <div style={{ right: "5%", top: "5%", position: "absolute" }}>
+            <button
+              className={`${styles.fa} ${styles.fa_times}`}
+              id="0x"
+              onClick={() => props.changeState(false)}
+            >
+              <FaTimes />
+            </button>
+          </div>
+          <div className={`${styles.event_white_block}`} />
+          <div className={`${styles.event_line_right}`} />
+          <div className={`${styles.event_line_left}`} />
+          <div className={`${styles.evnet_content_box}`}>
+            <div className={`${styles.event_show_block1}`}>
+              <div className={`${styles.main_header}`}>CAPTAIN</div>
+              <div className={`${styles.person_details_container}`}>
+                {props.captainsArray && props.captainsArray.map((captain, i) => (
+                  <PersonDetails key={i} name={captain.name} contact={captain.contact} email={captain.email} />
+                ))}
+              </div>
+            </div>
+            {props.viceCaptainsArray && props.viceCaptainsArray.length > 0 && (
+              <div className={`${styles.event_show_block2}`}>
+                <div className={`${styles.main_header}`}>VICE-CAPTAIN</div>
+                <div className={`${styles.person_details_container}`}>
+                  {props.viceCaptainsArray.map((captain, i) => (
+                    <PersonDetails key={i} name={captain.name} contact={captain.contact} email={captain.email} />
+                  ))}
                 </div>
               </div>
             </div>
@@ -291,21 +131,35 @@ const Athletics = (props) => {
                     >
                       <b>CAPTAIN</b>
                       <br />
-                      Tagaram Kiran Kumar
+                      Rohit Diwakar
                       <br />
-                      7396797341
+                      8827687934
                       <br />
-                      tagaram.kirankumar.cer20@itbhu.ac.in
-                      <br />
-                      <br />
-                      Anchal Dhar <b>(W)</b>
-                      <br />
-                      8955357448
-                      <br />
-                      anchal.dhar.mec21@itbhu.ac.in
+                      rohit.diwakar.ece19@itbhu.ac.in
                       <br />
                       <br />
-                      
+                      Anshika Singh <b>(W)</b>
+                      <br />
+                      7985967630
+                      <br />
+                      anshika.singh.phy19@itbhu.ac.in
+                      <br />
+                      <br />
+                      <b>VICE-CAPTAIN</b>
+                      <br />
+                      Gurjot
+                      <br />
+                      7528980380
+                      <br />
+                      gurjot.student.ece19@itbhu.ac.in
+                      <br />
+                      <br />
+                      Shivanjali Verma <b>(W)</b>
+                      <br />
+                      8869038250
+                      <br />
+                      shivanjali.verma.mec19@itbhu.ac.in
+                      <br />
                     </p>
                   </div>
                 </div>
@@ -318,7 +172,7 @@ const Athletics = (props) => {
   );
 };
 
-const Badminton = (props) => {
+const PersonDetails = (props) => {
   return (
     <div className="row" style={{ marginLeft: '5px', marginRight: '5px' }}>
       <div
@@ -425,20 +279,26 @@ const Badminton = (props) => {
                   >
                     <b>CAPTAIN</b>
                     <br />
-                    Rishi Kaushik<br />
-                    8005983306
+                    Sayan Ghosh <br />
+                    7602961003
                     <br />
-                    rishi.kaushik.eee21@itbhu.ac.in
-                    <br />
-                    <br />
-                    Manisha Bishnoi  <b>(W)</b>
-                    <br />
-                    8290451829
-                    <br />
-                    manisha.bishnoi.mec21@itbhu.ac.in
+                    sayan.ghosh.cd.mat19@itbhu.ac.in
                     <br />
                     <br />
-                    
+                    Anshul Sahai <b>(W)</b>
+                    <br />
+                    91668498500
+                    <br />
+                    anshul.sahai.che19@itbhu.ac.in
+                    <br />
+                    <br />
+                    <b>VICE-CAPTAIN</b>
+                    <br />
+                    Kushagra Yadav
+                    <br />
+                    8285600365
+                    <br />
+                    kushagra.yadav.ece19@itbhu.ac.in
                     <br />
                   </p>
                 </div>
@@ -451,7 +311,7 @@ const Badminton = (props) => {
   );
 };
 
-const Basketball = (props) => {
+const Athletics = (props) => {
   return (
     <div className="row" style={{ marginLeft: '5px', marginRight: '5px' }}>
       <div
@@ -558,20 +418,27 @@ const Basketball = (props) => {
                   >
                     <b>CAPTAIN</b>
                     <br />
-                    Pratyaksh Sharma <br />
-                    7725911213
+                    Aryan Shukla <br />
+                    8171354203
                     <br />
-                    pratyaksh.sharma.civ21@itbhu.ac.in
-                    <br />
-                    <br />
-                    Chhaya umbarkar  <b>(W)</b>
-                    <br />
-                    7249784702
-                    <br />
-                    chhaya.umbarkar.mst20@itbhu.ac.in
+                    aryanshukla.mat18@itbhu.ac.in
                     <br />
                     <br />
-                    
+                    Arya Kumari <b>(W)</b>
+                    <br />
+                    8409372829
+                    <br />
+                    aryakumari.mst18@itbhu.ac.in
+                    <br />
+                    <br />
+                    <b>VICE-CAPTAIN</b>
+                    <br />
+                    Kinshuk Dwivedi
+                    <br />
+                    9425183369
+                    <br />
+                    kinshuk.dwivedi.phy19@itbhu.ac.in
+                    <br />
                   </p>
                 </div>
               </div>
@@ -684,17 +551,17 @@ const Boxing = (props) => {
                   >
                     <b>CAPTAIN</b>
                     <br />
-                    Suyash Baloni <br />
-                    
+                    Ankur Minj <br />
+                    9171946273
                     <br />
-                    suyash.baloni.bme20@itbhu.ac.in
+                    ankur.minj.min19@itbhu.ac.in
                     <br />
                     <br />
-                    Saloni Agrawal  <b>(W)</b>
+                    Smriti Sharma <b>(W)</b>
                     <br />
-                    9928107374
+                    8303077445
                     <br />
-                    saloni.agrawal.mat20@itbhu.ac.in
+                    smriti.sharma.ece19@itbhu.ac.in
                     <br />
                     <br />
                     <br />
@@ -812,13 +679,21 @@ const Chess = (props) => {
                   >
                     <b>CAPTAIN</b>
                     <br />
-                    Harshraj Joshi  <br />
-                    
+                    Mack Mohan Verma <br />
+                    9548338599
                     <br />
-                    harshraj.joshi.che21@itbhu.ac.in
+                    mack.mohanverma.mec19@itbhu.ac.in
                     <br />
                     <br />
-                    
+                    <b>VICE-CAPTAIN</b>
+                    <br />
+                    Shaurya Panpalia <br />
+                    7877860896
+                    <br />
+                    shaurya.panpalia.mst19@itbhu.ac.in
+                    <br />
+                    <br />
+                    <br />
                     {/* <br /> */}
                   </p>
                 </div>
@@ -934,13 +809,20 @@ const Cricket = (props) => {
                   >
                     <b>CAPTAIN</b>
                     <br />
-                    Jai Patel <br />
-                    7023064941
+                    Shashank S Prakash <br />
+                    8368920987
                     <br />
-                    
+                    shashanksp.met18@iitbhu.ac.in
                     <br />
                     <br />
-                    
+                    <b>VICE-CAPTAIN</b>
+                    <br />
+                    Satyendra Kumar Satyarthi <br />
+                    9877437762
+                    <br />
+                    satyendraks.rs.cer17@itbhu.ac.in
+                    <br />
+                    <br />
                     <br />
                     {/* <br /> */}
                   </p>
@@ -1059,7 +941,15 @@ const Cycling = (props) => {
                     abhishek.student.cer20@iitbhu.ac.in
                     <br />
                     <br />
-                    
+                    <b>VICE-CAPTAIN</b>
+                    <br />
+                    Aditya Kulkarni
+                    <br />
+                    8669136556
+                    <br />
+                    aditya.kulkarni.cd.civ20@itbhu.ac.in
+                    <br />
+                    <br />
                     <br />
                   </p>
                 </div>
@@ -1175,13 +1065,19 @@ const Football = (props) => {
                   >
                     <b>CAPTAIN</b>
                     <br />
-                    Soham Nandy <br />
+                    Ritwik Singh <br />
                     9549847995
                     <br />
-                    soham.nandy.cd.mst21@itbhu.ac.in
+                    ritviksingh.phy18@itbhu.ac.in
                     <br />
                     <br />
-                    
+                    <b>VICE-CAPTAIN</b>
+                    <br />
+                    Sachin Kumar <br />
+                    6205237836
+                    <br />
+                    sachin.kumar.met19@itbhu.ac.in
+                    <br />
                     <br />
                     <br />
                     {/* <br /> */}
@@ -1299,13 +1195,20 @@ const Handball = (props) => {
                   >
                     <b>CAPTAIN</b>
                     <br />
-                    Patel Avi  <br />
-                    6352926616
+                    Sharath Ram <br />
+                    8072714518
                     <br />
-                    patelavi.nihilkumar.mec21@itbhu.ac.in
+                    sharath.ramsb.mst19@itbhu.ac.in
                     <br />
                     <br />
-                    
+                    <b>VICE-CAPTAIN</b>
+                    <br />
+                    Tarun Khandelwal <br />
+                    8102029500
+                    <br />
+                    tarun.khandelwal.eee19@itbhu.ac.in
+                    <br />
+                    <br />
                     <br />
                     {/* <br /> */}
                   </p>
@@ -1424,13 +1327,20 @@ const Hockey = (props) => {
                   >
                     <b>CAPTAIN</b>
                     <br />
-                    Abhishek Meena <br />
-                    8840041931
+                    Raghubir <br />
+                    6265573271
                     <br />
-                    abhishek.meena.mec19@itbhu.ac.in
+                    raghubir.student.phe19@itbhu.ac.in
                     <br />
                     <br />
-                    
+                    <b>VICE-CAPTAIN</b>
+                    <br />
+                    Ashish Kumar <br />
+                    9370766492
+                    <br />
+                    ashish.kumar.min19@itbhu.ac.in
+                    <br />
+                    <br />
                     <br />
                     <br />
                   </p>
@@ -1545,17 +1455,17 @@ const Kabbadi = (props) => {
                   >
                     <b>CAPTAIN</b>
                     <br />
-                    Peddinti Sai siva kumar  <br />
-                    7569965571
+                    Sateesh Kumar <br />
+                    7354388062
                     <br />
-                    peddinti.saiskumar.cer19@itbhu.ac.in
+                    sateesh.kumar.bme19@itbhu.ac.in
                     <br />
                     <br />
-                    Kodurupaka Mallika <b>(W)</b>
+                    Keloth Tejaswini <b>(W)</b>
                     <br />
-                    6302471817
+                    9177574613
                     <br />
-                    kodurupaka.mallika.mec21@itbhu.ac.in
+                    keloth.tejaswini.min20@itbhu.ac.in
                     <br />
                     <br />
                     <br />
@@ -1684,21 +1594,35 @@ const Khokho = (props) => {
                   >
                     <b>CAPTAIN</b>
                     <br />
-                    yandapalli gireesh reddy
+                    Rahul Lakra
                     <br />
-                    6303606994
+                    8877441658
                     <br />
-                    ygireesh.reddy.eee21@itbhu.ac.in
-                    <br />
-                    <br />
-                    Saloni Sharma   <b>(W)</b>
-                    <br />
-                    8392940227
-                    <br />
-                    saloni.sharma.civ22@itbhu.ac.in
+                    rahul.lakra.min19@itbhu.ac.in
                     <br />
                     <br />
-                    
+                    Tejswinee Karwar <b>(W)</b>
+                    <br />
+                    7770880674
+                    <br />
+                    tejswinee.karwar.met19@itbhu.ac.in
+                    <br />
+                    <br />
+                    <b>VICE-CAPTAIN</b>
+                    <br />
+                    Munavath Prashanth
+                    <br />
+                    6301984558
+                    <br />
+                    munavath.prashanth.min19@itbhu.ac.in
+                    <br />
+                    <br />
+                    Jayshree Das <b>(W)</b>
+                    <br />
+                    6000805732
+                    <br />
+                    jayshree.das.min19@itbhu.ac.in
+                    <br />
                   </p>
                 </div>
               </div>
@@ -1820,7 +1744,13 @@ const Powerlifting = (props) => {
                     dhahal.brahma.cer19@itbhu.ac.in
                     <br />
                     <br />
-                    
+                    <b>VICE-CAPTAIN</b>
+                    <br />
+                    Harsh Agrawal <br />
+                    9759877847
+                    <br />
+                    harsh.agrawal.phe20@itbhu.ac.in
+                    <br />
                     <br />
                     <br />
                     {/* <br /> */}
@@ -1938,20 +1868,18 @@ const Squash = (props) => {
                   >
                     <b>CAPTAIN</b>
                     <br />
-                    Hemank Vats <br />
-                    
+                    B Rohith Netha <br />
+                    8331891203
                     <br />
-                    hemank.vats.apd20@itbhu.ac.in
+                    brohith.netha.mec19@itbhu.ac.in
                     <br />
                     <br />
                     <br />
-                    Toko yanu   <b>(W)</b>
                     <br />
-                    8258872098
                     <br />
-                    saloni.sharma.civ22@itbhu.ac.in
                     <br />
-                    
+                    <br />
+                    <br />
                     <br />
                     {/* <br /> */}
                   </p>
@@ -2066,15 +1994,17 @@ const TableTennis = (props) => {
                   >
                     <b>CAPTAIN</b>
                     <br />
-                    Yashwardhan Sable  <br />
-                    8839679648
+                    Sachin Arya <br />
+                    7073524926
                     <br />
-                    yashwardhan.sable.phy20@itbhu.ac.in
+                    sachinarya.mec18@iitbhu.ac.in
                     <br />
                     <br />
-                    Guddaji Sri Prada <b>(W)</b>
-                    
-                    guddaji.sriprada.cse20@itbhu.ac.in
+                    Kajal Pathriyal <b>(W)</b>
+                    <br />
+                    8127141299
+                    <br />
+                    kajal.pathriyal.eee19@itbhu.ac.in
                     <br />
                     <br />
                     <br />
@@ -2191,17 +2121,17 @@ const Taekwondo = (props) => {
                   >
                     <b>CAPTAIN</b>
                     <br />
-                    Divyanshu Bharti <br />
-                    
+                    Suraj Gupta <br />
+                    7737877228
                     <br />
-                    divyanshu.bharti.chy21@itbhu.ac.in
+                    suraj.gupta.che19@itbhu.ac.in
                     <br />
                     <br />
-                    Sameeksha Murdia <b>(W)</b>
+                    Anjali. C <b>(W)</b>
                     <br />
-                    9660339180
+                    9207970160
                     <br />
-                    sameeksha.murdia.phy20@itbhu.ac.in
+                    anjalic.civ18@itbhu.ac.in
                     <br />
                     <br />
                     <br />
@@ -2318,17 +2248,17 @@ const Tennis = (props) => {
                   >
                     <b>CAPTAIN</b>
                     <br />
-                    Trinabh Vashistha  <br />
-                    8502959213
+                    Baidhar Soren <br />
+                    6372843510
                     <br />
-                    trinabh.vashistha.min21@itbhu.ac.in
+                    baidhar.srn@gmail.com
                     <br />
                     <br />
-                    Pranjali Gupta <b>(W)</b>
+                    Charmitha <b>(W)</b>
                     <br />
-                    
+                    9666165321
                     <br />
-                    pranjali.gupta.mst19@itbhu.ac.in
+                    charmithakrishna2002@gmail.com
                     <br />
                     <br />
                     <br />
@@ -2457,19 +2387,32 @@ const Volleyball = (props) => {
                   >
                     <b>CAPTAIN</b>
                     <br />
-                    Pawan Kumar <br />
-                    9110142092
+                    Shivkaran Singh Ranawat <br />
+                    8824018065
                     <br />
-                    pawan.kumar.ece20@itbhu.ac.in <br />
+                    shivkarans.ranawat.phe19@itbhu.ac.in <br />
                     <br />
-                    Boddu Bhavana <b>(W)</b>
+                    Yashika lamba <b>(W)</b>
                     <br />
-                    9390085089
+                    8076365550
                     <br />
-                    boddu.bhavana.mec20@itbhu.ac.in
+                    yashika.lamba.phe19@itbhu.ac.in
                     <br />
                     <br />
-                    
+                    <b>VICE-CAPTAIN</b>
+                    <br />
+                    Mukul jaiman <br />
+                    8302122511
+                    <br />
+                    mukul.jaiman.civ19@itbhu.ac.in
+                    <br />
+                    <br />
+                    Priya Rathore <b>(W)</b>
+                    <br />
+                    8225934951
+                    <br />
+                    priya.rathore.cer19@itbhu.ac.in
+                    <br />
                   </p>
                 </div>
               </div>
@@ -2584,13 +2527,19 @@ const WeightLifting = (props) => {
                   >
                     <b>CAPTAIN</b>
                     <br />
-                    Harsh Agrawal <br />
-                    9759877847
+                    Pulkit Khandelwal <br />
+                    6350078788
                     <br />
-                    harshagrawal789789@gmail.com
+                    pkhandelwal.civ18@itbhu.ac.in
                     <br />
                     <br />
-                    
+                    <b>VICE-CAPTAIN</b>
+                    <br />
+                    Uday Kiran <br />
+                    78976 10891
+                    <br />
+                    moningi.udaykiran.mst19@itbhu.ac.in
+                    <br />
                     <br />
                     <br />
                     {/* <br /> */}
@@ -2605,8 +2554,8 @@ const WeightLifting = (props) => {
   );
 };
 
+
 export {
-  // Aqautics,
   Athletics,
   Badminton,
   Basketball,
@@ -2627,4 +2576,5 @@ export {
   Tennis,
   Volleyball,
   WeightLifting,
+  Aquatics,
 };
