@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Registration.css';
 import Events from './Events/Events';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContingentDetail } from '../Redux/Features/Slices/ContingentSlice';
