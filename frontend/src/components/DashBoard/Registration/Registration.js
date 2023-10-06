@@ -23,7 +23,7 @@ const Registration = () => {
   const dispatch = useDispatch()
   useEffect(()=>{
     dispatch(getContingentDetail());
-  },[])
+  },[dispatch])
   // const token = localStorage.getItem('token');
   // const baseUrl = process.env.REACT_APP_BASE_URL;
 
