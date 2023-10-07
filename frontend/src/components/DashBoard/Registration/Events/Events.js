@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Button,
   Modal,
@@ -85,7 +85,7 @@ const EventsDb = () => {
   const [girlTeams, setGirlTeams] = useState([]);
   const [mixedTeams, setMixedTeams] = useState([]);
 
-  const inputFields = {
+  const inputFields = useMemo( ()=>{return {
     Athletics_G: [Athletics_G, setAthletics_G],
     Aquatics_G: [Aquatics_G, setAquatics_G],
     Boxing_G: [Boxing_G, setBoxing_G],
@@ -118,7 +118,8 @@ const EventsDb = () => {
     Basketball_G: [Basketball_G, setBasketball_G],
     Basketball_B: [Basketball_B, setBasketball_B],
     Powerlifting_B: [Powerlifting_B, setPowerlifting_B],
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  };},[]);
 
   const labels = {
     Boxing: [
