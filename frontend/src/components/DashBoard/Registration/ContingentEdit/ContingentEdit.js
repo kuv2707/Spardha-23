@@ -19,6 +19,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router';
 import '../../Profile/Profile.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { getContingentDetail } from '../../Redux/Features/Slices/ContingentSlice';
 //toast.configure();
 
 const ContingentEdit = () => {
@@ -31,36 +33,16 @@ const ContingentEdit = () => {
   // console.log('rep=',rep);
   // console.log('type=',typeof rep);
 
-  const [input, setInput] = useState({
-    num_of_boys: '',
-    num_of_girls: '',
-    num_of_faculty_members: '',
-    num_of_coaches_pti: '',
-    num_of_supporting_staff:'',
-    leader_name: '',
-    leader_contact_num: '',
-    college_rep: JSON.parse(rep),
-  });
+  
+  const dispatch=useDispatch()
+  const contdetails = useSelector((state) => state.contingent);
+  const [input, setInput] = useState(contdetails);
+
 
   useEffect(() => {
-    // console.log('input=', input);
-    axios
-      .get(`${baseUrl}teams/contingent/details/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then((res) => {
-        // console.log('contdetails data=', res.data);
-        setInput(res.data);
-        // console.log('input=',input);
-      })
-      .catch((err) => {
-        console.log('error=', err);
-      });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setInput(contdetails);
+    
+  }, [contdetails]);
 
   const cancelButton = () => {
     // console.log('cancel');
@@ -148,7 +130,8 @@ const ContingentEdit = () => {
             })
             .then((res) => {
               //console.log('successful');
-              navigate('/dashboard/registration');
+              dispatch(getContingentDetail())
+              setTimeout(()=>navigate('/dashboard/registration'),1000);
             })
             .catch((err) => {
               console.log('error', err);

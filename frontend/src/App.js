@@ -11,6 +11,9 @@ import NotFound from './components/LandingPages/NotFound/NotFound';
 import ShowTable from './components/LandingPages/UserData/ShowTable';
 import ShowallTable from './components/LandingPages/UserData/ShowallTable';
 import { AllGameFixtures } from './components/LandingPages/UserData/AllGameFixtures';
+import { useDispatch } from 'react-redux';
+import { getTeamData } from './components/DashBoard/Redux/Features/Slices/TeamSlice';
+import { getContingentDetail } from './components/DashBoard/Redux/Features/Slices/ContingentSlice';
 
 const LandingPages = React.lazy(() =>
   import('./components/LandingPages/LandingPages')
@@ -96,6 +99,11 @@ function usePageViews() {
 
 function App() {
   usePageViews();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getTeamData);
+    dispatch(getContingentDetail())
+  }, [dispatch]);
   return (
     <>
       {/* <Router> */}

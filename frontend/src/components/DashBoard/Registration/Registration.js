@@ -7,44 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getContingentDetail } from '../Redux/Features/Slices/ContingentSlice';
 
 const Registration = () => {
-  // const [contdetails, setContDetails] = useState({
-  //   num_of_boys: '-',
-  //   num_of_girls: '-',
-  //   college_rep: '-',
-  //   leader_name: '-',
-  //   leader_contact_num: '-',
-  //   num_of_faculty_members: '-',
-  //   num_of_coaches_pti: '-',
-  //   num_of_supporting_staff: '-',
-  // });
-  // const contdetails = useSelector( (state)=>state.contingent )
-  const dispatch = useDispatch()
-  useEffect(()=>{
-    dispatch(getContingentDetail());
-  },[dispatch]);
+
   
   const contdetails = useSelector((state) => state.contingent);
 
-  // const token = localStorage.getItem('token');
-  // const baseUrl = process.env.REACT_APP_BASE_URL;
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`${baseUrl}teams/contingent/details/`, {
-  //       headers: {
-  //         Authorization: `Token ${token}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       // console.log('contdetails data=', res.data);
-  //       setContDetails(res.data);
-  //       // console.log('contdetails', contdetails);
-  //     })
-  //     .catch((err) => {
-  //       console.log('error=', err);
-  //     });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   return (
     <div className="user-dashboard regn_Pad">

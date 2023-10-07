@@ -100,9 +100,10 @@ const Profile = () => {
                 {/* <div style={{textAlign: right}}><a href="profile.php?mode=edit">Edit</a></div> */}
                 <table
                   align="center"
-                  cellpadding="20"
+                  cellPadding="20"
                   className="profile-table"
                 >
+                  <tbody>
                   <tr>
                     <td className="left-column">Name</td>
                     <td className="right-column">
@@ -147,11 +148,7 @@ const Profile = () => {
                       {user.phone}
                     </td>
                   </tr>
-                  {/* <tr>
-                    <td className="left-column"></td>
-                    <td className="right-column"></td>
-                  </tr> */}
-                  
+                  </tbody>
                 </table>
 
                 <Modal isOpen={modal} toggle={toggle} size="lg">
@@ -176,9 +173,10 @@ const Profile = () => {
                   </ModalBody>
                 </Modal>
               </h2>
-              <div className='bottom_button'>
-              <tr className="mine_proDbs">
-                    <td className='button_gap'>
+              <table className="bottom_button">
+                <tbody>
+                  <tr className="mine_proDbs">
+                    <td className="button_gap">
                       <button
                         href="#"
                         className="change-now"
@@ -189,14 +187,13 @@ const Profile = () => {
                         Change&nbsp;Password
                       </button>
                     </td>
-                    <td className='button_gap'>
+                    <td className="button_gap">
                       <button
                         href="#"
                         className="delete_button"
                         data-toggle="modal"
                         data-target="#change_password"
                         style={{
-                          
                           border: '2px solid red',
                           padding: '9px 33px',
                         }}
@@ -205,7 +202,9 @@ const Profile = () => {
                         Delete&nbsp;Profile
                       </button>
                     </td>
-                  </tr></div>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

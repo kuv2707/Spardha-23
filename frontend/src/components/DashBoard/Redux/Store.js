@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import contingentSlice from './Features/Slices/ContingentSlice'
+import teamSlice from './Features/Slices/TeamSlice'
 
 export const store = configureStore({
   reducer: {
-    contingent:contingentSlice
+    contingent:contingentSlice,
+    team:teamSlice
   },
 })

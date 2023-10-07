@@ -5,6 +5,8 @@ import { Button, Collapse, FormGroup, Input, Label } from 'reactstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { EventContext } from '../../../../../contexts/EventContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTeamData } from '../../../Redux/Features/Slices/TeamSlice';
 
 const GAMES = {
   boys: [
@@ -71,30 +73,25 @@ function EventsEdit() {
   let baseUrl = process.env.REACT_APP_BASE_URL;
   if (baseUrl.substring(baseUrl.length - 1) !== '/') baseUrl += '/';
 
+   const data = useSelector((store) => store.team.data);
+   const dispatch = useDispatch();
+
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`${baseUrl}teams/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then(({ data }) => {
-        const newGames = { ...selectedGames };
-        for (const team of data) {
-          newGames[`${team.game}`] = true;
-        }
-        console.log('newg', newGames);
-        setGames(newGames);
-        setPrevGames({ ...newGames });
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err.message);
-        setErrorMessage('Could not fetch data ' + err.message);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    try {
+      const newGames = {  };
+      for (const team of data) {
+        newGames[`${team.game}`] = true;
+      }
+      console.log('newg', newGames);
+      setGames(newGames);
+      setPrevGames({ ...newGames });
+      setLoading(false);
+    } catch (err) {
+      console.error(err.message);
+      setErrorMessage('Could not fetch data');
+    }
+  }, [data]);
 
   const changeHandler = (e) => {
     const game = e.target.id;
@@ -141,6 +138,7 @@ function EventsEdit() {
       })
       .finally(() => {
         setLoading(false);
+        dispatch(getTeamData);
       });
   };
 
@@ -289,7 +287,8 @@ function EventsEdit() {
         <Button
           color="success"
           style={{
-            fontWeight: 'bold', width: 'fit-content',
+            fontWeight: 'bold',
+            width: 'fit-content',
           }}
           className={styles['btn']}
           onClick={submitHandler}
