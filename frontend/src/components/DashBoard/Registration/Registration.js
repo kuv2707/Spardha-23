@@ -17,13 +17,14 @@ const Registration = () => {
   //   num_of_coaches_pti: '-',
   //   num_of_supporting_staff: '-',
   // });
-  const contdetails = useSelector( (state)=>state.contingent
-
-  )
+  // const contdetails = useSelector( (state)=>state.contingent )
   const dispatch = useDispatch()
   useEffect(()=>{
     dispatch(getContingentDetail());
-  },[dispatch])
+  },[dispatch]);
+  
+  const contdetails = useSelector((state) => state.contingent);
+
   // const token = localStorage.getItem('token');
   // const baseUrl = process.env.REACT_APP_BASE_URL;
 

@@ -13,16 +13,22 @@ const initialState = {
 };
 const token = localStorage.getItem('token');
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const cache = {};
 
 export const getContingentDetail = createAsyncThunk(
   'contingent/getContingent',
   
   async () => {
+    const cachedData = cache['contingentDetail'];
+    if (cachedData) {
+      return cachedData;
+    }
     const { data } = await   axios.get(`${baseUrl}teams/contingent/details/`, {
       headers: {
         Authorization: `Token ${token}`,
       },
     })
+    cache['contingentDetail'] = data;
     return data;
   }
 );
