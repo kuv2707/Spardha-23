@@ -5,6 +5,7 @@ import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 //toast.configure();
 
 const Profile = () => {
@@ -18,38 +19,11 @@ const Profile = () => {
   // const [rel,setRel] =useState(true);
 
   const toggle = () => setModal(!modal);
+  const userdata = useSelector((store) => store.user.data);
 
   useEffect(() => {
-    // if(rel){
-    //   console.log('rel',rel);
-    //   // window.location.reload();
-    //   setRel(false);
-    // }
-    // if (window.localStorage) {
-    //   if (!localStorage.getItem('reload')) {
-    //     localStorage['reload'] = true;
-    //     setTimeout(window.location.reload(), 200);
-    //   } else {
-    //     localStorage.removeItem('reload');
-    //   }
-    // }
-
-    axios
-      .get(`${baseUrl}auth/update/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then((res) => {
-        // console.log('user data=', res.data);
-        setUser(res.data);
-        // console.log('user', user);
-      })
-      .catch((err) => {
-        console.log('error=', err);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setUser(userdata);
+  }, [userdata]);
 
   const delSucceed = () => {
     // console.log('delSucceed');
@@ -104,50 +78,50 @@ const Profile = () => {
                   className="profile-table"
                 >
                   <tbody>
-                  <tr>
-                    <td className="left-column">Name</td>
-                    <td className="right-column">
-                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
-                      {user.name}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="left-column">Email</td>
-                    <td className="right-column">
-                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
-                      {user.email}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="left-column">Username</td>
-                    <td className="right-column">
-                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
-                      {user.username}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="left-column">Designation </td>
+                    <tr>
+                      <td className="left-column">Name</td>
+                      <td className="right-column">
+                        <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
+                        {user.name}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="left-column">Email</td>
+                      <td className="right-column">
+                        <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
+                        {user.email}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="left-column">Username</td>
+                      <td className="right-column">
+                        <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
+                        {user.username}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="left-column">Designation </td>
 
-                    <td className="right-column">
-                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
-                      {user.designation}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="left-column">Institute Name </td>
-                    <td className="right-column">
-                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
-                      {user.institution}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="left-column">Phone Number </td>
-                    <td className="right-column">
-                      {' '}
-                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
-                      {user.phone}
-                    </td>
-                  </tr>
+                      <td className="right-column">
+                        <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
+                        {user.designation}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="left-column">Institute Name </td>
+                      <td className="right-column">
+                        <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
+                        {user.institution}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="left-column">Phone Number </td>
+                      <td className="right-column">
+                        {' '}
+                        <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
+                        {user.phone}
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
 

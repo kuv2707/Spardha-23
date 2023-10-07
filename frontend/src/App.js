@@ -14,6 +14,7 @@ import { AllGameFixtures } from './components/LandingPages/UserData/AllGameFixtu
 import { useDispatch } from 'react-redux';
 import { getTeamData } from './components/DashBoard/Redux/Features/Slices/TeamSlice';
 import { getContingentDetail } from './components/DashBoard/Redux/Features/Slices/ContingentSlice';
+import { getUserData } from './components/DashBoard/Redux/Features/Slices/UserSlice';
 
 const LandingPages = React.lazy(() =>
   import('./components/LandingPages/LandingPages')
@@ -103,6 +104,7 @@ function App() {
   useEffect(() => {
     dispatch(getTeamData);
     dispatch(getContingentDetail())
+    dispatch(getUserData)
   }, [dispatch]);
   return (
     <>

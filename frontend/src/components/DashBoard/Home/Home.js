@@ -19,24 +19,11 @@ const Home = () => {
   const [user, setUser] = useState('');
   const numevents = useSelector((store) => store.team.numevents);
 
-  useEffect(() => {
-    axios
-      .get(`${baseUrl}auth/update/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then((res) => {
-        // console.log('user data=', res.data);
-        setUser(res.data);
-        // console.log('user', user);
-      })
-      .catch((err) => {
-        console.log('error=', err);
-      });
+  const userdata = useSelector((store) => store.user.data);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useEffect(() => {
+    setUser(userdata);
+  }, [userdata]);
 
   const a = user['email'];
   // console.log('a=', a);

@@ -2,43 +2,46 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-    num_of_boys: '-',
-    num_of_girls: '-',
-    college_rep: '-',
-    leader_name: '-',
-    leader_contact_num: '-',
-    num_of_faculty_members: '-',
-    num_of_coaches_pti: '-',
-    num_of_supporting_staff: '-',
+  num_of_boys: '-',
+  num_of_girls: '-',
+  college_rep: '-',
+  leader_name: '-',
+  leader_contact_num: '-',
+  num_of_faculty_members: '-',
+  num_of_coaches_pti: '-',
+  num_of_supporting_staff: '-',
 };
 const token = localStorage.getItem('token');
-  const baseUrl = process.env.REACT_APP_BASE_URL;
-  const cache = {};
+const baseUrl = process.env.REACT_APP_BASE_URL;
+const cache = {};
 
 export const getContingentDetail = createAsyncThunk(
   'contingent/getContingent',
-  
+
   async () => {
     const cachedData = cache['contingentDetail'];
     if (cachedData) {
       return cachedData;
     }
-    const { data } = await   axios.get(`${baseUrl}teams/contingent/details/`, {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    })
-    cache['contingentDetail'] = data;
-    return data;
+    try {
+      const { data } = await axios.get(`${baseUrl}teams/contingent/details/`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      });
+      cache['contingentDetail'] = data;
+      return data;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   }
 );
 
 export const contingentSlice = createSlice({
   name: 'contingent',
   initialState,
-  reducers: {
-   
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getContingentDetail.fulfilled, (state, action) => {

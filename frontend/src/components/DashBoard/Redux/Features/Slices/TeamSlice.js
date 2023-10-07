@@ -10,8 +10,7 @@ const initialState = {
 
 
 export const getTeamData = async function (dispatch, getState) {
-  console.log(getState());
-    dispatch({
+ dispatch({
         type: 'team/setLoading',
     });
   let payload={}
@@ -25,6 +24,7 @@ export const getTeamData = async function (dispatch, getState) {
     });
     payload={ data, numevents: data.length }
   } catch (err) {
+    console.log(err);
     payload={ data: null, numevents: 'error!' }
    
   }finally{

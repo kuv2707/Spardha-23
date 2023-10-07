@@ -10,6 +10,7 @@ import {
 } from 'reactstrap';
 import styles from './Events.module.css';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const EventsDb = () => {
   const token = localStorage.getItem('token');
@@ -154,51 +155,45 @@ const EventsDb = () => {
     ],
   };
 
+  const userdata = useSelector((store) => store.team.data);
+  
   const baseUrl = process.env.REACT_APP_BASE_URL;
   useEffect(() => {
-    axios
-      .get(`${baseUrl}teams/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then(({ data }) => {
-        for (const team of data) {
-          const rows = team.players.reduce(function (rows, key, index) {
-            return (
-              (index % 2 === 0
-                ? rows.push([key])
-                : rows[rows.length - 1].push(key)) && rows
-            );
-          }, []);
-          team.players = rows;
-          inputFields[team.game][1](team);
-          if (team.game.endsWith('_B')) {
-            setBoyTeams((prevState) => {
-              const newState = [...prevState];
-              newState.push(team);
-              return newState;
-            });
-          } else if (team.game.endsWith('_G')) {
-            setGirlTeams((prevState) => {
-              const newState = [...prevState];
-              newState.push(team);
-              return newState;
-            });
-          } else {
-            setMixedTeams((prevState) => {
-              const newState = [...prevState];
-              newState.push(team);
-              return newState;
-            });
-          }
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    let data = JSON.parse(JSON.stringify(userdata));
+    console.log('hre', data);
+    for (const team of data) {
+      const rows = team.players.reduce(function (rows, key, index) {
+        return (
+          (index % 2 === 0
+            ? rows.push([key])
+            : rows[rows.length - 1].push(key)) && rows
+        );
+      }, []);
+      team.players = rows;
+      if (!inputFields[team.game])
+      continue;
+     inputFields[team.game][1](team);
+      if (team.game.endsWith('_B')) {
+        setBoyTeams((prevState) => {
+          const newState = [...prevState];
+          newState.push(team);
+          return newState;
+        });
+      } else if (team.game.endsWith('_G')) {
+        setGirlTeams((prevState) => {
+          const newState = [...prevState];
+          newState.push(team);
+          return newState;
+        });
+      } else {
+        setMixedTeams((prevState) => {
+          const newState = [...prevState];
+          newState.push(team);
+          return newState;
+        });
+      }
+    }
+  }, [userdata]);
 
   const clickHandler = (game) => {
     setShowModals((prevState) => {
@@ -299,8 +294,8 @@ const EventsDb = () => {
 
   return (
     <>
-      <div className='sub_details'>
-        <div className='heading-register'>
+      <div className="sub_details">
+        <div className="heading-register">
           <div className="events-heading">BOYS</div>
           <div className="edit_button">
             <Link
@@ -314,7 +309,7 @@ const EventsDb = () => {
         <table
           className={`${styles['events-table']}`}
           align="center"
-          cellpadding="20"
+          cellPadding="20"
           border="1"
         >
           <tr>
@@ -390,17 +385,17 @@ const EventsDb = () => {
                       ...prev.filter((s) => s.length),
                       ...cur.filter((s) => s.length),
                     ]).length !== 0 && (
-                        <span>
-                          {
-                            team.players
-                              .reduce((prev, cur) => [
-                                ...prev.filter((s) => s.length),
-                                ...cur.filter((s) => s.length),
-                              ])
-                              .slice(-1)[0]
-                          }
-                        </span>
-                      )}
+                      <span>
+                        {
+                          team.players
+                            .reduce((prev, cur) => [
+                              ...prev.filter((s) => s.length),
+                              ...cur.filter((s) => s.length),
+                            ])
+                            .slice(-1)[0]
+                        }
+                      </span>
+                    )}
                   </td>
                   <td>
                     <Button
@@ -446,53 +441,59 @@ const EventsDb = () => {
                           {['Taekwondo', 'Boxing'].includes(
                             team.game.substr(0, team.game.length - 2)
                           ) && (
-                              <tr>
-                                <td>
-                                  <b> </b>
-                                </td>
-                                <td colSpan="2" className="text-danger text-center">
-                                  <b>
-                                    MAXIMUM PLAYERS:{' '}
-                                    {team.game.substr(0, team.game.length - 2) ===
-                                      'Boxing' ? (
-                                      <span>10</span>
-                                    ) : (
-                                      <span>15</span>
-                                    )}
-                                  </b>
-                                </td>
-                              </tr>
-                            )}
+                            <tr>
+                              <td>
+                                <b> </b>
+                              </td>
+                              <td
+                                colSpan="2"
+                                className="text-danger text-center"
+                              >
+                                <b>
+                                  MAXIMUM PLAYERS:{' '}
+                                  {team.game.substr(0, team.game.length - 2) ===
+                                  'Boxing' ? (
+                                    <span>10</span>
+                                  ) : (
+                                    <span>15</span>
+                                  )}
+                                </b>
+                              </td>
+                            </tr>
+                          )}
                           {['Taekwondo', 'Weightlifting', 'Boxing'].includes(
                             team.game.substr(0, team.game.length - 2)
                           ) && (
-                              <tr>
-                                {' '}
-                                <td>
-                                  <b> </b>
-                                </td>
-                                <td colSpan="2" className="text-danger text-center">
-                                  <b>
-                                    Maximum 2 players are allowed in each weight
-                                    category
-                                  </b>
-                                </td>
-                              </tr>
-                            )}
+                            <tr>
+                              {' '}
+                              <td>
+                                <b> </b>
+                              </td>
+                              <td
+                                colSpan="2"
+                                className="text-danger text-center"
+                              >
+                                <b>
+                                  Maximum 2 players are allowed in each weight
+                                  category
+                                </b>
+                              </td>
+                            </tr>
+                          )}
                           <tr>
                             {['Taekwondo', 'Weightlifting', 'Boxing'].includes(
                               team.game.substr(0, team.game.length - 2)
                             ) && (
-                                <td>
-                                  <b>
-                                    {
-                                      labels[
+                              <td>
+                                <b>
+                                  {
+                                    labels[
                                       team.game.substr(0, team.game.length - 2)
-                                      ][0]
-                                    }
-                                  </b>
-                                </td>
-                              )}
+                                    ][0]
+                                  }
+                                </b>
+                              </td>
+                            )}
                             <td>
                               <input
                                 type="text"
@@ -514,7 +515,9 @@ const EventsDb = () => {
                                 name="captain_phone"
                                 placeholder="Captain / Leader Phone No."
                                 value={
-                                  inputFields[`${team.game}`][0]['captain_phone']
+                                  inputFields[`${team.game}`][0][
+                                    'captain_phone'
+                                  ]
                                 }
                                 onChange={inputChangeHandler}
                               ></input>
@@ -523,7 +526,7 @@ const EventsDb = () => {
                         </table>
                         <table
                           align="center"
-                          cellpadding="20"
+                          cellPadding="20"
                           className={`${styles['modal-table']}`}
                         >
                           {team.players.map((row, rowIndex) => {
@@ -536,32 +539,33 @@ const EventsDb = () => {
                                 ].includes(
                                   team.game.substr(0, team.game.length - 2)
                                 ) && (
-                                    <td>
-                                      <b>
-                                        {
-                                          labels[
+                                  <td>
+                                    <b>
+                                      {
+                                        labels[
                                           team.game.substr(
                                             0,
                                             team.game.length - 2
                                           )
-                                          ][rowIndex + 1]
-                                        }
-                                      </b>
-                                    </td>
-                                  )}
+                                        ][rowIndex + 1]
+                                      }
+                                    </b>
+                                  </td>
+                                )}
                                 {row.map((col, colIndex) => {
                                   return (
                                     <td>
                                       <input
                                         type="text"
                                         className="form-control"
-                                        placeholder={`Player ${2 * rowIndex + colIndex + 1
-                                          }`}
+                                        placeholder={`Player ${
+                                          2 * rowIndex + colIndex + 1
+                                        }`}
                                         data-game={team.game}
                                         name={`${2 * rowIndex + colIndex}`}
                                         value={
                                           inputFields[`${team.game}`][0][
-                                          'players'
+                                            'players'
                                           ][rowIndex][colIndex]
                                         }
                                         onChange={inputChangeHandler}
@@ -599,8 +603,8 @@ const EventsDb = () => {
         </table>
       </div>
       <br />
-      <div className='sub_details'>
-        <div className='heading-register'>
+      <div className="sub_details">
+        <div className="heading-register">
           <div className="events-heading">Girls</div>
           <div className="edit_button">
             <Link
@@ -615,7 +619,7 @@ const EventsDb = () => {
         <table
           className={`${styles['events-table']}`}
           align="center"
-          cellpadding="20"
+          cellPadding="20"
           border="1"
         >
           <tr>
@@ -691,17 +695,17 @@ const EventsDb = () => {
                       ...prev.filter((s) => s.length),
                       ...cur.filter((s) => s.length),
                     ]).length !== 0 && (
-                        <span>
-                          {
-                            team.players
-                              .reduce((prev, cur) => [
-                                ...prev.filter((s) => s.length),
-                                ...cur.filter((s) => s.length),
-                              ])
-                              .slice(-1)[0]
-                          }
-                        </span>
-                      )}
+                      <span>
+                        {
+                          team.players
+                            .reduce((prev, cur) => [
+                              ...prev.filter((s) => s.length),
+                              ...cur.filter((s) => s.length),
+                            ])
+                            .slice(-1)[0]
+                        }
+                      </span>
+                    )}
                   </td>
                   <td>
                     <Button
@@ -748,53 +752,59 @@ const EventsDb = () => {
                           {['Taekwondo', 'Boxing'].includes(
                             team.game.substr(0, team.game.length - 2)
                           ) && (
-                              <tr>
-                                <td>
-                                  <b> </b>
-                                </td>
-                                <td colSpan="2" className="text-danger text-center">
-                                  <b>
-                                    MAXIMUM PLAYERS:{' '}
-                                    {team.game.substr(0, team.game.length - 2) ===
-                                      'Boxing' ? (
-                                      <span>10</span>
-                                    ) : (
-                                      <span>15</span>
-                                    )}
-                                  </b>
-                                </td>
-                              </tr>
-                            )}
+                            <tr>
+                              <td>
+                                <b> </b>
+                              </td>
+                              <td
+                                colSpan="2"
+                                className="text-danger text-center"
+                              >
+                                <b>
+                                  MAXIMUM PLAYERS:{' '}
+                                  {team.game.substr(0, team.game.length - 2) ===
+                                  'Boxing' ? (
+                                    <span>10</span>
+                                  ) : (
+                                    <span>15</span>
+                                  )}
+                                </b>
+                              </td>
+                            </tr>
+                          )}
                           {['Taekwondo', 'Weightlifting', 'Boxing'].includes(
                             team.game.substr(0, team.game.length - 2)
                           ) && (
-                              <tr>
-                                {' '}
-                                <td>
-                                  <b> </b>
-                                </td>
-                                <td colSpan="2" className="text-danger text-center">
-                                  <b>
-                                    Maximum 2 players are allowed in each weight
-                                    category
-                                  </b>
-                                </td>
-                              </tr>
-                            )}
+                            <tr>
+                              {' '}
+                              <td>
+                                <b> </b>
+                              </td>
+                              <td
+                                colSpan="2"
+                                className="text-danger text-center"
+                              >
+                                <b>
+                                  Maximum 2 players are allowed in each weight
+                                  category
+                                </b>
+                              </td>
+                            </tr>
+                          )}
                           <tr>
                             {['Taekwondo', 'Boxing'].includes(
                               team.game.substr(0, team.game.length - 2)
                             ) && (
-                                <td>
-                                  <b>
-                                    {
-                                      labels[
+                              <td>
+                                <b>
+                                  {
+                                    labels[
                                       team.game.substr(0, team.game.length - 2)
-                                      ][0]
-                                    }
-                                  </b>
-                                </td>
-                              )}
+                                    ][0]
+                                  }
+                                </b>
+                              </td>
+                            )}
                             <td>
                               <input
                                 type="text"
@@ -816,7 +826,9 @@ const EventsDb = () => {
                                 name="captain_phone"
                                 placeholder="Captain / Leader Phone No."
                                 value={
-                                  inputFields[`${team.game}`][0]['captain_phone']
+                                  inputFields[`${team.game}`][0][
+                                    'captain_phone'
+                                  ]
                                 }
                                 onChange={inputChangeHandler}
                               ></input>
@@ -825,7 +837,7 @@ const EventsDb = () => {
                         </table>
                         <table
                           align="center"
-                          cellpadding="20"
+                          cellPadding="20"
                           className={`${styles['modal-table']}`}
                         >
                           {team.players.map((row, rowIndex) => {
@@ -834,32 +846,33 @@ const EventsDb = () => {
                                 {['Taekwondo', 'Boxing'].includes(
                                   team.game.substr(0, team.game.length - 2)
                                 ) && (
-                                    <td>
-                                      <b>
-                                        {
-                                          labels[
+                                  <td>
+                                    <b>
+                                      {
+                                        labels[
                                           team.game.substr(
                                             0,
                                             team.game.length - 2
                                           )
-                                          ][rowIndex + 1]
-                                        }
-                                      </b>
-                                    </td>
-                                  )}
+                                        ][rowIndex + 1]
+                                      }
+                                    </b>
+                                  </td>
+                                )}
                                 {row.map((col, colIndex) => {
                                   return (
                                     <td>
                                       <input
                                         type="text"
                                         className="form-control"
-                                        placeholder={`Player ${2 * rowIndex + colIndex + 1
-                                          }`}
+                                        placeholder={`Player ${
+                                          2 * rowIndex + colIndex + 1
+                                        }`}
                                         data-game={team.game}
                                         name={`${2 * rowIndex + colIndex}`}
                                         value={
                                           inputFields[`${team.game}`][0][
-                                          'players'
+                                            'players'
                                           ][rowIndex][colIndex]
                                         }
                                         onChange={inputChangeHandler}
@@ -897,8 +910,8 @@ const EventsDb = () => {
         </table>
       </div>
       <br />
-      <div className='sub_details'>
-        <div className='heading'>
+      <div className="sub_details">
+        <div className="heading">
           <div className="events-heading">Mixed</div>
           <div className="edit_button">
             <Link
@@ -913,7 +926,7 @@ const EventsDb = () => {
         <table
           className={`${styles['events-table']}`}
           align="center"
-          cellpadding="20"
+          cellPadding="20"
           border="1"
         >
           <tr>
@@ -989,17 +1002,17 @@ const EventsDb = () => {
                       ...prev.filter((s) => s.length),
                       ...cur.filter((s) => s.length),
                     ]).length !== 0 && (
-                        <span>
-                          {
-                            team.players
-                              .reduce((prev, cur) => [
-                                ...prev.filter((s) => s.length),
-                                ...cur.filter((s) => s.length),
-                              ])
-                              .slice(-1)[0]
-                          }
-                        </span>
-                      )}
+                      <span>
+                        {
+                          team.players
+                            .reduce((prev, cur) => [
+                              ...prev.filter((s) => s.length),
+                              ...cur.filter((s) => s.length),
+                            ])
+                            .slice(-1)[0]
+                        }
+                      </span>
+                    )}
                   </td>
                   <td>
                     <Button
@@ -1033,13 +1046,13 @@ const EventsDb = () => {
                               fontSize: '16px',
                               paddingTop: '10px',
                               paddingBottom: '10px',
-                              backgroundColor: 'red'
+                              backgroundColor: 'red',
                             }}
-
                           >
                             {' '}
                             Your changes are not saved unless you submit them.
-                          </Alert></div>
+                          </Alert>
+                        </div>
                         <table align="center" cellPadding="20">
                           <tr>
                             <td>
@@ -1064,14 +1077,16 @@ const EventsDb = () => {
                                 name="captain_phone"
                                 placeholder="Captain / Leader Phone No."
                                 value={
-                                  inputFields[`${team.game}`][0]['captain_phone']
+                                  inputFields[`${team.game}`][0][
+                                    'captain_phone'
+                                  ]
                                 }
                                 onChange={inputChangeHandler}
                               ></input>
                             </td>
                           </tr>
                         </table>
-                        <table align="center" cellpadding="20">
+                        <table align="center" cellPadding="20">
                           {team.players.map((row, rowIndex) => {
                             return (
                               <tr>
@@ -1081,13 +1096,14 @@ const EventsDb = () => {
                                       <input
                                         type="text"
                                         className="form-control"
-                                        placeholder={`Player ${2 * rowIndex + colIndex + 1
-                                          }`}
+                                        placeholder={`Player ${
+                                          2 * rowIndex + colIndex + 1
+                                        }`}
                                         data-game={team.game}
                                         name={`${2 * rowIndex + colIndex}`}
                                         value={
                                           inputFields[`${team.game}`][0][
-                                          'players'
+                                            'players'
                                           ][rowIndex][colIndex]
                                         }
                                         style={{ border: '1px solid #760e53' }}
@@ -1123,7 +1139,8 @@ const EventsDb = () => {
               );
             })
           )}
-        </table></div>
+        </table>
+      </div>
       <br />
     </>
   );

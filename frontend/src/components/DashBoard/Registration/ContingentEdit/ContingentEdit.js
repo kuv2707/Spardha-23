@@ -18,7 +18,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router';
-import '../../Profile/Profile.css'
+import '../../Profile/Profile.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContingentDetail } from '../../Redux/Features/Slices/ContingentSlice';
 //toast.configure();
@@ -33,15 +33,12 @@ const ContingentEdit = () => {
   // console.log('rep=',rep);
   // console.log('type=',typeof rep);
 
-  
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const contdetails = useSelector((state) => state.contingent);
   const [input, setInput] = useState(contdetails);
 
-
   useEffect(() => {
     setInput(contdetails);
-    
   }, [contdetails]);
 
   const cancelButton = () => {
@@ -57,9 +54,9 @@ const ContingentEdit = () => {
       input.num_of_girls === '' ||
       input.leader_name === '' ||
       input.leader_contact_num === '' ||
-      input.num_of_faculty_members === ''||
-      input.num_of_coaches_pti===''||
-      input.num_of_supporting_staff===''
+      input.num_of_faculty_members === '' ||
+      input.num_of_coaches_pti === '' ||
+      input.num_of_supporting_staff === ''
     ) {
       //console.log('wrong input');
       toast.error('Please fill all the fields', {
@@ -84,10 +81,8 @@ const ContingentEdit = () => {
       //console.log('num faculty members');
       toast.error('Please enter a valid name', {
         position: toast.POSITION.BOTTOM_RIGHT,
-      });     
-      
-    }
-    else if (input.num_of_coaches_pti < 0) {
+      });
+    } else if (input.num_of_coaches_pti < 0) {
       //console.log('num coaches & PTI');
       toast.error('Number of Coaches & PTI in a team should be positive', {
         position: toast.POSITION.BOTTOM_RIGHT,
@@ -115,9 +110,13 @@ const ContingentEdit = () => {
 
           passed['num_of_boys'] = parseInt(passed['num_of_boys']);
           passed['num_of_girls'] = parseInt(passed['num_of_girls']);
-          passed['num_of_faculty_members'] = parseInt(passed['num_of_faculty_members']);
+          passed['num_of_faculty_members'] = parseInt(
+            passed['num_of_faculty_members']
+          );
           passed['num_of_coaches_pti'] = parseInt(passed['num_of_coaches_pti']);
-          passed['num_of_supporting_staff'] = parseInt(passed['num_of_supporting_staff']);
+          passed['num_of_supporting_staff'] = parseInt(
+            passed['num_of_supporting_staff']
+          );
           passed['college_rep'] = JSON.parse(rep);
 
           //console.log('passed', passed);
@@ -130,8 +129,8 @@ const ContingentEdit = () => {
             })
             .then((res) => {
               //console.log('successful');
-              dispatch(getContingentDetail())
-              setTimeout(()=>navigate('/dashboard/registration'),1000);
+              dispatch(getContingentDetail());
+              setTimeout(() => navigate('/dashboard/registration'), 1000);
             })
             .catch((err) => {
               console.log('error', err);
@@ -154,258 +153,283 @@ const ContingentEdit = () => {
   return (
     <div className="user-dashboard cont_Pad">
       <div className="row_dbContingent">
-        <div className='new_div'>
-        <div className="col-xs-12 gutter-cont widthAdjust">
-          <div className="welcome-text-cont">
-            <div className="text-justify">
-              <h2>
-                <Form className='border_div'>
+        <div className="new_div">
+          <div className="col-xs-12 gutter-cont widthAdjust">
+            <div className="welcome-text-cont">
+              <div className="text-justify">
+                <h2>
+                  <Form className="border_div">
+                    <table
+                      align="center"
+                      cellPadding="20"
+                      className="profile-table"
+                    >
+                      <tr>
+                        <td
+                          className="left-column single-line"
+                          style={{ textAlign: 'left', maxWidth: '66vw' }}
+                        >
+                          Total Number of Boys{' '}
+                        </td>
+                        <td className="right-column" width="30%">
+                          <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
+                          <FormGroup>
+                            <Input
+                              type="tel"
+                              className="form-control_contDb"
+                              id="num_of_boys"
+                              name="num_of_boys"
+                              placeholder="Enter total no. of Boys"
+                              value={input.num_of_boys}
+                              onChange={(e) => {
+                                inputChangeHandler(e);
+                              }}
+                              valid={
+                                input.num_of_boys !== '' &&
+                                input.num_of_boys >= 0
+                              }
+                              invalid={
+                                input.num_of_boys !== '' &&
+                                input.num_of_boys < 0
+                              }
+                            />
+                          </FormGroup>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td
+                          className="left-column single-line"
+                          style={{ textAlign: 'left' }}
+                        >
+                          Total Number of Girls{' '}
+                        </td>
+                        <td className="right-column" width="30%">
+                          <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
+                          <FormGroup>
+                            <Input
+                              type="tel"
+                              className="form-control_contDb"
+                              id="num_of_girls"
+                              name="num_of_girls"
+                              placeholder="Enter total no. of Girls"
+                              value={input.num_of_girls}
+                              onChange={(e) => {
+                                inputChangeHandler(e);
+                              }}
+                              valid={
+                                input.num_of_girls !== '' &&
+                                input.num_of_girls >= 0
+                              }
+                              invalid={
+                                input.num_of_girls !== '' &&
+                                input.num_of_girls < 0
+                              }
+                            />
+                          </FormGroup>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td
+                          className="left-column single-line"
+                          style={{ textAlign: 'left' }}
+                        >
+                          Total Number of Faculty members{' '}
+                        </td>
+                        <td className="right-column" width="30%">
+                          <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
+                          <FormGroup>
+                            <Input
+                              type="tel"
+                              className="form-control_contDb"
+                              id="num_of_faculty_members"
+                              name="num_of_faculty_members"
+                              placeholder="Enter total no. of Faculty members"
+                              value={input.num_of_faculty_members}
+                              onChange={(e) => {
+                                inputChangeHandler(e);
+                              }}
+                              valid={
+                                input.num_of_faculty_members !== '' &&
+                                input.num_of_faculty_members >= 0
+                              }
+                              invalid={
+                                input.num_of_faculty_members !== '' &&
+                                input.num_of_faculty_members < 0
+                              }
+                            />
+                          </FormGroup>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td
+                          className="left-column single-line"
+                          style={{ textAlign: 'left' }}
+                        >
+                          Total Number of Coaches & PTI{' '}
+                        </td>
+                        <td className="right-column" width="30%">
+                          <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
+                          <FormGroup>
+                            <Input
+                              type="tel"
+                              className="form-control_contDb"
+                              id="num_of_coaches_pti"
+                              name="num_of_coaches_pti"
+                              placeholder="Enter total no. of Coaches & PTI"
+                              value={input.num_of_coaches_pti}
+                              onChange={(e) => {
+                                inputChangeHandler(e);
+                              }}
+                              valid={
+                                input.num_of_coaches_pti !== '' &&
+                                input.num_of_coaches_pti >= 0
+                              }
+                              invalid={
+                                input.num_of_coaches_pti !== '' &&
+                                input.num_of_coaches_pti < 0
+                              }
+                            />
+                          </FormGroup>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          className="left-column single-line"
+                          style={{ textAlign: 'left' }}
+                        >
+                          Total Number of Supporting Staff{' '}
+                        </td>
+                        <td className="right-column" width="30%">
+                          <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
+                          <FormGroup>
+                            <Input
+                              type="tel"
+                              className="form-control_contDb"
+                              id="num_of_supporting_staff"
+                              name="num_of_supporting_staff"
+                              placeholder="Enter total no. of Supporting Staff"
+                              value={input.num_of_supporting_staff}
+                              onChange={(e) => {
+                                inputChangeHandler(e);
+                              }}
+                              valid={
+                                input.num_of_supporting_staff !== '' &&
+                                input.num_of_supporting_staff >= 0
+                              }
+                              invalid={
+                                input.num_of_supporting_staff !== '' &&
+                                input.num_of_supporting_staff < 0
+                              }
+                            />
+                          </FormGroup>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td
+                          className="left-column single-line"
+                          style={{ textAlign: 'left' }}
+                        >
+                          Full Name of Contingent Leader{' '}
+                          <span style={{ color: 'red' }}>*</span>{' '}
+                        </td>
+                        <td className="right-column" width="30%">
+                          <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
+                          <FormGroup>
+                            <Input
+                              type="text"
+                              className="form-control_contDb"
+                              id="leader_name"
+                              name="leader_name"
+                              placeholder="Enter the name of Contingent Leader"
+                              value={input.leader_name}
+                              onChange={(e) => {
+                                inputChangeHandler(e);
+                              }}
+                              valid={input.leader_name !== ''}
+                              invalid={
+                                input.leader_name === '' ||
+                                input.leader_name.length < 3
+                              }
+                            />
+                          </FormGroup>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          className="left-column single-line"
+                          style={{ textAlign: 'left' }}
+                        >
+                          Contact Number of Contingent Leader{' '}
+                          <span style={{ color: 'red' }}>*</span>{' '}
+                        </td>
+                        <td className="right-column" width="30%">
+                          <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
+                          <FormGroup>
+                            <Input
+                              type="tel"
+                              className="form-control_contDb"
+                              id="leader_contact_num"
+                              name="leader_contact_num"
+                              placeholder="Enter the phone number of Contingent Leader"
+                              value={input.leader_contact_num}
+                              onChange={(e) => {
+                                inputChangeHandler(e);
+                              }}
+                              valid={
+                                input.leader_contact_num !== '' &&
+                                input.leader_contact_num.length === 10
+                              }
+                              invalid={
+                                input.leader_contact_num !== '' &&
+                                input.leader_contact_num.length !== 10
+                              }
+                            />
+                          </FormGroup>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="left-column single-line"></td>
+                        <td
+                          className="right-column"
+                          style={{ color: 'red', fontSize: '15px' }}
+                        >
+                          <div id="error-reg-edit"></div>
+                        </td>
+                      </tr>
+                    </table>
+                  </Form>
                   <table
                     align="center"
-                    cellpadding="20"
-                    className="profile-table"
+                    cellPadding="20"
+                    className="profile-table button-work"
                   >
-                    <tr>
-                      <td className="left-column single-line" style={{ textAlign: 'left', maxWidth: '66vw' }}>
-                        Total Number of Boys {' '}
+                    <tr className="mine_contDb">
+                      <td>
+                        {' '}
+                        <button onClick={submitButton} className="register-now">
+                          Submit
+                        </button>
                       </td>
-                      <td className="right-column" width="30%">
-                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
-                        <FormGroup>
-                          <Input
-                            type="tel"
-                            className="form-control_contDb"
-                            id="num_of_boys"
-                            name="num_of_boys"
-                            placeholder="Enter total no. of Boys"
-                            value={input.num_of_boys}
-                            onChange={(e) => {
-                              inputChangeHandler(e);
-                            }}
-                            valid={
-                              input.num_of_boys !== '' && input.num_of_boys >= 0
-                            }
-                            invalid={
-                              input.num_of_boys !== '' && input.num_of_boys < 0
-                            }
-                          />
-                        </FormGroup>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td className="left-column single-line" style={{ textAlign: 'left' }}>
-                        Total Number of Girls {' '}
-                      </td>
-                      <td className="right-column" width="30%">
-                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
-                        <FormGroup>
-                          <Input
-                            type="tel"
-                            className="form-control_contDb"
-                            id="num_of_girls"
-                            name="num_of_girls"
-                            placeholder="Enter total no. of Girls"
-                            value={input.num_of_girls}
-                            onChange={(e) => {
-                              inputChangeHandler(e);
-                            }}
-                            valid={
-                              input.num_of_girls !== '' &&
-                              input.num_of_girls >= 0
-                            }
-                            invalid={
-                              input.num_of_girls !== '' &&
-                              input.num_of_girls < 0
-                            }
-                          />
-                        </FormGroup>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td className="left-column single-line" style={{ textAlign: 'left' }}>
-                        Total Number of Faculty members {' '}
-                      </td>
-                      <td className="right-column" width="30%">
-                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
-                        <FormGroup>
-                          <Input
-                            type="tel"
-                            className="form-control_contDb"
-                            id="num_of_faculty_members"
-                            name="num_of_faculty_members"
-                            placeholder="Enter total no. of Faculty members"
-                            value={input.num_of_faculty_members}
-                            onChange={(e) => {
-                              inputChangeHandler(e);
-                            }}
-                            valid={
-                              input.num_of_faculty_members !== '' &&
-                              input.num_of_faculty_members >= 0
-                            }
-                            invalid={
-                              input.num_of_faculty_members !== '' &&
-                              input.num_of_faculty_members < 0
-                            }
-                          />
-                        </FormGroup>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td className="left-column single-line" style={{ textAlign: 'left' }}>
-                        Total Number of Coaches & PTI {' '}
-                      </td>
-                      <td className="right-column" width="30%">
-                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
-                        <FormGroup>
-                          <Input
-                            type="tel"
-                            className="form-control_contDb"
-                            id="num_of_coaches_pti"
-                            name="num_of_coaches_pti"
-                            placeholder="Enter total no. of Coaches & PTI"
-                            value={input.num_of_coaches_pti}
-                            onChange={(e) => {
-                              inputChangeHandler(e);
-                            }}
-                            valid={
-                              input.num_of_coaches_pti !== '' && input.num_of_coaches_pti >= 0
-                            }
-                            invalid={
-                              input.num_of_coaches_pti !== '' && input.num_of_coaches_pti < 0
-                            }
-                          />
-                        </FormGroup>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="left-column single-line" style={{ textAlign: 'left' }}>
-                        Total Number of Supporting Staff {' '}
-                      </td>
-                      <td className="right-column" width="30%">
-                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
-                        <FormGroup>
-                          <Input
-                            type="tel"
-                            className="form-control_contDb"
-                            id="num_of_supporting_staff"
-                            name="num_of_supporting_staff"
-                            placeholder="Enter total no. of Supporting Staff"
-                            value={input.num_of_supporting_staff}
-                            onChange={(e) => {
-                              inputChangeHandler(e);
-                            }}
-                            valid={
-                              input.num_of_supporting_staff !== '' &&
-                              input.num_of_supporting_staff >= 0
-                            }
-                            invalid={
-                              input.num_of_supporting_staff !== '' &&
-                              input.num_of_supporting_staff < 0
-                            }
-                          />
-                        </FormGroup>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td className="left-column single-line" style={{ textAlign: 'left' }}>
-                        Full Name of Contingent Leader{' '}
-                        <span style={{ color: 'red' }}>*</span>{' '}
-                      </td>
-                      <td className="right-column" width="30%">
-                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
-                        <FormGroup>
-                          <Input
-                            type="text"
-                            className="form-control_contDb"
-                            id="leader_name"
-                            name="leader_name"
-                            placeholder="Enter the name of Contingent Leader"
-                            value={input.leader_name}
-                            onChange={(e) => {
-                              inputChangeHandler(e);
-                            }}
-                            valid={input.leader_name !== ''}
-                            invalid={
-                              input.leader_name === '' ||
-                              input.leader_name.length < 3
-                            }
-                          />
-                        </FormGroup>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="left-column single-line" style={{ textAlign: 'left' }}>
-                        Contact Number of Contingent Leader{' '}
-                        <span style={{ color: 'red' }}>*</span>{' '}
-                      </td>
-                      <td className="right-column" width="30%">
-                      <p style={{ margin: '0px 40px 0px 0px' }}>:</p>
-                        <FormGroup>
-                          <Input
-                            type="tel"
-                            className="form-control_contDb"
-                            id="leader_contact_num"
-                            name="leader_contact_num"
-                            placeholder="Enter the phone number of Contingent Leader"
-                            value={input.leader_contact_num}
-                            onChange={(e) => {
-                              inputChangeHandler(e);
-                            }}
-                            valid={
-                              input.leader_contact_num !== '' &&
-                              input.leader_contact_num.length === 10
-                            }
-                            invalid={
-                              input.leader_contact_num !== '' &&
-                              input.leader_contact_num.length !== 10
-                            }
-                          />
-                        </FormGroup>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="left-column single-line"></td>
-                      <td
-                        className="right-column"
-                        style={{ color: 'red', fontSize: '15px' }}
-                      >
-                        <div id="error-reg-edit"></div>
+                      <td>
+                        <button
+                          onClick={cancelButton}
+                          className="del_button"
+                          style={{ marginRight: '0' }}
+                        >
+                          Cancel
+                        </button>
                       </td>
                     </tr>
                   </table>
-                </Form>
-                <table
-                  align="center"
-                  cellpadding="20"
-                  className="profile-table button-work"
-                >
-                  <tr className="mine_contDb">
-                  <td>
-                      {' '}
-                      <button onClick={submitButton} className="register-now">
-                        Submit
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        onClick={cancelButton}
-                        className="del_button"
-                        style={{ marginRight: '0' }}
-                      >
-                        Cancel
-                      </button>
-                    </td>
-                  </tr>
-                </table>
-              </h2>
+                </h2>
+              </div>
             </div>
           </div>
         </div>
-       </div>
       </div>
     </div>
   );

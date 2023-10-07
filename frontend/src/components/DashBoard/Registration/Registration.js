@@ -1,4 +1,4 @@
-import React, {useEffect } from 'react';
+import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Registration.css';
 import Events from './Events/Events';
@@ -7,10 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getContingentDetail } from '../Redux/Features/Slices/ContingentSlice';
 
 const Registration = () => {
-
-  
   const contdetails = useSelector((state) => state.contingent);
-
 
   return (
     <div className="user-dashboard regn_Pad">
@@ -30,7 +27,7 @@ const Registration = () => {
               <h2>
                 <br></br>
                 <div className="sub_details">
-                  <div className='contingent' >
+                  <div className="contingent">
                     <div className="events-heading">CONTINGENT DETAILS</div>
                     <div className="edit_button">
                       <Link
@@ -44,7 +41,7 @@ const Registration = () => {
 
                   <table
                     align="center"
-                    cellpadding="20"
+                    cellPadding="20"
                     className="events-table"
                   >
                     <tr>

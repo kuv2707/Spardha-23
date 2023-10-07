@@ -23,34 +23,14 @@ const Topbar = ({ toggleSidebar }) => {
 
   const [user, setUser] = useState('');
   const numevents = useSelector((store) => store.team.numevents);
+  const userdata = useSelector((store) => store.user.data);
 
   useEffect(() => {
-    axios
-      .get(`${baseUrl}auth/update/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then((res) => {
-        // console.log('user data=', res.data);
-        setUser(res.data);
-        // console.log('user', user);
-      })
-      .catch((err) => {
-        console.log('error=', err);
-      });
-    
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setUser(userdata);
+  }, [userdata]);
 
   return (
-    <Navbar
-      color="light"
-      light
-      className="navbar1"
-      expand="md"
-    >
+    <Navbar color="light" light className="navbar1" expand="md">
       <div className="left_content">
         <Button color="info" onClick={toggleSidebar}>
           <FaAlignLeft className="mr-2" />
@@ -78,7 +58,11 @@ const Topbar = ({ toggleSidebar }) => {
                 <li className="dropdown">
                   <button className="dropdown-toggle" onClick={toggleOpen}>
                     <img src="/images/icons/Male user.png" alt="user" />
-                    <img style={{width:'20px'}} src="/images/icons/Expand Arrow.png" alt="user" />
+                    <img
+                      style={{ width: '20px' }}
+                      src="/images/icons/Expand Arrow.png"
+                      alt="user"
+                    />
                     <b className="caret"></b>
                   </button>
                   <ul
