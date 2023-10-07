@@ -50,7 +50,6 @@ const GAMES = {
 function EventsEdit() {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
-  const selectedGames = [];
   const [showBoys, setShowBoys] = useState(true);
   const [showGirls, setShowGirls] = useState(true);
   const [showMixed, setShowMixed] = useState(true);

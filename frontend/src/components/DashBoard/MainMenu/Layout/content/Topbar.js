@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faAlignLeft } from "@fortawesome/free-solid-svg-icons";
 import { FaAlignLeft } from 'react-icons/fa';
 import { Navbar, Button } from 'reactstrap';
 // import { Link } from "react-router-dom";
 import './Topbar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -17,9 +14,6 @@ const Topbar = ({ toggleSidebar }) => {
     setOpen(!open);
   };
 
-  const token = localStorage.getItem('token');
-  // console.log('token', token);
-  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const [user, setUser] = useState('');
   const numevents = useSelector((store) => store.team.numevents);

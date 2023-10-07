@@ -193,7 +193,7 @@ const EventsDb = () => {
         });
       }
     }
-  }, [userdata]);
+  }, [userdata,inputFields]);
 
   const clickHandler = (game) => {
     setShowModals((prevState) => {

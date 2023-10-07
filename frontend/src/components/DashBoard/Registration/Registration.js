@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Registration.css';
 import Events from './Events/Events';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getContingentDetail } from '../Redux/Features/Slices/ContingentSlice';
+import {  useSelector } from 'react-redux';
 
 const Registration = () => {
   const contdetails = useSelector((state) => state.contingent);

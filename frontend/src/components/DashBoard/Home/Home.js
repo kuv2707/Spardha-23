@@ -8,8 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 //toast.configure();
 import { Document, Packer, Paragraph, TextRun, Table, WidthType } from "docx";
 import { saveAs } from 'file-saver';
-import { useDispatch, useSelector } from 'react-redux';
-import { getTeamData, getTeams } from '../Redux/Features/Slices/TeamSlice';
+import { useSelector } from 'react-redux';
+
 
 const Home = () => {
   const token = localStorage.getItem('token');
