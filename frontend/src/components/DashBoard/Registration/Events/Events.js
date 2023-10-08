@@ -85,7 +85,7 @@ const EventsDb = () => {
   const [girlTeams, setGirlTeams] = useState([]);
   const [mixedTeams, setMixedTeams] = useState([]);
 
-  const inputFields = useMemo( ()=>{return {
+  const inputFields = {
     Athletics_G: [Athletics_G, setAthletics_G],
     Aquatics_G: [Aquatics_G, setAquatics_G],
     Boxing_G: [Boxing_G, setBoxing_G],
@@ -118,8 +118,8 @@ const EventsDb = () => {
     Basketball_G: [Basketball_G, setBasketball_G],
     Basketball_B: [Basketball_B, setBasketball_B],
     Powerlifting_B: [Powerlifting_B, setPowerlifting_B],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  };},[]);
+    
+  };
 
   const labels = {
     Boxing: [
@@ -171,9 +171,8 @@ const EventsDb = () => {
         );
       }, []);
       team.players = rows;
-      if (!inputFields[team.game])
-      continue;
-     inputFields[team.game][1](team);
+      if (!inputFields[team.game]) continue;
+      inputFields[team.game][1](team);
       if (team.game.endsWith('_B')) {
         setBoyTeams((prevState) => {
           const newState = [...prevState];
@@ -194,7 +193,8 @@ const EventsDb = () => {
         });
       }
     }
-  }, [userdata,inputFields]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userdata]);
 
   const clickHandler = (game) => {
     setShowModals((prevState) => {

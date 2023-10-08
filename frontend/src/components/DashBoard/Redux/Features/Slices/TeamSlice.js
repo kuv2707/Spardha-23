@@ -25,7 +25,7 @@ export const getTeamData = async function (dispatch, getState) {
     payload={ data, numevents: data.length }
   } catch (err) {
     console.log(err);
-    payload={ data: null, numevents: 'error!' }
+    payload={ data: [], numevents: 'error!' }
    
   }finally{
     dispatch({

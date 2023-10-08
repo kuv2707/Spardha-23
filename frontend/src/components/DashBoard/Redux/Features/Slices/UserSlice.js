@@ -2,7 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-  data: {},
+  data: {
+    designation: 'loading...',
+    email: 'loading...',
+    institution: 'loading...',
+    name: 'loading...',
+    phone: 'loading...',
+    username: 'loading...',
+  },
   pending: true,
   error: null,
 };
@@ -17,10 +24,11 @@ export const getUserData = async function (dispatch, getState) {
         Authorization: `Token ${token}`,
       },
     });
+    console.log(data);
     payload = { data };
   } catch (err) {
     console.log(err);
-    payload = { data: null };
+    payload = { data: initialState.data };
   } finally {
     dispatch({
       type: 'user/getUserInfo',

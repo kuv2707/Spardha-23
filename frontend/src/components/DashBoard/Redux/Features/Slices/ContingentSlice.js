@@ -11,7 +11,7 @@ const initialState = {
   num_of_coaches_pti: '-',
   num_of_supporting_staff: '-',
 };
-const token = localStorage.getItem('token');
+
 const baseUrl = process.env.REACT_APP_BASE_URL;
 const cache = {};
 
@@ -19,11 +19,13 @@ export const getContingentDetail = createAsyncThunk(
   'contingent/getContingent',
 
   async () => {
+
     const cachedData = cache['contingentDetail'];
     if (cachedData) {
       return cachedData;
     }
     try {
+      const token = localStorage.getItem('token');
       const { data } = await axios.get(`${baseUrl}teams/contingent/details/`, {
         headers: {
           Authorization: `Token ${token}`,
@@ -33,7 +35,7 @@ export const getContingentDetail = createAsyncThunk(
       return data;
     } catch (err) {
       console.log(err);
-      return null;
+      return {};
     }
   }
 );
