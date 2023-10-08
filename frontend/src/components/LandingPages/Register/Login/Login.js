@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -25,14 +25,10 @@ import { useReducer } from 'react';
 import isEmail from 'validator/lib/isEmail';
 import { useNavigate } from 'react-router';
 import isAlphanumeric from 'validator/lib/isAlphanumeric';
-import { useDispatch } from 'react-redux';
-import { getTeamData } from '../../../DashBoard/Redux/Features/Slices/TeamSlice';
-import { getContingentDetail } from '../../../DashBoard/Redux/Features/Slices/ContingentSlice';
-import { getUserData } from '../../../DashBoard/Redux/Features/Slices/UserSlice';
 
-function Login() {
+function Login({token,setToken}) {
   const ref_container = useRef();
-  const [token,setToken]=useState(null)
+  
   useEffect(() => {
     const scrollDiv = document.getElementById('loginDiv').offsetTop;
     window.scrollTo({ top: scrollDiv + 600, behavior: 'smooth' });
@@ -47,12 +43,6 @@ function Login() {
     // });
   }, []);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getTeamData);
-    dispatch(getContingentDetail());
-    dispatch(getUserData);
-  }, [dispatch,token]);
   const submitHandler = (e) => {
     e.preventDefault();
 

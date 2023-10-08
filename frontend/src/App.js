@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Preloader from './components/LandingPages/Preloader/Preloader';
 import Spinner from './components/DashBoard/Spinner/Spinner';
@@ -99,13 +99,14 @@ function usePageViews() {
 }
 
 function App() {
+  const [token, setToken] = useState(null);
   usePageViews();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTeamData);
     dispatch(getContingentDetail())
     dispatch(getUserData)
-  }, [dispatch]);
+  }, [dispatch,token]);
   return (
     <>
       {/* <Router> */}
@@ -158,7 +159,7 @@ function App() {
               path="login"
               element={
                 <Suspense fallback={<Preloader />}>
-                  <Login />
+                  <Login token={token} setToken={setToken}/>
                 </Suspense>
               }
             />
