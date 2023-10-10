@@ -73,10 +73,11 @@ body {
   flex-grow: 2.0;
   font-size: 1.2rem;
   font-weight: bold;
-  width: max-content;
+  width: 100%;
   color: #333;
   align-items: center;
   justify-content: center;
+  text-align: center;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .match-details{

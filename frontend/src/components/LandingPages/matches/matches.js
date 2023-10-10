@@ -1,35 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Matches.module.css';
 import Carousel from '../Home/Carousel/Carouselhp';
 import Fixtures from './Fixtures';
 import MatchResults from './Result';
+import axios from 'axios';
 
 const Matches = () => {
-  const [activeTab, setActiveTab] = useState('Fixtures');
-  const navItem = [
-    'All',
-    'Athletics',
-    'Badminton',
-    'Basketball',
-    'Boxing',
-    'Chess',
-    'Cricket',
-    'Cycling',
-    'Football',
-    'Handball',
-    'Hockey',
-    'Kabbadi',
-    'Kho-kho',
-    'Powerlifting',
-    'Squash',
-    'Table Tennis',
-    'Taekwondo',
-    'Tennis',
-    'Volleyball',
-    'Weight Lifting',
-  ];
+  const activeTab="Fixtures"
+  const [navItem,setNavItem]=useState(["All"]);
   const [selectedDate, setSelectedDate] = useState('2023-09-23'); // Set the default date here
+  const [dates,setDates]=useState([]);
   const [selectedSport, setSelectedSport] = useState('All');
+  const [games,setGames]=useState([]); 
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);
   };
@@ -42,6 +24,28 @@ const Matches = () => {
       navbar.scrollLeft += step;
     }
   };
+
+  useEffect(function(){
+    axios.get(process.env.REACT_APP_MICROSERVICE_URL+"/api/v1/games")
+    .then(function(response){
+      let games=response.data.data;
+      let dates=[],navitems=["All"]
+      games.forEach(game=>{
+        if(!dates.includes(game.game_start)){
+          dates.push(game.game_start);
+        }
+        if(!navitems.includes(game.game_name)){
+          navitems.push(game.game_name);
+        }
+      })
+      setDates(dates);
+      setSelectedDate(dates[0])
+      setNavItem(navitems);
+      setGames(games);
+    })
+
+
+  },[])
 
   return (
     <>
@@ -57,7 +61,7 @@ const Matches = () => {
             <div className={`${styles.maindiv_top}`}>
               <h2 className={`${styles.mb_1} ${styles.H2}`}>Matches</h2>
               <div className={`${styles.options}`}>
-                <span onClick={() => setActiveTab('Fixtures')}>
+                <span>
                   <h3
                     style={{
                       color: activeTab === 'Fixtures' ? '#760e53' : null,
@@ -71,21 +75,7 @@ const Matches = () => {
                     Fixtures
                   </h3>
                 </span>
-                <h3 style={{ fontWeight: 300 }}>|</h3>
-                <span onClick={() => setActiveTab('Results')}>
-                  <h3
-                    style={{
-                      color: activeTab === 'Results' ? '#760e53' : null,
-                      borderBottom:
-                        activeTab === 'Results'
-                          ? ' 0.1875rem solid #760e53'
-                          : null,
-                        cursor:'pointer',
-                    }}
-                  >
-                    Results
-                  </h3>
-                </span>
+               
               </div>
             </div>
             <div className={`${styles.horizontal_navbar_container}`}>
@@ -142,15 +132,20 @@ const Matches = () => {
                 value={selectedDate}
                 onChange={handleDateChange}
               >
-                <option value="2023-09-21">September 21, 2023</option>
-                <option value="2023-09-22">September 22, 2023</option>
-                <option value="2023-09-23">September 23, 2023 </option>
+                {
+                  dates.map((date,index)=>{
+                    return(
+                      <option value={date} key={index}>{new Date(date).toDateString()}</option>
+                    )
+                  })
+                }
               </select>
               {/* <p>Selected Date: {selectedDate}</p> */}
             </div>
             <div className={`${styles.scrollablediv}`}>
               {activeTab === 'Fixtures' ? (
-                <Fixtures selectedSport={selectedSport} />
+                <Fixtures selectedSport={selectedSport} games={games} date={selectedDate} />
+                
               ) : (
                 <MatchResults selectedSport={selectedSport} />
               )}

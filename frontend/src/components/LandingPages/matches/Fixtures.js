@@ -2,87 +2,41 @@ import React from 'react';
 import './ResultFixture.css';
 import cricket_img from '../Events/image/crickethover.png';
 import badminton_img from '../Events/image/badmintonhover.png';
-const Fixtures = ({ selectedSport }) => {
-  // Replace this with your match information
-  const matchData = [
-    {
-      sport: 'Badminton',
-      time: '4:30 pm',
-      venue: 'Rajputana Grounds',
-      teamA: 'IIT (BHU) Varanasi',
-      teamB: 'IIT Delhi',
-      round: 'one',
-      icon: badminton_img,
-    },
-    {
-      sport: 'Badminton',
-      time: '4:30 pm',
-      venue: 'Rajputana Grounds',
-      teamA: 'IIT (BHU) Varanasi',
-      teamB: 'IIT Delhi',
-      round: 'one',
-      icon: badminton_img,
-    },
-    {
-      sport: 'Cricket',
-      time: '4:30 pm',
-      venue: 'Rajputana Grounds',
-      teamA: 'IIT (BHU) Varanasi',
-      teamB: 'IIT Delhi',
-      round: 'one',
-      icon: cricket_img,
-    },
-    {
-      sport: 'Cricket',
-      time: '4:30 pm',
-      venue: 'Rajputana Grounds',
-      teamA: 'IIT (BHU) Varanasi',
-      teamB: 'IIT Delhi',
-      round: 'one',
-      icon: cricket_img,
-    },
-    {
-      sport: 'Cricket',
-      time: '4:30 pm',
-      venue: 'Rajputana Grounds',
-      teamA: 'IIT (BHU) Varanasi',
-      teamB: 'IIT Delhi',
-      round: 'one',
-      icon: cricket_img,
-    },
-  ];
-
-  const filteredMatches = matchData.filter(
-    (match) => match.sport === selectedSport
-  );
-  var match = filteredMatches;
-  if (selectedSport === 'All') {
-    match = matchData;
-  }
+//TODO: import all
+const Fixtures = ({ selectedSport,games,date }) => {
+  let match=(selectedSport==="All"?games:games.filter(game=>game.game_name===selectedSport)).filter(game=>game.game_start===date)
   return (
     <div className="Supreme">
+      {
+        match.length===0&&<h2>No {selectedSport} matches on {new Date(date).toDateString()}</h2>
+      }
       {match.map((data, index) => (
-        <div className="displayBox">
+        <div className="displayBox" key={index}>
           <div className="row1">
             <div style={{ display: 'flex' }}>
-              <img src={data.icon} style={{ height: '25px' }} alt='sport icon' />
-              {data.sport}
+              <img
+                src={badminton_img}
+                style={{ height: '25px' }}
+                alt="sport icon"
+              />
+              {data.game_name}
             </div>
-            {data.time}
+            {new Date(data.game_start).toLocaleTimeString()}
           </div>
           <div className="row2">
-            {data.venue} | Round {data.round}
+            {data.game_venue} 
+            {/* | Round {data.round} */}
           </div>
 
           <div className="row3" style={{ color: 'black' }}>
             <div className="row4">
               <div className="rectangle"></div>
-              {data.teamA}
+              {data.team1}
             </div>
             <span className="x">X</span>
             <div className="row4">
               <div className="rectangle"></div>
-              {data.teamB}
+              {data.team2}
             </div>
           </div>
         </div>
